@@ -9,19 +9,19 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:id="@+id/topSection"
         android:layout_weight="1"
-        android:layout_gravity="bottom|left">
+        android:layout_gravity="bottom|left"
+        android:background="#405100">
 
         <TextView
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Mobile KIDZ"
+            android:text="Schedule"
             android:id="@+id/textView2"
             android:layout_weight="1"
-            android:background="#405100"
             android:gravity="center_vertical|center_horizontal"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -31,75 +31,24 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center_horizontal|left|right|top"
         android:id="@+id/middleSection"
         android:layout_weight="5"
         android:background="#e3f4a3"
         android:paddingLeft="20dp">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/mySchedule"
-        android:layout_weight="1">
-
-        <TextView
+        <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="My Schedule"
-            android:id="@+id/textView"
-            android:textColor="#3c0032"
-            android:layout_gravity="center_vertical"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/requestsForBabysitting"
-            android:layout_weight="1">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Requests for Babysitting"
-                android:id="@+id/textView3"
-                android:textColor="#3c0032"
-                android:textIsSelectable="true"
-                android:layout_gravity="center_vertical"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/makeARequest"
-            android:layout_weight="1">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Make a Requests"
-                android:id="@+id/textView4"
-                android:textColor="#3c0032"
-                android:textIsSelectable="true"
-                android:layout_gravity="center_vertical"
-                android:textStyle="bold" />
-        </LinearLayout>
+            android:id="@+id/listView" />
 
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center_horizontal|top"
         android:id="@+id/bottomSection"
         android:layout_weight="1"
