@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Mobile Kidz</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="Top">Large Text</string>
+    <string name="home_link">Home</string>
+    <string name="friends_link">Friends</string>
+    <string name="profile_link">Profile</string>
+    <string name="title_activity_friends">Friends</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="title_activity_schedule">Schedule</string>
+
+</resources>

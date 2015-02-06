@@ -43,17 +43,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/mySchedule"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:clickable="true"
+        android:onClick="onMySchedule">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="168dp"
+            android:layout_height="84dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="My Schedule"
             android:id="@+id/textView"
             android:textColor="#3c0032"
-            android:layout_gravity="center_vertical"
-            android:textStyle="bold" />
+            android:layout_gravity="center_vertical|left"
+            android:textStyle="bold"
+            android:textSize="35sp"
+            android:layout_margin="20dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView"
+            android:clickable="false"
+            android:contentDescription="schedule"
+            android:src="@drawable/calendar"
+            android:layout_weight="1"
+            android:layout_margin="20dp" />
     </LinearLayout>
 
         <LinearLayout
@@ -114,7 +128,8 @@
             android:layout_weight="1"
             android:layout_gravity="center"
             android:textColor="#b478aa"
-            android:gravity="center" />
+            android:gravity="center"
+            android:clickable="true"/>
 
         <TextView
             android:layout_width="match_parent"
