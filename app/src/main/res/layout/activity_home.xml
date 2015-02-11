@@ -9,7 +9,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:id="@+id/topSection"
         android:layout_weight="1"
         android:layout_gravity="bottom|left">
@@ -31,12 +31,11 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center_horizontal|left|right|top"
         android:id="@+id/middleSection"
         android:layout_weight="5"
-        android:background="#e3f4a3"
-        android:paddingLeft="20dp">
+        android:background="#e3f4a3">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -47,27 +46,43 @@
         android:clickable="true"
         android:onClick="onMySchedule">
 
-        <TextView
-            android:layout_width="168dp"
-            android:layout_height="84dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="My Schedule"
-            android:id="@+id/textView"
-            android:textColor="#3c0032"
-            android:layout_gravity="center_vertical|left"
-            android:textStyle="bold"
-            android:textSize="35sp"
-            android:layout_margin="20dp" />
-
-        <ImageView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/imageView"
-            android:clickable="false"
-            android:contentDescription="schedule"
-            android:src="@drawable/calendar"
-            android:layout_weight="1"
-            android:layout_margin="20dp" />
+            android:id="@+id/innerMySchedule">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="My Schedule"
+                android:id="@+id/textView"
+                android:textColor="#3c0032"
+                android:textStyle="bold"
+                android:textSize="35sp"
+
+
+                android:singleLine="false"
+                android:layout_alignStart="@id/innerMySchedule"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentRight="false" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/imageView"
+                android:clickable="false"
+                android:contentDescription="schedule"
+                android:src="@drawable/calendar"
+                android:layout_weight="1"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_marginLeft="232dp"
+                android:layout_marginStart="232dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
     </LinearLayout>
 
         <LinearLayout
@@ -87,6 +102,7 @@
                 android:textIsSelectable="true"
                 android:layout_gravity="center_vertical"
                 android:textStyle="bold" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -113,7 +129,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center_horizontal|top"
         android:id="@+id/bottomSection"
         android:layout_weight="1"
