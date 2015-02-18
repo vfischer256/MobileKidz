@@ -28,103 +28,96 @@
             android:textColor="#b478aa" />
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_gravity="center_horizontal|left|right|top"
-        android:id="@+id/middleSection"
-        android:layout_weight="5"
-        android:background="#e3f4a3">
+        android:layout_weight="5">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/mySchedule"
-        android:layout_weight="1"
-        android:clickable="true"
-        android:onClick="onMySchedule">
-
-        <RelativeLayout
+        <TextView
+            android:layout_row="0"
+            android:layout_column="0"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/innerMySchedule">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="My Schedule"
-                android:id="@+id/textView"
-                android:textColor="#3c0032"
-                android:textStyle="bold"
-                android:textSize="35sp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="My Schedule"
+            android:id="@+id/textView"
+            android:textColor="#3c0032"
+            android:textStyle="bold"
+            android:textSize="35sp"
+            android:layout_gravity="center_vertical"
 
 
-                android:singleLine="false"
-                android:layout_alignStart="@id/innerMySchedule"
-                android:layout_alignParentLeft="false"
-                android:layout_alignParentRight="false" />
+            android:singleLine="false"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentRight="false"
+            android:layout_weight="2" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/imageView"
-                android:clickable="false"
-                android:contentDescription="schedule"
-                android:src="@drawable/calendar"
-                android:layout_weight="1"
-                android:layout_alignWithParentIfMissing="false"
-                android:layout_marginLeft="232dp"
-                android:layout_marginStart="232dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-        </RelativeLayout>
-    </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
+        <TextView
+            android:layout_row="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/requestsForBabysitting"
-            android:layout_weight="1">
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Requests"
+            android:id="@+id/textView3"
+            android:textColor="#3c0032"
+            android:textIsSelectable="true"
+            android:textStyle="bold"
+            android:textSize="35sp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="2" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Requests for Babysitting"
-                android:id="@+id/textView3"
-                android:textColor="#3c0032"
-                android:textIsSelectable="true"
-                android:layout_gravity="center_vertical"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
+        <ImageView
+            android:layout_row="0"
+            android:layout_column="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/makeARequest"
-            android:layout_weight="1">
+            android:id="@+id/imageView"
+            android:clickable="false"
+            android:contentDescription="schedule"
+            android:src="@drawable/calendar"
+            android:layout_weight="1"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Make a Requests"
-                android:id="@+id/textView4"
-                android:textColor="#3c0032"
-                android:textIsSelectable="true"
-                android:layout_gravity="center_vertical"
-                android:textStyle="bold" />
-        </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView2"
+            android:clickable="false"
+            android:contentDescription="schedule"
+            android:src="@drawable/baby"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_weight="1" />
 
-    </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Make a"
+            android:id="@+id/textView4"
+            android:textColor="#3c0032"
+            android:textIsSelectable="true"
+            android:layout_gravity="center_vertical"
+            android:textStyle="bold"
+            android:textSize="35sp" />
+    </GridLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Request"
+        android:id="@+id/textView8"
+        android:textColor="#3c0032"
+        android:textIsSelectable="true"
+        android:layout_gravity="center_vertical"
+        android:textStyle="bold"
+        android:textSize="35sp" />
 
     <LinearLayout
         android:orientation="horizontal"
