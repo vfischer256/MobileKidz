@@ -13,5 +13,10 @@
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
     <string name="title_activity_schedule">Schedule</string>
+    <string-array name="schedule">
+        <item>Sofia March 1, 2015</item>
+        <item>Alexa March 8, 2015</item>
+        <item>Jayden March 15, 2015</item>
+    </string-array>
 
 </resources>
