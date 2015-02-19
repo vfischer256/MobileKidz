@@ -1,4 +1,144 @@
-<android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/pager"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    tools:context="com.onemobilekidz.mobilekidz.Friends" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".Home"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/topSection"
+        android:layout_weight="1"
+        android:layout_gravity="bottom|left"
+        android:background="#405100">
+
+        <TextView
+            android:text="List"
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:textColor="#b478aa"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onFriends"
+            android:textSize="15sp" />
+            />
+
+        <TextView
+            android:text="Messages"
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:textColor="#b478aa"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onHome"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:textColor="#b478aa"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onHome"
+            android:text="Friend Requests"
+            android:id="@+id/textView8"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:textColor="#b478aa"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onHome"
+            android:text="Out of Network Users"
+            android:id="@+id/textView10"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal|left|right|top"
+        android:id="@+id/middleSection"
+        android:layout_weight="5"
+        android:background="#e3f4a3"
+        android:paddingLeft="20dp">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/friendList"
+            android:entries="@array/friends"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal|top"
+        android:id="@+id/bottomSection"
+        android:layout_weight="1"
+        android:background="#405100">
+
+        <TextView
+            android:text="@string/home_link"
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:textColor="#b478aa"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onHome"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/friends_link"
+            android:id="@+id/textView6"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:textColor="#b478aa"
+            android:gravity="center"
+            android:onClick="onFriends"
+            android:clickable="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/profile_link"
+            android:id="@+id/textView7"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:textColor="#b478aa"
+            android:autoText="false"
+            android:singleLine="false"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+</LinearLayout >

@@ -18,5 +18,10 @@
         <item>Alexa March 8, 2015</item>
         <item>Jayden March 15, 2015</item>
     </string-array>
+    <string-array name="friends">
+        <item>Sofia</item>
+        <item>Alexa</item>
+        <item>Jayden</item>
+    </string-array>
 
 </resources>

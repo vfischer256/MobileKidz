@@ -77,7 +77,9 @@
             android:layout_weight="1"
             android:layout_gravity="center"
             android:textColor="#b478aa"
-            android:gravity="center" />
+            android:gravity="center"
+            android:onClick="onFriends"
+            android:clickable="true" />
 
         <TextView
             android:layout_width="match_parent"

@@ -49,4 +49,10 @@ public class Home extends Activity {
         startActivity(intent);
 
     }
+
+    public void onFriends (View view){
+        Intent intent  = new Intent(this, Friends.class);
+        startActivity(intent);
+
+    }
 }
