@@ -41,7 +41,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:id="@+id/firstRow">
+            android:id="@+id/firstRow"
+            android:clickable="true"
+            android:onClick="onMySchedule">
 
             <TextView
                 android:layout_row="0"
@@ -88,7 +90,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:id="@+id/secondRow">
+            android:id="@+id/secondRow"
+            android:clickable="true">
 
             <TextView
                 android:layout_row="0"
@@ -139,7 +142,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:id="@+id/thirdRow">
+            android:id="@+id/thirdRow"
+            android:clickable="true">
 
             <TextView
                 android:layout_row="0"
