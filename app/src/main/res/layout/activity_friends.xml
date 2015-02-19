@@ -41,7 +41,7 @@
             android:textColor="#b478aa"
             android:gravity="center"
             android:clickable="true"
-            android:onClick="onHome"
+            android:onClick="onMessages"
             android:textSize="15sp" />
 
         <TextView

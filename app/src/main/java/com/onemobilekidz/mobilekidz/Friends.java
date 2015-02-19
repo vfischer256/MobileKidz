@@ -32,5 +32,11 @@ public class Friends extends Activity {
 
     }
 
+    public void onMessages (View view){
+        Intent intent  = new Intent(this, Messages.class);
+        startActivity(intent);
+
+    }
+
 
 }

@@ -25,6 +25,11 @@
         <item>Jayden</item>
     </string-array>
 
+    <string-array name="messages">
+        <item>Sofia - Please don\'t forget the blankie!</item>
+        <item>Jayden - She can\'t have candy after 9pm.</item>
+    </string-array>
+
     <string name="title_activity_messages">Messages</string>
 
 </resources>
