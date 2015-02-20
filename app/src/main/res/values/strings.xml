@@ -33,7 +33,6 @@
         <item>Sofia - Please don\'t forget the blankie!</item>
         <item>Jayden - She can\'t have candy after 9pm.</item>
     </string-array>
-
     <string-array name="outOfNetworkFriends">
         <item>Corina</item>
         <item>Yadira</item>
@@ -61,5 +60,6 @@
     <string name="profile_picture">User\'s profile picture.</string>
     <string name="title_activity_friend_requests">FriendRequests</string>
     <string name="title_activity_out_of_net_work_friends">OutOfNetWorkFriends</string>
+    <string name="title_activity_profile">Profile</string>
 
 </resources>
