@@ -40,7 +40,7 @@ import java.util.ArrayList;
  */
 public class Login extends FragmentActivity implements
         ConnectionCallbacks, OnConnectionFailedListener,
-        ResultCallback<People.LoadPeopleResult>, View.OnClickListener {
+       View.OnClickListener {
 
     private static final String TAG = "android-plus-quickstart";
 
@@ -87,9 +87,6 @@ public class Login extends FragmentActivity implements
     private Button mSignOutButton;
     private Button mRevokeButton;
     private TextView mStatus;
-    private ListView mCirclesListView;
-    private ArrayAdapter<String> mCirclesAdapter;
-    private ArrayList<String> mCirclesList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -100,16 +97,11 @@ public class Login extends FragmentActivity implements
         mSignOutButton = (Button) findViewById(R.id.sign_out_button);
         mRevokeButton = (Button) findViewById(R.id.revoke_access_button);
         mStatus = (TextView) findViewById(R.id.sign_in_status);
-        mCirclesListView = (ListView) findViewById(R.id.circles_list);
 
         mSignInButton.setOnClickListener(this);
         mSignOutButton.setOnClickListener(this);
         mRevokeButton.setOnClickListener(this);
 
-        mCirclesList = new ArrayList<String>();
-        mCirclesAdapter = new ArrayAdapter<String>(
-                this, R.layout.circle_member, mCirclesList);
-        mCirclesListView.setAdapter(mCirclesAdapter);
 
         if (savedInstanceState != null) {
             mSignInProgress = savedInstanceState
@@ -208,9 +200,6 @@ public class Login extends FragmentActivity implements
         mStatus.setText(String.format(
                 getResources().getString(R.string.signed_in_as),
                 currentUser.getDisplayName()));
-
-        Plus.PeopleApi.loadVisible(mGoogleApiClient, null)
-                .setResultCallback(this);
 
         // Indicate that the sign in process is complete.
         mSignInProgress = STATE_DEFAULT;
@@ -313,25 +302,6 @@ public class Login extends FragmentActivity implements
         }
     }
 
-    @Override
-    public void onResult(LoadPeopleResult peopleData) {
-        if (peopleData.getStatus().getStatusCode() == CommonStatusCodes.SUCCESS) {
-            mCirclesList.clear();
-            PersonBuffer personBuffer = peopleData.getPersonBuffer();
-            try {
-                int count = personBuffer.getCount();
-                for (int i = 0; i < count; i++) {
-                    mCirclesList.add(personBuffer.get(i).getDisplayName());
-                }
-            } finally {
-                personBuffer.close();
-            }
-
-            mCirclesAdapter.notifyDataSetChanged();
-        } else {
-            Log.e(TAG, "Error requesting visible circles: " + peopleData.getStatus());
-        }
-    }
 
     private void onSignedOut() {
         // Update the UI to reflect that the user is signed out.
@@ -341,8 +311,6 @@ public class Login extends FragmentActivity implements
 
         mStatus.setText(R.string.status_signed_out);
 
-        mCirclesList.clear();
-        mCirclesAdapter.notifyDataSetChanged();
     }
 
     @Override
