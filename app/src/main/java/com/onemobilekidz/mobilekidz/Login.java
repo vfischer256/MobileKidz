@@ -33,7 +33,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Android Google+ Quickstart activity.
+ * This is copied from the recommended Android Google+ Quickstart activity for logging in.
  *
  * Demonstrates Google+ Sign-In and usage of the Google+ APIs to retrieve a
  * users profile information.
@@ -42,7 +42,7 @@ public class Login extends FragmentActivity implements
         ConnectionCallbacks, OnConnectionFailedListener,
        View.OnClickListener {
 
-    private static final String TAG = "android-plus-quickstart";
+    private static final String TAG = "Mobile Kidz";
 
     private static final int STATE_DEFAULT = 0;
     private static final int STATE_SIGN_IN = 1;
@@ -203,6 +203,9 @@ public class Login extends FragmentActivity implements
 
         // Indicate that the sign in process is complete.
         mSignInProgress = STATE_DEFAULT;
+
+        Intent intent = new Intent(this, Home.class);
+        startActivity(intent);
     }
 
     /* onConnectionFailed is called when our Activity could not connect to Google
