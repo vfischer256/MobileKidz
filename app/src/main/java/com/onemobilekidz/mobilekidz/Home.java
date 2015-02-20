@@ -55,4 +55,12 @@ public class Home extends Activity {
         startActivity(intent);
 
     }
+
+    public void onProfile (View view){
+        Intent intent  = new Intent(this, Profile.class);
+        startActivity(intent);
+
+    }
+
+
 }

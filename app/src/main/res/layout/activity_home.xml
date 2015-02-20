@@ -233,7 +233,9 @@
             android:textColor="#b478aa"
             android:autoText="false"
             android:singleLine="false"
-            android:gravity="center" />
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onProfile" />
 
     </LinearLayout>
 
