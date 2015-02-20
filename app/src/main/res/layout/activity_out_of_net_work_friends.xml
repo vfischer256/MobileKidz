@@ -86,8 +86,8 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/friendRequests"
-            android:entries="@array/friendRequests"/>
+            android:id="@+id/outOfNetworkFriends"
+            android:entries="@array/outOfNetworkFriends"/>
 
     </LinearLayout>
 

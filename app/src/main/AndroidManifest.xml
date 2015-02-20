@@ -61,6 +61,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.onemobilekidz.mobilekidz.Friends" />
         </activity>
+        <activity
+            android:name=".OutOfNetWorkFriends"
+            android:label="@string/title_activity_out_of_net_work_friends"
+            android:parentActivityName=".Friends" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.onemobilekidz.mobilekidz.Friends" />
+        </activity>
     </application>
 
 </manifest>

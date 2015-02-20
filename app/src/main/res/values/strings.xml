@@ -24,24 +24,27 @@
         <item>Alexa</item>
         <item>Jayden</item>
     </string-array>
-
     <string-array name="friendRequests">
         <item>Corina</item>
         <item>Yadira</item>
         <item>Gabby</item>
     </string-array>
-
-
     <string-array name="messages">
         <item>Sofia - Please don\'t forget the blankie!</item>
         <item>Jayden - She can\'t have candy after 9pm.</item>
+    </string-array>
+
+    <string-array name="outOfNetworkFriends">
+        <item>Corina</item>
+        <item>Yadira</item>
+        <item>Gabby</item>
     </string-array>
 
     <string name="title_activity_messages">Messages</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
-     <string name="sign_out_button_name">Sign out</string>
+    <string name="sign_out_button_name">Sign out</string>
     <string name="revoke_access_button_name">Revoke</string>
     <string name="status_sign_in_required">Sign-in required</string>
     <string name="status_sign_in_error">Error signing in: %s</string>
@@ -57,5 +60,6 @@
     <string name="close">Close</string>
     <string name="profile_picture">User\'s profile picture.</string>
     <string name="title_activity_friend_requests">FriendRequests</string>
+    <string name="title_activity_out_of_net_work_friends">OutOfNetWorkFriends</string>
 
 </resources>

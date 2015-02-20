@@ -38,5 +38,18 @@ public class Friends extends Activity {
 
     }
 
+    public void onFriendRequests (View view){
+        Intent intent  = new Intent(this, FriendRequests.class);
+        startActivity(intent);
+
+    }
+
+    public void onOutOfNetworkFriends (View view){
+        Intent intent  = new Intent(this, OutOfNetWorkFriends.class);
+        startActivity(intent);
+
+    }
+
+
 
 }
