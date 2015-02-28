@@ -45,6 +45,7 @@ public class Home extends Activity {
      *
      * @param view
      */
+
     public void onMySchedule(View view) {
         Intent intent = new Intent(this, Schedule.class);
         startActivity(intent);
@@ -60,6 +61,7 @@ public class Home extends Activity {
     public void onProfile(View view) {
         Intent intent = new Intent(this, Profile.class);
         startActivity(intent);
+
 
     }
 
