@@ -12,7 +12,7 @@ import android.widget.ListView;
 public class Friends extends Activity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
         final String[] scheduleArray = getResources().getStringArray(R.array.friends);
@@ -20,36 +20,35 @@ public class Friends extends Activity {
     }
 
 
-    public void onHome (View view){
-        Intent intent  = new Intent(this, Home.class);
+    public void onHome(View view) {
+        Intent intent = new Intent(this, Home.class);
         startActivity(intent);
 
     }
 
-    public void onFriends (View view){
-        Intent intent  = new Intent(this, Friends.class);
+    public void onFriends(View view) {
+        Intent intent = new Intent(this, Friends.class);
         startActivity(intent);
 
     }
 
-    public void onMessages (View view){
-        Intent intent  = new Intent(this, Messages.class);
+    public void onMessages(View view) {
+        Intent intent = new Intent(this, Messages.class);
         startActivity(intent);
 
     }
 
-    public void onFriendRequests (View view){
-        Intent intent  = new Intent(this, FriendRequests.class);
+    public void onFriendRequests(View view) {
+        Intent intent = new Intent(this, FriendRequests.class);
         startActivity(intent);
 
     }
 
-    public void onOutOfNetworkFriends (View view){
-        Intent intent  = new Intent(this, OutOfNetWorkFriends.class);
+    public void onOutOfNetworkFriends(View view) {
+        Intent intent = new Intent(this, OutOfNetWorkFriends.class);
         startActivity(intent);
 
     }
-
 
 
 }

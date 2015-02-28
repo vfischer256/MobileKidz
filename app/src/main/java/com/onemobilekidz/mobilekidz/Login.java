@@ -34,13 +34,13 @@ import java.util.ArrayList;
 
 /**
  * This is copied from the recommended Android Google+ Quickstart activity for logging in.
- *
+ * <p/>
  * Demonstrates Google+ Sign-In and usage of the Google+ APIs to retrieve a
  * users profile information.
  */
 public class Login extends FragmentActivity implements
         ConnectionCallbacks, OnConnectionFailedListener,
-       View.OnClickListener {
+        View.OnClickListener {
 
     private static final String TAG = "Mobile Kidz";
 
@@ -56,7 +56,7 @@ public class Login extends FragmentActivity implements
 
     // GoogleApiClient wraps our service connection to Google Play services and
     // provides access to the users sign in state and Google's APIs.
-    private GoogleApiClient mGoogleApiClient;
+    public static GoogleApiClient mGoogleApiClient;
 
     // We use mSignInProgress to track whether user has clicked sign in.
     // mSignInProgress can be one of three values:
@@ -326,7 +326,7 @@ public class Login extends FragmentActivity implements
 
     @Override
     protected Dialog onCreateDialog(int id) {
-        switch(id) {
+        switch (id) {
             case DIALOG_PLAY_SERVICES_ERROR:
                 if (GooglePlayServicesUtil.isUserRecoverableError(mSignInError)) {
                     return GooglePlayServicesUtil.getErrorDialog(
@@ -359,4 +359,6 @@ public class Login extends FragmentActivity implements
                 return super.onCreateDialog(id);
         }
     }
+
+
 }

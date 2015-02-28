@@ -10,7 +10,7 @@ import android.widget.ListView;
 public class Schedule extends Activity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
         final String[] scheduleArray = getResources().getStringArray(R.array.schedule);
@@ -18,14 +18,14 @@ public class Schedule extends Activity {
     }
 
 
-    public void onHome (View view){
-        Intent intent  = new Intent(this, Home.class);
+    public void onHome(View view) {
+        Intent intent = new Intent(this, Home.class);
         startActivity(intent);
 
     }
 
-    public void onFriends (View view){
-        Intent intent  = new Intent(this, Friends.class);
+    public void onFriends(View view) {
+        Intent intent = new Intent(this, Friends.class);
         startActivity(intent);
 
     }

@@ -42,22 +42,23 @@ public class Home extends Activity {
 
     /**
      * This method is called when the My Schedule button is clicked on the Home screen.
+     *
      * @param view
      */
-    public void onMySchedule (View view){
-        Intent intent  = new Intent(this, Schedule.class);
+    public void onMySchedule(View view) {
+        Intent intent = new Intent(this, Schedule.class);
         startActivity(intent);
 
     }
 
-    public void onFriends (View view){
-        Intent intent  = new Intent(this, Friends.class);
+    public void onFriends(View view) {
+        Intent intent = new Intent(this, Friends.class);
         startActivity(intent);
 
     }
 
-    public void onProfile (View view){
-        Intent intent  = new Intent(this, Profile.class);
+    public void onProfile(View view) {
+        Intent intent = new Intent(this, Profile.class);
         startActivity(intent);
 
     }
