@@ -18,7 +18,8 @@
         android:text="Home"
         android:onClick="onClick"
         android:layout_weight="1"
-        android:textColor="#b478aa" />
+        android:textColor="#b478aa"
+        android:background="#405100" />
 
     <Button
         android:layout_width="0dp"
@@ -27,7 +28,8 @@
         android:text="Friends"
         android:onClick="onClick"
         android:layout_weight="1"
-        android:textColor="#b478aa" />
+        android:textColor="#b478aa"
+        android:background="#405100" />
     <Button
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -35,6 +37,7 @@
         android:text="Profile"
         android:onClick="onClick"
         android:layout_weight="1"
-        android:textColor="#b478aa" />
+        android:textColor="#b478aa"
+        android:background="#405100" />
 
 </LinearLayout>
