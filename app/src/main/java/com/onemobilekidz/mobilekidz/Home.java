@@ -52,6 +52,24 @@ public class Home extends Activity {
 
     }
 
+    Intent intent;
+
+    public void goSchedule (View view){
+        intent = new Intent(this, Schedule.class);
+        startActivity(intent);
+    }
+
+    public void goRequests (View view){
+        intent = new Intent(this, Requests.class);
+        startActivity(intent);
+    }
+
+    public void goMakeRequests (View view){
+        intent = new Intent(this, MakeRequests.class);
+        startActivity(intent);
+    }
+
+
 
 
 

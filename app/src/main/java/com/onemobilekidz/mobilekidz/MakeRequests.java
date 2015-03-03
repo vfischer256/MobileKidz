@@ -10,9 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.app.Activity;
 
-
-public class MakeRequests extends ActionBarActivity {
+public class MakeRequests extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
