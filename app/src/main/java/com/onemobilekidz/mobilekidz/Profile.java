@@ -6,11 +6,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
+import android.app.Activity;
 
 import com.google.android.gms.plus.Plus;
 
 
-public class Profile extends ActionBarActivity implements View.OnClickListener {
+public class Profile extends Activity implements View.OnClickListener {
 
 
     Login login = new Login();
