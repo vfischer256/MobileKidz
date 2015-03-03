@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.view.View;
 import android.view.LayoutInflater;
 import android.widget.Button;
+import android.widget.Toast;
 
 import static com.onemobilekidz.mobilekidz.R.*;
 
@@ -22,7 +23,6 @@ public class BottomLinks extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(layout.fragment_bottom_section, container, false);
 
         Button homeButton = (Button) view.findViewById(R.id.homeButton);
-
         Button friendsButton = (Button) view.findViewById(id.friendsButton);
         Button profileButton = (Button) view.findViewById(id.profileButton);
 
@@ -38,14 +38,17 @@ public class BottomLinks extends Fragment implements View.OnClickListener {
         Intent intent;
         switch (v.getId()) {
             case R.id.homeButton:
+                Toast.makeText(v.getContext(), "Im Clicked!", Toast.LENGTH_SHORT).show();
                 intent = new Intent(getActivity(), Home.class);
                 startActivity(intent);
                 break;
             case R.id.friendsButton:
+                Toast.makeText(v.getContext(), "Im Clicked!", Toast.LENGTH_SHORT).show();
                 intent = new Intent(getActivity(), Friends.class);
                 startActivity(intent);
                 break;
             case id.profileButton:
+                Toast.makeText(v.getContext(), "Im Clicked!", Toast.LENGTH_SHORT).show();
                 intent = new Intent(getActivity(), Profile.class);
                 startActivity(intent);
                 break;
@@ -55,60 +58,3 @@ public class BottomLinks extends Fragment implements View.OnClickListener {
 
 }
 
-/*
-        friendsButton.setOnClickListener(
-                new Button.OnClickListener() {
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), Friends.class);
-                        startActivity(intent);
-                    }
-                }
-        );
-
-        profileButton.setOnClickListener(
-                new Button.OnClickListener() {
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), Profile.class);
-                        startActivity(intent);
-                    }
-                }
-        );
-
-
-
-
-
-        homeButton.setOnClickListener(
-                new Button.OnClickListener() {
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getActivity(), Home.class);
-                        startActivity(intent);
-
-                    }
-
-                    );
-
-                    friendsButton.setOnClickListener(
-                            new Button.OnClickListener()
-
-                    {
-                        public void onClick (View view){
-                        Intent intent = new Intent(getActivity(), Home.class);
-                        startActivity(intent);
-
-                    }
-                        );
-
-
-                    public void onProfile(View view) {
-                        Intent intent = new Intent(getActivity(), Profile.class);
-                        startActivity(intent);
-
-                    }
-
-                    return view;
-
-                }
-
-
-    }*/
