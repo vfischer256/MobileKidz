@@ -26,21 +26,13 @@ public class Home extends Activity {
         }
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
-        return true;
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
-            case  (android.R.id.home) :
+            case (android.R.id.home):
                 Intent intent = new Intent(this, Home.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -54,23 +46,20 @@ public class Home extends Activity {
 
     Intent intent;
 
-    public void goSchedule (View view){
+    public void goSchedule(View view) {
         intent = new Intent(this, Schedule.class);
         startActivity(intent);
     }
 
-    public void goRequests (View view){
+    public void goRequests(View view) {
         intent = new Intent(this, Requests.class);
         startActivity(intent);
     }
 
-    public void goMakeRequests (View view){
+    public void goMakeRequests(View view) {
         intent = new Intent(this, MakeRequests.class);
         startActivity(intent);
     }
-
-
-
 
 
 }

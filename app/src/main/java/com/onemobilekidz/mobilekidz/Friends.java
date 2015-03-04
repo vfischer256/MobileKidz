@@ -8,8 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 
-
-
 public class Friends extends Activity {
 
     @Override
@@ -18,7 +16,6 @@ public class Friends extends Activity {
         setContentView(R.layout.activity_friends);
 
     }
-
 
 
 }

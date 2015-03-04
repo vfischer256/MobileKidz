@@ -17,27 +17,12 @@ public class Schedule extends Activity {
         ListView scheduleList = (ListView) findViewById(R.id.scheduleList);
     }
 
-/*
-    public void onHome(View view) {
-        Intent intent = new Intent(this, Home.class);
+
+    public void onMySchedule(View view) {
+        Intent intent = new Intent(this, Schedule.class);
         startActivity(intent);
 
     }
-
-    public void onFriends(View view) {
-        Intent intent = new Intent(this, Friends.class);
-        startActivity(intent);
-
-    }
-
-    */
-public void onMySchedule(View view) {
-    Intent intent = new Intent(this, Schedule.class);
-    startActivity(intent);
-
-}
-
-
 
 
 }

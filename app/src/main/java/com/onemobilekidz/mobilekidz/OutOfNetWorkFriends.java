@@ -40,35 +40,5 @@ public class OutOfNetWorkFriends extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onHome(View view) {
-        Intent intent = new Intent(this, Home.class);
-        startActivity(intent);
-
-    }
-
-    public void onFriends(View view) {
-        Intent intent = new Intent(this, Friends.class);
-        startActivity(intent);
-
-    }
-
-    public void onMessages(View view) {
-        Intent intent = new Intent(this, Messages.class);
-        startActivity(intent);
-
-    }
-
-    public void onFriendRequests(View view) {
-        Intent intent = new Intent(this, FriendRequests.class);
-        startActivity(intent);
-
-    }
-
-    public void onOutOfNetworkFriends(View view) {
-        Intent intent = new Intent(this, OutOfNetWorkFriends.class);
-        startActivity(intent);
-
-    }
-
 
 }
