@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.view.View;
 import android.view.LayoutInflater;
 import android.widget.Button;
-import android.widget.Toast;
 
 import static com.onemobilekidz.mobilekidz.R.*;
 
@@ -46,7 +45,6 @@ public class BottomLinksFragment extends Fragment implements View.OnClickListene
                 startActivity(intent);
                 break;
             case id.profileButton:
-                Toast.makeText(v.getContext(), "Im Clicked!", Toast.LENGTH_SHORT).show();
                 intent = new Intent(getActivity(), Profile.class);
                 startActivity(intent);
                 break;

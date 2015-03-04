@@ -3,8 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.onemobilekidz.mobilekidz.Friends">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/listFriends"
+        android:title="List"
+        android:orderInCategory="0"
+        android:showAsAction="ifRoom|withText"/>
+    <item
+        android:id="@+id/messagesFriends"
+        android:title="Message"
+        android:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/friendRequestsFriends"
+        android:title="Friend Requests"
+        android:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/outOfNetworkFriendsFriends"
+        android:title="Out of Network Friends"
+        android:showAsAction="ifRoom" />
 </menu>

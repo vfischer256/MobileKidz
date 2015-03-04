@@ -2,11 +2,12 @@ package com.onemobilekidz.mobilekidz;
 
 import java.util.Locale;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ListView;
+
+
 
 
 public class Friends extends Activity {
@@ -15,11 +16,8 @@ public class Friends extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
-        final String[] scheduleArray = getResources().getStringArray(R.array.friends);
-        ListView scheduleList = (ListView) findViewById(R.id.friendList);
+
     }
-
-
 
 
 
