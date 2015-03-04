@@ -16,7 +16,7 @@ import static com.onemobilekidz.mobilekidz.R.*;
 /**
  * Created by vfischer on 3/2/15.
  */
-public class BottomLinks extends Fragment implements View.OnClickListener {
+public class BottomLinksFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
@@ -38,12 +38,10 @@ public class BottomLinks extends Fragment implements View.OnClickListener {
         Intent intent;
         switch (v.getId()) {
             case R.id.homeButton:
-                Toast.makeText(v.getContext(), "Im Clicked!", Toast.LENGTH_SHORT).show();
                 intent = new Intent(getActivity(), Home.class);
                 startActivity(intent);
                 break;
             case R.id.friendsButton:
-                Toast.makeText(v.getContext(), "Im Clicked!", Toast.LENGTH_SHORT).show();
                 intent = new Intent(getActivity(), Friends.class);
                 startActivity(intent);
                 break;
