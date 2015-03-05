@@ -56,7 +56,7 @@ public class Login extends FragmentActivity implements
 
     // GoogleApiClient wraps our service connection to Google Play services and
     // provides access to the users sign in state and Google's APIs.
-    public static GoogleApiClient mGoogleApiClient;
+    private GoogleApiClient mGoogleApiClient;
 
     // We use mSignInProgress to track whether user has clicked sign in.
     // mSignInProgress can be one of three values:
@@ -204,8 +204,10 @@ public class Login extends FragmentActivity implements
         // Indicate that the sign in process is complete.
         mSignInProgress = STATE_DEFAULT;
 
+
         Intent intent = new Intent(this, Home.class);
         startActivity(intent);
+
     }
 
     /* onConnectionFailed is called when our Activity could not connect to Google

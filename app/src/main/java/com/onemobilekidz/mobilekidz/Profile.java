@@ -1,44 +1,56 @@
 package com.onemobilekidz.mobilekidz;
 
-import android.support.v7.app.ActionBarActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
 import android.app.Activity;
+import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import com.google.android.gms.plus.Plus;
 
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 
-public class Profile extends Activity implements View.OnClickListener {
-
-
-    Login login = new Login();
+public class Profile extends Activity implements ConnectionCallbacks, OnConnectionFailedListener {
 
     private Button mSignOutButton;
+
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        mSignOutButton = (Button) findViewById(R.id.sign_out_button);
-        mSignOutButton.setOnClickListener(this);
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(Plus.API, Plus.PlusOptions.builder().build())
+                .addScope(Plus.SCOPE_PLUS_LOGIN)
+                .build();
 
+        mGoogleApiClient.connect();
 
     }
 
 
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.sign_out_button) {
-            // We clear the default account on sign out so that Google Play
-            // services will not return an onConnected callback without user
-            // interaction.
-            Plus.AccountApi.clearDefaultAccount(login.mGoogleApiClient);
-            login.mGoogleApiClient.disconnect();
-            login.mGoogleApiClient.connect();
+    public void signOut(View v) {
+        if (mGoogleApiClient.isConnected()) {
+            System.out.println("sign out");
+            Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+            mGoogleApiClient.disconnect();
+            mGoogleApiClient.connect();
+            Intent intent = new Intent(this, Home.class);
+            startActivity(intent);
+        } else {
+            System.out.println("can't sign out");
         }
     }
 
@@ -66,4 +78,18 @@ public class Profile extends Activity implements View.OnClickListener {
     }
 
 
+    @Override
+    public void onConnected(Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
+    }
 }

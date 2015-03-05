@@ -10,20 +10,39 @@ import android.view.View;
 import android.view.MenuItem;
 import android.view.Menu;
 
-public class Home extends Activity {
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.plus.Plus;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 
+
+public class Home extends Activity implements ConnectionCallbacks, OnConnectionFailedListener  {
+
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowHomeEnabled(true);
-            actionBar.setHomeButtonEnabled(true);
-        } else {
-            System.out.println("No action bar");
-        }
+
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(Plus.API, Plus.PlusOptions.builder().build())
+                .addScope(Plus.SCOPE_PLUS_LOGIN)
+                .build();
+
+        mGoogleApiClient.connect();
+
+            setContentView(R.layout.activity_home);
+            ActionBar actionBar = getActionBar();
+            if (actionBar != null) {
+                actionBar.setDisplayShowHomeEnabled(true);
+                actionBar.setHomeButtonEnabled(true);
+            } else {
+                System.out.println("No action bar");
+            }
     }
 
     @Override
@@ -62,4 +81,19 @@ public class Home extends Activity {
     }
 
 
+    @Override
+    public void onConnected(Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        intent = new Intent(this, Login.class);
+        startActivity(intent);
+    }
 }
