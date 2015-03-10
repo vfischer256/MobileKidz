@@ -10,6 +10,7 @@ import android.widget.*;
 
 import org.w3c.dom.Text;
 
+import java.text.DateFormat;
 import java.util.*;
 
 
@@ -28,6 +29,8 @@ public class MakeRequests extends Activity implements DatePicker.OnDateChangedLi
     TimePicker timePicker=null;
     TextView mctime=null;
 
+    DateFormat fmtDateAndTime=DateFormat.getDateTimeInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +42,7 @@ public class MakeRequests extends Activity implements DatePicker.OnDateChangedLi
         dp.init(dp.getYear(),dp.getMonth(),dp.getDayOfMonth(),this);
 
         timePicker = (TimePicker) findViewById(R.id.timePicker);
-        timePicker.setIs24HourView(true);
+        timePicker.setOnTimeChangedListener(this);
 
      }
 
@@ -58,9 +61,8 @@ public class MakeRequests extends Activity implements DatePicker.OnDateChangedLi
     }
 
     private void updateDateTime (){
-        mcdate.setText(String.valueOf(cal.get(Calendar.MONTH) + 1) + "/" + String.valueOf(cal.get(Calendar.DAY_OF_MONTH) )
-                + "/" + String.valueOf(cal.get(Calendar.YEAR)) + "   " + String.valueOf(timePicker.getCurrentHour()) + ":"
-                + String.valueOf(timePicker.getCurrentMinute()));
+        mcdate.setText(fmtDateAndTime
+                .format(cal.getTime()));
     }
 
 
