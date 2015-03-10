@@ -68,10 +68,7 @@ public class MakeRequests extends Activity implements DatePicker.OnDateChangedLi
 
     public void submitBabysittingRequest(View view){
         Intent intent = new Intent(this, Requests.class);
-
-
-
-
+        startActivity(intent);
     }
 
     @Override
