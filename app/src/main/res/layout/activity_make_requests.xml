@@ -14,10 +14,66 @@
 
 
     <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Please select a date and time for babysitting."
+            android:id="@+id/textView5" />
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5"
-        android:orientation="vertical"></LinearLayout>
+        android:orientation="vertical">
+
+        <DatePicker
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/datePicker"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="3" />
+
+
+        <TimePicker
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/timePicker"
+            android:layout_weight="2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:textSize="12pt"
+            android:background="#ffffff"
+            android:textColor="#000000"
+            android:id="@+id/myChosenDate"
+            android:layout_weight="1" />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Submit"
+            android:id="@+id/submitMakeRequests" />
+    </LinearLayout>
 
     <fragment
         android:id="@+id/bottomSection"
@@ -26,6 +82,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         tools:layout="@layout/fragment_bottom_section" />
+
 
 
 </LinearLayout>

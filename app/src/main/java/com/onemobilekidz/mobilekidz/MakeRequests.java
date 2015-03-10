@@ -1,25 +1,76 @@
 package com.onemobilekidz.mobilekidz;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
 import android.app.Activity;
+import android.widget.*;
 
-public class MakeRequests extends Activity {
+import org.w3c.dom.Text;
+
+import java.util.*;
+
+
+import static java.util.Calendar.YEAR;
+
+
+/* Part of this code is copied from Sheusi, J. C. (2012). Android™ Application Development
+for Java® Programmers. Course Technology PTR. */
+
+public class MakeRequests extends Activity implements DatePicker.OnDateChangedListener, TimePicker.OnTimeChangedListener{
+
+    /** Called when the activity is first created. */
+    DatePicker dp=null;
+    Calendar cal=null;
+    TextView mcdate=null;
+    TimePicker timePicker=null;
+    TextView mctime=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_requests);
+
+        dp=(DatePicker)findViewById(R.id.datePicker);
+        mcdate=(TextView)findViewById(R.id.myChosenDate);
+        cal=Calendar.getInstance();
+        dp.init(dp.getYear(),dp.getMonth(),dp.getDayOfMonth(),this);
+
+        timePicker = (TimePicker) findViewById(R.id.timePicker);
+        timePicker.setIs24HourView(true);
+
+     }
+
+    public void onDateChanged(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth){
+        cal.set(year,monthOfYear, dayOfMonth);
+        updateDateTime();
+
     }
 
+    @Override
+    public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+        cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        cal.set(Calendar.MINUTE, minute);
+        updateDateTime();
+    }
+
+    private void updateDateTime (){
+        mcdate.setText(String.valueOf(cal.get(Calendar.MONTH) + 1) + "/" + String.valueOf(cal.get(Calendar.DAY_OF_MONTH) )
+                + "/" + String.valueOf(cal.get(Calendar.YEAR)) + "   " + String.valueOf(timePicker.getCurrentHour()) + ":"
+                + String.valueOf(timePicker.getCurrentMinute()));
+    }
+
+
+    public void submitBabysittingRequest(View view){
+        Intent intent = new Intent(this, Requests.class);
+
+
+
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -42,5 +93,6 @@ public class MakeRequests extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }
