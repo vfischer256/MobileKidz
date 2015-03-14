@@ -8,8 +8,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.onemobilekidz.mobilekidz.FriendRequests;
 import com.onemobilekidz.mobilekidz.Friends;
+import com.onemobilekidz.mobilekidz.Messages;
+import com.onemobilekidz.mobilekidz.model.FriendRequestsModel;
 import com.onemobilekidz.mobilekidz.model.FriendsModel;
+import com.onemobilekidz.mobilekidz.model.MessagesModel;
+import com.onemobilekidz.mobilekidz.model.PointsModel;
 import com.onemobilekidz.mobilekidz.model.RequestsModel;
 
 import java.sql.SQLException;
@@ -23,7 +28,7 @@ public class DatabaseManager {
     // Logcat tag
     private static final String LOG = "DatabaseHelper";
     // Database Version
-    private static final int DB_VERSION = 11;
+    private static final int DB_VERSION = 12;
     // Database Name
     private static final String DB_NAME = "babysitting";
     // Table Names
@@ -177,6 +182,82 @@ public class DatabaseManager {
 
     }
 
+    public void addRowFriendRequests(FriendRequestsModel friendRequestsObj) {
+        ContentValues values = prepareFriendRequestsData(friendRequestsObj);
+        // ask the database object to insert the new data
+        try {
+            Log.v("DB", "Inserting friend requests data");
+            db.insert(TABLE_FRIEND_REQUESTS, null, values);
+        } catch (Exception e) {
+            Log.e("DB ERROR", e.toString()); // prints the error message to
+            // the log
+            e.printStackTrace(); // prints the stack trace to the log
+        }
+
+    }
+
+    private ContentValues prepareFriendRequestsData(FriendRequestsModel friendRequestsObj) {
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_BABYSITTER_ID, friendRequestsObj.getOutOfNetworkUsers());
+        values.put(KEY_CREATED_AT, "CreateAt");
+        values.put(KEY_UPDATED_AT, "UpdatedAt");
+        values.put(KEY_STATUS, friendRequestsObj.getStatus());
+        return values;
+
+    }
+
+    public void addRowMessages(MessagesModel messagesObj) {
+        ContentValues values = prepareMessagesData(messagesObj);
+        // ask the database object to insert the new data
+        try {
+            Log.v("DB", "Inserting messages data");
+            db.insert(TABLE_MESSAGES, null, values);
+        } catch (Exception e) {
+            Log.e("DB ERROR", e.toString()); // prints the error message to
+            // the log
+            e.printStackTrace(); // prints the stack trace to the log
+        }
+
+    }
+
+    private ContentValues prepareMessagesData(MessagesModel messagesObj) {
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_BABYSITTER_ID, messagesObj.getBabysitterId());
+        values.put(KEY_MESSAGE, messagesObj.getMessage());
+        values.put(KEY_CREATED_AT, "CreateAt");
+        values.put(KEY_UPDATED_AT, "UpdatedAt");
+        values.put(KEY_STATUS, messagesObj.getStatus());
+        return values;
+
+    }
+
+    public void addRowPoints(PointsModel pointsObj) {
+        ContentValues values = preparePointsData(pointsObj);
+        // ask the database object to insert the new data
+        try {
+            Log.v("DB", "Inserting points data");
+            db.insert(TABLE_MESSAGES, null, values);
+        } catch (Exception e) {
+            Log.e("DB ERROR", e.toString()); // prints the error message to
+            // the log
+            e.printStackTrace(); // prints the stack trace to the log
+        }
+
+    }
+
+    private ContentValues preparePointsData(PointsModel pointsObj) {
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_POINTS, pointsObj.getPoints());
+        values.put(KEY_CREATED_AT, "CreateAt");
+        values.put(KEY_UPDATED_AT, "UpdatedAt");
+        values.put(KEY_REQUEST_ID, pointsObj.getRequestId());
+        return values;
+
+    }
+
     // the beginnings our SQLiteOpenHelper class
     private class CustomSQLiteOpenHelper extends SQLiteOpenHelper {
 
@@ -190,9 +271,8 @@ public class DatabaseManager {
 
 
             try {
-                Log.v(LOG, "Creating table REQUESTS");
+                Log.v(LOG, "Creating tables");
                 db.execSQL(CREATE_TABLE_REQUESTS);
-                Log.v(LOG, "Creating table friends" + CREATE_TABLE_FRIENDS);
                 db.execSQL(CREATE_TABLE_FRIENDS);
                 db.execSQL(CREATE_TABLE_FRIEND_REQUESTS);
                 db.execSQL(CREATE_TABLE_MESSAGES);
