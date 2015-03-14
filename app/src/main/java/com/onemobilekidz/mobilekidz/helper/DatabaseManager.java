@@ -199,7 +199,7 @@ public class DatabaseManager {
     private ContentValues prepareFriendRequestsData(FriendRequestsModel friendRequestsObj) {
 
         ContentValues values = new ContentValues();
-        values.put(KEY_BABYSITTER_ID, friendRequestsObj.getOutOfNetworkUsers());
+        values.put(KEY_OUT_OF_NETWORK_USERS, friendRequestsObj.getOutOfNetworkUsers());
         values.put(KEY_CREATED_AT, "CreateAt");
         values.put(KEY_UPDATED_AT, "UpdatedAt");
         values.put(KEY_STATUS, friendRequestsObj.getStatus());
@@ -238,7 +238,7 @@ public class DatabaseManager {
         // ask the database object to insert the new data
         try {
             Log.v("DB", "Inserting points data");
-            db.insert(TABLE_MESSAGES, null, values);
+            db.insert(TABLE_POINTS, null, values);
         } catch (Exception e) {
             Log.e("DB ERROR", e.toString()); // prints the error message to
             // the log
@@ -252,7 +252,6 @@ public class DatabaseManager {
         ContentValues values = new ContentValues();
         values.put(KEY_POINTS, pointsObj.getPoints());
         values.put(KEY_CREATED_AT, "CreateAt");
-        values.put(KEY_UPDATED_AT, "UpdatedAt");
         values.put(KEY_REQUEST_ID, pointsObj.getRequestId());
         return values;
 

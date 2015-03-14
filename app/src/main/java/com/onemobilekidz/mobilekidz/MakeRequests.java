@@ -9,7 +9,10 @@ import android.app.Activity;
 import android.widget.*;
 
 import com.onemobilekidz.mobilekidz.helper.DatabaseManager;
+import com.onemobilekidz.mobilekidz.model.FriendRequestsModel;
 import com.onemobilekidz.mobilekidz.model.FriendsModel;
+import com.onemobilekidz.mobilekidz.model.MessagesModel;
+import com.onemobilekidz.mobilekidz.model.PointsModel;
 import com.onemobilekidz.mobilekidz.model.RequestsModel;
 
 import java.text.DateFormat;
@@ -76,6 +79,15 @@ public class MakeRequests extends Activity implements DatePicker.OnDateChangedLi
 
         FriendsModel friendsObj = new FriendsModel(1, "Maria");
         dbManager.addRowFriends(friendsObj);
+
+        FriendRequestsModel friendRequestsObj = new FriendRequestsModel("user1", "not added");
+        dbManager.addRowFriendRequests(friendRequestsObj);
+
+        MessagesModel messagesObj = new MessagesModel(1, "can you babysit?", "read");
+        dbManager.addRowMessages(messagesObj);
+
+        PointsModel pointsObj = new PointsModel(5, 2);
+        dbManager.addRowPoints(pointsObj);
 
 
         Intent intent = new Intent(this, Requests.class);
