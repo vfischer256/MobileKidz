@@ -82,6 +82,7 @@ public class DatabaseManager {
     // POINTS table create statement
     private static final String CREATE_TABLE_POINTS = "CREATE TABLE "
             + TABLE_POINTS + "(" + KEY_ID + " integer primary key autoincrement not null,"
+            + KEY_POINTS + " integer not null,"
             + KEY_CREATED_AT + " text not null,"
             + KEY_REQUEST_ID + " integer not null" + ")";
     // Reference to the database manager class
