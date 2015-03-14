@@ -3,18 +3,18 @@ package com.onemobilekidz.mobilekidz.model;
 /**
  * Created by vfischer on 3/14/15.
  */
-public class Messages {
+public class MessagesModel {
 
 
     int babysitterId;
     String message;
     String status;
 
-    public Messages() {
+    public MessagesModel() {
 
     }
 
-    public Messages(int babysitterId, String message, String status) {
+    public MessagesModel(int babysitterId, String message, String status) {
         this.babysitterId = babysitterId;
         this.message = message;
         this.status = status;

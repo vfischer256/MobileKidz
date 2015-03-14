@@ -3,16 +3,16 @@ package com.onemobilekidz.mobilekidz.model;
 /**
  * Created by vfischer on 3/14/15.
  */
-public class Points {
+public class PointsModel {
 
     int points;
     int requestId;
 
-    public Points() {
+    public PointsModel() {
 
     }
 
-    public Points(int points, int requestId) {
+    public PointsModel(int points, int requestId) {
         this.points = points;
         this.requestId = requestId;
     }

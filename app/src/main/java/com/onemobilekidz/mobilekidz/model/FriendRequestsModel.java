@@ -3,15 +3,15 @@ package com.onemobilekidz.mobilekidz.model;
 /**
  * Created by vfischer on 3/14/15.
  */
-public class FriendRequests {
+public class FriendRequestsModel {
 
     String outOfNetworkUsers;
     String status;
 
-    public FriendRequests() {
+    public FriendRequestsModel() {
     }
 
-    public FriendRequests(String outOfNetworkUsers, String status) {
+    public FriendRequestsModel(String outOfNetworkUsers, String status) {
         this.outOfNetworkUsers = outOfNetworkUsers;
         this.status = status;
     }
