@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.os.Build;
 import android.app.Activity;
 
+import com.onemobilekidz.mobilekidz.helper.DatabaseManager;
+import com.onemobilekidz.mobilekidz.model.RequestsModel;
+
 public class Requests extends Activity {
 
     @Override
@@ -43,5 +46,11 @@ public class Requests extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void initialize(int position) {
+        DatabaseManager databaseManager = new DatabaseManager(this);
+        RequestsModel requestsObj = databaseManager.getRowAsObject(position);
+
+
+    }
 
 }

@@ -8,13 +8,12 @@ import android.view.View;
 import android.app.Activity;
 import android.widget.*;
 
-import org.w3c.dom.Text;
+import com.onemobilekidz.mobilekidz.helper.DatabaseManager;
+import com.onemobilekidz.mobilekidz.model.FriendsModel;
+import com.onemobilekidz.mobilekidz.model.RequestsModel;
 
 import java.text.DateFormat;
 import java.util.*;
-
-
-import static java.util.Calendar.YEAR;
 
 
 /* Part of this code is copied from Sheusi, J. C. (2012). Android™ Application Development
@@ -67,6 +66,18 @@ public class MakeRequests extends Activity implements DatePicker.OnDateChangedLi
 
 
     public void submitBabysittingRequest(View view){
+        DatabaseManager dbManager = new DatabaseManager(this);
+        RequestsModel requestsModel = new RequestsModel(1, "requestDAta1", "test");
+
+        // babysitterId, String requestDate, String requestStatus
+        dbManager.addRowRequests(requestsModel);
+
+        //TODO: Temporary location move this to the proper class after testing.
+
+        FriendsModel friendsObj = new FriendsModel(1, "Maria");
+        dbManager.addRowFriends(friendsObj);
+
+
         Intent intent = new Intent(this, Requests.class);
         startActivity(intent);
     }
