@@ -17,15 +17,16 @@ import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 
 
-public class Home extends Activity implements ConnectionCallbacks, OnConnectionFailedListener  {
+public class Home extends Activity implements ConnectionCallbacks, OnConnectionFailedListener {
 
+    Intent intent;
     private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+/*
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -34,15 +35,17 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
                 .build();
 
         mGoogleApiClient.connect();
+        */
 
-            setContentView(R.layout.activity_home);
-            ActionBar actionBar = getActionBar();
-            if (actionBar != null) {
-                actionBar.setDisplayShowHomeEnabled(true);
-                actionBar.setHomeButtonEnabled(true);
-            } else {
-                System.out.println("No action bar");
-            }
+        setContentView(R.layout.activity_home);
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowHomeEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+        } else {
+            System.out.println("No action bar");
+        }
+
     }
 
     @Override
@@ -62,8 +65,6 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
         return true;
 
     }
-
-    Intent intent;
 
     public void goSchedule(View view) {
         intent = new Intent(this, Schedule.class);

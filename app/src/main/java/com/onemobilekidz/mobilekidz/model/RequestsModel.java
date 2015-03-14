@@ -9,8 +9,6 @@ public class RequestsModel {
     int requestId;
     int babysitterId;
     String requestDate;
-    String createdAt;
-    String updatedAt;
     String requestStatus;
 
     public RequestsModel() {
@@ -20,8 +18,6 @@ public class RequestsModel {
     public RequestsModel(int babysitterId, String requestDate, String requestStatus) {
         this.babysitterId = babysitterId;
         this.requestDate = requestDate;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
         this.requestStatus = requestStatus;
     }
 
