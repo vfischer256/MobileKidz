@@ -17,7 +17,10 @@ import com.onemobilekidz.mobilekidz.model.MessagesModel;
 import com.onemobilekidz.mobilekidz.model.PointsModel;
 import com.onemobilekidz.mobilekidz.model.RequestsModel;
 
+import java.util.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 
 /**
@@ -28,7 +31,7 @@ public class DatabaseManager {
     // Logcat tag
     private static final String LOG = "DatabaseHelper";
     // Database Version
-    private static final int DB_VERSION = 12;
+    private static final int DB_VERSION = 14;
     // Database Name
     private static final String DB_NAME = "babysitting";
     // Table Names
@@ -59,8 +62,8 @@ public class DatabaseManager {
             + TABLE_REQUESTS + " (" + KEY_ID + " integer primary key autoincrement not null,"
             + KEY_BABYSITTER_ID + " integer not null,"
             + KEY_REQUEST_DATE + " text not null,"
-            + KEY_CREATED_AT + " text not null,"
-            + KEY_UPDATED_AT + " text not null,"
+            + KEY_CREATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
+            + KEY_UPDATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
             + KEY_STATUS + " text not null" + ")";
     // FRIEND_REQUESTS Table - column names
     private static final String KEY_OUT_OF_NETWORK_USERS = "out_of_network_users";
@@ -127,8 +130,8 @@ public class DatabaseManager {
         ContentValues values = new ContentValues();
         values.put(KEY_BABYSITTER_ID, requestsObj.getBabysitterId());
         values.put(KEY_REQUEST_DATE, requestsObj.getRequestDate());
-        values.put(KEY_CREATED_AT, "CreateAt");
-        values.put(KEY_UPDATED_AT, "UpdatedAt");
+        values.put(KEY_CREATED_AT, getDateTime());
+        values.put(KEY_UPDATED_AT, getDateTime());
         values.put(KEY_STATUS, requestsObj.getRequestStatus());
         return values;
 
@@ -257,6 +260,13 @@ public class DatabaseManager {
 
     }
 
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
     // the beginnings our SQLiteOpenHelper class
     private class CustomSQLiteOpenHelper extends SQLiteOpenHelper {
 
@@ -295,6 +305,8 @@ public class DatabaseManager {
             // create new tables
             onCreate(db);
         }
+
+
     }
 
 }
