@@ -5,24 +5,23 @@ package com.onemobilekidz.mobilekidz.model;
  */
 public class FriendsModel {
 
-    int babysitterId;
     String friendName;
+    int id;
 
     public FriendsModel() {
 
     }
 
-    public FriendsModel(int babysitterId, String friendName) {
-        this.babysitterId = babysitterId;
+    public FriendsModel(String friendName) {
         this.friendName = friendName;
     }
 
-    public int getBabysitterId() {
-        return babysitterId;
+    public int getId() {
+        return id;
     }
 
-    public void setBabysitterId(int babysitterId) {
-        this.babysitterId = babysitterId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFriendName() {

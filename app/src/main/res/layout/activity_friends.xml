@@ -32,8 +32,8 @@
         <ListView
             android:id="@+id/friendList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:entries="@array/friends" />
+            android:layout_height="match_parent"></ListView>
+
 
     </LinearLayout>
 

@@ -134,7 +134,7 @@ public class MakeRequests extends Activity {
         );
     }
 
-    public void submitBabysittingRequest(View view){
+    public void submitBabysittingRequest(View view) {
         DatabaseManager dbManager = new DatabaseManager(this);
         RequestsModel requestsModel = new RequestsModel(1, mChosenDateTime, "pending");
 
@@ -143,7 +143,7 @@ public class MakeRequests extends Activity {
 
         //TODO: Temporary location move this to the proper class after testing.
 
-        FriendsModel friendsObj = new FriendsModel(1, "Maria");
+        FriendsModel friendsObj = new FriendsModel("Maria");
         dbManager.addRowFriends(friendsObj);
 
         FriendRequestsModel friendRequestsObj = new FriendRequestsModel("user1", "not added");

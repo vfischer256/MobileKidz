@@ -17,6 +17,7 @@ import com.onemobilekidz.mobilekidz.model.MessagesModel;
 import com.onemobilekidz.mobilekidz.model.PointsModel;
 import com.onemobilekidz.mobilekidz.model.RequestsModel;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -31,7 +32,7 @@ public class DatabaseManager {
     // Logcat tag
     private static final String LOG = "DatabaseHelper";
     // Database Version
-    private static final int DB_VERSION = 14;
+    private static final int DB_VERSION = 15;
     // Database Name
     private static final String DB_NAME = "babysitting";
     // Table Names
@@ -46,14 +47,13 @@ public class DatabaseManager {
     private static final String KEY_UPDATED_AT = "updated_at";
     private static final String KEY_STATUS = "status";
     private static final String KEY_FRIEND_NAME = "friend_name";
-    // REQUESTS Table - column names
-    private static final String KEY_BABYSITTER_ID = "babysitter_id";
     // FRIENDS table create statement
     private static final String CREATE_TABLE_FRIENDS = "CREATE TABLE "
             + TABLE_FRIENDS + "(" + KEY_ID + " integer primary key autoincrement not null,"
-            + KEY_BABYSITTER_ID + " integer not null,"
             + KEY_FRIEND_NAME + " text not null,"
-            + KEY_CREATED_AT + " text not null" + ")";
+            + KEY_CREATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
+    // REQUESTS Table - column names
+    private static final String KEY_BABYSITTER_ID = "babysitter_id";
     // FRIENDS Table - column names
     private static final String KEY_REQUEST_DATE = "request_date";
     // Table Create Statements
@@ -178,11 +178,69 @@ public class DatabaseManager {
     private ContentValues prepareFriendsData(FriendsModel friendsObj) {
 
         ContentValues values = new ContentValues();
-        values.put(KEY_BABYSITTER_ID, friendsObj.getBabysitterId());
         values.put(KEY_FRIEND_NAME, friendsObj.getFriendName());
-        values.put(KEY_CREATED_AT, "CreatedAt");
+        values.put(KEY_CREATED_AT, getDateTime());
         return values;
 
+    }
+
+    public FriendsModel getFriendsRowAsObject(int rowID) {
+
+        FriendsModel rowFriendsObj = new FriendsModel();
+        Cursor cursor;
+
+        try {
+            cursor = db.query(TABLE_FRIENDS, new String[]{KEY_ID,
+                            KEY_FRIEND_NAME}, KEY_ID + "=" + rowID, null, null, null, null
+            );
+            cursor.moveToFirst();
+            prepareSendFriendsObject(rowFriendsObj, cursor);
+        } catch (Exception e) {
+            Log.e("ERROR", e.toString());
+            e.printStackTrace();
+        }
+
+        return rowFriendsObj;
+
+    }
+
+    // Returns all the rows data in form of ContactModel object list
+
+    public ArrayList<FriendsModel> getAllData() {
+
+        ArrayList<FriendsModel> allRowsObj = new ArrayList<FriendsModel>();
+        Cursor cursor;
+        FriendsModel rowFriendsObj;
+
+        String[] columns = new String[]{KEY_ID, KEY_FRIEND_NAME};
+
+        try {
+
+            cursor = db
+                    .query(TABLE_FRIENDS, columns, null, null, null, null, null);
+            cursor.moveToFirst();
+
+            if (!cursor.isAfterLast()) {
+                do {
+                    rowFriendsObj = new FriendsModel();
+                    rowFriendsObj.setId(cursor.getInt(0));
+                    prepareSendFriendsObject(rowFriendsObj, cursor);
+                    allRowsObj.add(rowFriendsObj);
+
+                } while (cursor.moveToNext()); // try to move the cursor's
+                // pointer forward one position.
+            }
+        } catch (Exception e) {
+            Log.e("DB ERROR", e.toString());
+            e.printStackTrace();
+        }
+
+        return allRowsObj;
+
+    }
+
+    private void prepareSendFriendsObject(FriendsModel rowObj, Cursor cursor) {
+        rowObj.setFriendName(cursor.getString(cursor.getColumnIndexOrThrow(KEY_FRIEND_NAME)));
     }
 
     public void addRowFriendRequests(FriendRequestsModel friendRequestsObj) {
