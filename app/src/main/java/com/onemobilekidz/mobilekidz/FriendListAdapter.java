@@ -28,7 +28,7 @@ public class FriendListAdapter extends BaseAdapter {
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         dm = new DatabaseManager(_context);
-        friendsModelArrayList = dm.getAllData();
+        friendsModelArrayList = dm.getAllFriendsData();
 
     }
 
@@ -36,7 +36,7 @@ public class FriendListAdapter extends BaseAdapter {
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
         //refetching the new data from database
-        friendsModelArrayList = dm.getAllData();
+        friendsModelArrayList = dm.getAllFriendsData();
 
     }
 
