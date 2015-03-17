@@ -139,7 +139,14 @@ public class MakeRequests extends Activity {
                                 // The 'which' argument contains the index position
                                 // of the selected item
                             }
+                        })
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                            }
                         });
+
+
                 return builder.create();
         }
         return null;
