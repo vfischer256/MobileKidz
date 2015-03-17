@@ -28,6 +28,10 @@ public class RequestsModel {
         return requestId;
     }
 
+    public void setRequestId(int requestId) {
+        this.requestId = requestId;
+    }
+
     public int getBabysitterId() {
         return babysitterId;
     }
@@ -35,6 +39,7 @@ public class RequestsModel {
     public void setBabysitterId(int babysitterId) {
         this.babysitterId = babysitterId;
     }
+
 
     public String getRequestDate() {
         return requestDate;

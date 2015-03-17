@@ -31,27 +31,33 @@ public class DatabaseManager {
 
     // Logcat tag
     private static final String LOG = "DatabaseHelper";
+
     // Database Version
     private static final int DB_VERSION = 16;
+
     // Database Name
     private static final String DB_NAME = "babysitting";
+
     // Table Names
     private static final String TABLE_REQUESTS = "requests";
     private static final String TABLE_FRIENDS = "friends";
     private static final String TABLE_FRIEND_REQUESTS = "friend_requests";
     private static final String TABLE_MESSAGES = "messages";
     private static final String TABLE_POINTS = "points";
+
     // Common column names
     private static final String KEY_ID = "id";
     private static final String KEY_CREATED_AT = "created_at";
     private static final String KEY_UPDATED_AT = "updated_at";
     private static final String KEY_STATUS = "status";
     private static final String KEY_FRIEND_NAME = "friend_name";
+
     // FRIENDS table create statement
     private static final String CREATE_TABLE_FRIENDS = "CREATE TABLE "
             + TABLE_FRIENDS + "(" + KEY_ID + " integer primary key autoincrement not null,"
             + KEY_FRIEND_NAME + " text not null,"
             + KEY_CREATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
+
     // REQUESTS Table - column names
     private static final String KEY_BABYSITTER_ID = "babysitter_id";
     private static final String KEY_REQUEST_SENT_RECEIVED = "sent_received";
@@ -92,15 +98,18 @@ public class DatabaseManager {
             + KEY_CREATED_AT + " text not null,"
             + KEY_UPDATED_AT + " text not null,"
             + KEY_STATUS + " text not null" + ")";
+
     // POINTS Table - column names
     private static final String KEY_POINTS = "points";
     private static final String KEY_REQUEST_ID = "request_id";
+
     // POINTS table create statement
     private static final String CREATE_TABLE_POINTS = "CREATE TABLE "
             + TABLE_POINTS + "(" + KEY_ID + " integer primary key autoincrement not null,"
             + KEY_POINTS + " integer not null,"
             + KEY_CREATED_AT + " text not null,"
             + KEY_REQUEST_ID + " integer not null" + ")";
+
     // Reference to the database manager class
     private SQLiteDatabase db;
     private Context context;
@@ -143,10 +152,9 @@ public class DatabaseManager {
         values.put(KEY_STATUS, requestsObj.getRequestStatus());
         values.put(KEY_REQUEST_SENT_RECEIVED, requestsObj.getRequestSentReceived());
         return values;
-
     }
 
-    public RequestsModel getRowAsObject(int rowID) {
+    public RequestsModel getRequestsRowAsObject(int rowID) {
 
         RequestsModel rowRequestsObj = new RequestsModel();
         Cursor cursor;
@@ -167,8 +175,44 @@ public class DatabaseManager {
 
     }
 
+    public ArrayList<RequestsModel> getAllRequestsData() {
+
+        ArrayList<RequestsModel> allRowsObj = new ArrayList<RequestsModel>();
+        Cursor cursor;
+        RequestsModel rowRequestsObj;
+
+        String[] columns = new String[]{KEY_ID, KEY_BABYSITTER_ID, KEY_REQUEST_DATE, KEY_STATUS, KEY_REQUEST_SENT_RECEIVED};
+
+        try {
+
+            cursor = db
+                    .query(TABLE_REQUESTS, columns, null, null, null, null, null);
+            cursor.moveToFirst();
+
+            if (!cursor.isAfterLast()) {
+                do {
+                    rowRequestsObj = new RequestsModel();
+                    rowRequestsObj.setRequestId(cursor.getInt(0));
+                    prepareSendRequestsObject(rowRequestsObj, cursor);
+                    allRowsObj.add(rowRequestsObj);
+
+                } while (cursor.moveToNext()); // try to move the cursor's
+                // pointer forward one position.
+            }
+        } catch (Exception e) {
+            Log.e("DB ERROR", e.toString());
+            e.printStackTrace();
+        }
+
+        return allRowsObj;
+
+    }
+
     private void prepareSendRequestsObject(RequestsModel rowObj, Cursor cursor) {
-        rowObj.setRequestStatus(cursor.getString(cursor.getColumnIndexOrThrow(KEY_ID)));
+        rowObj.setBabysitterId(cursor.getInt(cursor.getColumnIndexOrThrow(KEY_BABYSITTER_ID)));
+        rowObj.setRequestDate(cursor.getString(cursor.getColumnIndexOrThrow(KEY_REQUEST_DATE)));
+        rowObj.setRequestStatus(cursor.getString(cursor.getColumnIndexOrThrow(KEY_STATUS)));
+        rowObj.setRequestSentReceived(cursor.getString(cursor.getColumnIndexOrThrow(KEY_REQUEST_SENT_RECEIVED)));
     }
 
     public void addRowFriends(FriendsModel friendsObj) {
@@ -215,7 +259,7 @@ public class DatabaseManager {
 
     // Returns all the rows data in form of ContactModel object list
 
-    public ArrayList<FriendsModel> getAllData() {
+    public ArrayList<FriendsModel> getAllFriendsData() {
 
         ArrayList<FriendsModel> allRowsObj = new ArrayList<FriendsModel>();
         Cursor cursor;
