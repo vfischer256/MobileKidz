@@ -1,8 +1,10 @@
 package com.onemobilekidz.mobilekidz;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,10 +30,14 @@ public class MakeRequests extends Activity {
 
     static final int TIME_DIALOG_ID = 0;
     static final int DATE_DIALOG_ID = 1;
+    static final int BABYSITTER_DIALOG_ID = 2;
+
     String mChosenDateTime;
     private TextView mTimeDisplay;
     private Button mPickTime;
     private Button mPickDate;
+    private Button mChooseBabysitter;
+
     private int mHour;
     private int mMinute;
     // the callback received when the user "sets" the time in the dialog
@@ -81,6 +87,7 @@ public class MakeRequests extends Activity {
         mTimeDisplay = (TextView) findViewById(R.id.myChosenDate);
         mPickTime = (Button) findViewById(R.id.pickTime);
         mPickDate = (Button) findViewById(R.id.pickDate);
+        mChooseBabysitter = (Button) findViewById(R.id.chooseBabysitter);
 
         // add a click listener to the button
         mPickTime.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +99,12 @@ public class MakeRequests extends Activity {
         mPickDate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showDialog(DATE_DIALOG_ID);
+            }
+        });
+
+        mChooseBabysitter.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                showDialog(BABYSITTER_DIALOG_ID);
             }
         });
 
@@ -118,6 +131,16 @@ public class MakeRequests extends Activity {
             case DATE_DIALOG_ID:
                 return new DatePickerDialog(this,
                         mDateSetListener, mYear, mMonthOfYear, mDayOfMonth);
+            case BABYSITTER_DIALOG_ID:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Pick a Babysitter")
+                        .setAdapter(new FriendListAdapter(this), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // The 'which' argument contains the index position
+                                // of the selected item
+                            }
+                        });
+                return builder.create();
         }
         return null;
     }
