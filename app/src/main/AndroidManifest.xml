@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.onemobilekidz.mobilekidz" >
+    package="com.onemobilekidz.mobilekidz">
 
     <uses-sdk android:targetSdkVersion="15" />
-f
+    f
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!--
@@ -17,38 +17,46 @@ f
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
+    <android:uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/baby"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".Home"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Friends"
             android:label="@string/title_activity_friends"
-            android:parentActivityName=".Home" >
+            android:parentActivityName=".Home">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.onemobilekidz.mobilekidz.Home" />
         </activity>
         <activity
             android:name=".Schedule"
-            android:label="@string/title_activity_schedule" >
+            android:label="@string/title_activity_schedule">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.onemobilekidz.mobilekidz.Home" />
         </activity>
         <activity
             android:name=".Messages"
-            android:label="@string/title_activity_messages" >
+            android:label="@string/title_activity_messages">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.onemobilekidz.mobilekidz.Friends" />
@@ -56,9 +64,7 @@ f
         <activity
             android:name=".Login"
             android:label="@string/title_activity_login"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -67,7 +73,7 @@ f
         <activity
             android:name=".FriendRequests"
             android:label="@string/title_activity_friend_requests"
-            android:parentActivityName=".Friends" >
+            android:parentActivityName=".Friends">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.onemobilekidz.mobilekidz.Friends" />
@@ -75,7 +81,7 @@ f
         <activity
             android:name=".OutOfNetWorkFriends"
             android:label="@string/title_activity_out_of_net_work_friends"
-            android:parentActivityName=".Friends" >
+            android:parentActivityName=".Friends">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.onemobilekidz.mobilekidz.Friends" />
@@ -83,7 +89,7 @@ f
         <activity
             android:name=".Profile"
             android:label="@string/title_activity_profile"
-            android:parentActivityName=".Home" >
+            android:parentActivityName=".Home">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.onemobilekidz.mobilekidz.Home" />
@@ -91,7 +97,7 @@ f
         <activity
             android:name=".Requests"
             android:label="@string/title_activity_requests"
-            android:parentActivityName=".Home" >
+            android:parentActivityName=".Home">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.onemobilekidz.mobilekidz.Home" />
@@ -99,11 +105,14 @@ f
         <activity
             android:name=".MakeRequests"
             android:label="@string/title_activity_make_requests"
-            android:parentActivityName=".Home" >
+            android:parentActivityName=".Home">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.onemobilekidz.mobilekidz.Home" />
         </activity>
+        <activity
+            android:name=".Points"
+            android:label="@string/title_activity_points"></activity>
     </application>
 
 </manifest>
