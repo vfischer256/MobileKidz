@@ -32,7 +32,7 @@ public class DatabaseManager {
     // Logcat tag
     private static final String LOG = "DatabaseHelper";
     // Database Version
-    private static final int DB_VERSION = 15;
+    private static final int DB_VERSION = 16;
     // Database Name
     private static final String DB_NAME = "babysitting";
     // Table Names
@@ -54,8 +54,11 @@ public class DatabaseManager {
             + KEY_CREATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
     // REQUESTS Table - column names
     private static final String KEY_BABYSITTER_ID = "babysitter_id";
+    private static final String KEY_REQUEST_SENT_RECEIVED = "sent_received";
+
     // FRIENDS Table - column names
     private static final String KEY_REQUEST_DATE = "request_date";
+
     // Table Create Statements
     // REQUESTS table create statement
     private static final String CREATE_TABLE_REQUESTS = "CREATE TABLE "
@@ -64,9 +67,12 @@ public class DatabaseManager {
             + KEY_REQUEST_DATE + " text not null,"
             + KEY_CREATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
             + KEY_UPDATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
-            + KEY_STATUS + " text not null" + ")";
+            + KEY_STATUS + " text not null,"
+            + KEY_REQUEST_SENT_RECEIVED + " text not null" + ")";
+
     // FRIEND_REQUESTS Table - column names
     private static final String KEY_OUT_OF_NETWORK_USERS = "out_of_network_users";
+
     // FRIEND_REQUESTS table create statement
     private static final String CREATE_TABLE_FRIEND_REQUESTS = "CREATE TABLE "
             + TABLE_FRIEND_REQUESTS + "(" + KEY_ID + " integer primary key autoincrement not null,"
@@ -74,8 +80,10 @@ public class DatabaseManager {
             + KEY_CREATED_AT + " text not null,"
             + KEY_UPDATED_AT + " text not null,"
             + KEY_STATUS + " text not null" + ")";
+
     // MESSAGES Table - column names
     private static final String KEY_MESSAGE = "message";
+
     // MESSAGES table create statement
     private static final String CREATE_TABLE_MESSAGES = "CREATE TABLE "
             + TABLE_MESSAGES + "(" + KEY_ID + " integer primary key autoincrement not null,"
@@ -133,6 +141,7 @@ public class DatabaseManager {
         values.put(KEY_CREATED_AT, getDateTime());
         values.put(KEY_UPDATED_AT, getDateTime());
         values.put(KEY_STATUS, requestsObj.getRequestStatus());
+        values.put(KEY_REQUEST_SENT_RECEIVED, requestsObj.getRequestSentReceived());
         return values;
 
     }

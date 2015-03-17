@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,7 +53,6 @@ public class MakeRequests extends Activity {
     private int mYear;
     private int mMonthOfYear;
     private int mDayOfMonth;
-
     // The overridden method shown below gets invoked when
     //'showDialog()' is called inside the 'onClick()' method defined
     // for handling the click event of the button 'change the time'
@@ -67,6 +67,7 @@ public class MakeRequests extends Activity {
 
                 }
             };
+    private int babysitterId = 1;
 
     private static String pad(int c) {
         if (c >= 10)
@@ -120,6 +121,8 @@ public class MakeRequests extends Activity {
 
         // display the current date
         updateDisplay();
+
+
     }
 
     @Override
@@ -133,16 +136,17 @@ public class MakeRequests extends Activity {
                         mDateSetListener, mYear, mMonthOfYear, mDayOfMonth);
             case BABYSITTER_DIALOG_ID:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
                 builder.setTitle("Pick a Babysitter")
                         .setAdapter(new FriendListAdapter(this), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // The 'which' argument contains the index position
-                                // of the selected item
+                                babysitterId = which + babysitterId;
+                                Log.v("LOG", String.valueOf(babysitterId));
                             }
                         })
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                // User cancelled the dialog
+                                Log.v("LOG", "I'm being cancelled.");
                             }
                         });
 
@@ -166,7 +170,7 @@ public class MakeRequests extends Activity {
 
     public void submitBabysittingRequest(View view) {
         DatabaseManager dbManager = new DatabaseManager(this);
-        RequestsModel requestsModel = new RequestsModel(1, mChosenDateTime, "pending");
+        RequestsModel requestsModel = new RequestsModel(babysitterId, mChosenDateTime, "pending", "sent");
 
         // babysitterId, String requestDate, String requestStatus
         dbManager.addRowRequests(requestsModel);
