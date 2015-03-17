@@ -12,6 +12,21 @@
     tools:context="com.onemobilekidz.mobilekidz.MakeRequests"
     tools:ignore="MergeRootFrame">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="View Points"
+            android:id="@+id/goToPoints"
+            android:clickable="true"
+            android:onClick="viewPoints" />
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"

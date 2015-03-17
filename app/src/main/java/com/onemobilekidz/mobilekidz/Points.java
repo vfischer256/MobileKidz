@@ -1,5 +1,6 @@
 package com.onemobilekidz.mobilekidz;
 
+import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,7 +11,7 @@ import com.onemobilekidz.mobilekidz.helper.DatabaseManager;
 import com.onemobilekidz.mobilekidz.model.PointsModel;
 
 
-public class Points extends ActionBarActivity {
+public class Points extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
