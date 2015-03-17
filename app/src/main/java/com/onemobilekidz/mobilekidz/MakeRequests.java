@@ -175,21 +175,6 @@ public class MakeRequests extends Activity {
         // babysitterId, String requestDate, String requestStatus
         dbManager.addRowRequests(requestsModel);
 
-        //TODO: Temporary location move this to the proper class after testing.
-
-        FriendsModel friendsObj = new FriendsModel("Maria");
-        dbManager.addRowFriends(friendsObj);
-
-        FriendRequestsModel friendRequestsObj = new FriendRequestsModel("user1", "not added");
-        dbManager.addRowFriendRequests(friendRequestsObj);
-
-        MessagesModel messagesObj = new MessagesModel(1, "can you babysit?", "read");
-        dbManager.addRowMessages(messagesObj);
-
-        PointsModel pointsObj = new PointsModel(5, 2);
-        dbManager.addRowPoints(pointsObj);
-
-
         Intent intent = new Intent(this, Requests.class);
         startActivity(intent);
     }

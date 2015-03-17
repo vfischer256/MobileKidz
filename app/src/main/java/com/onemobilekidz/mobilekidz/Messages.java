@@ -5,6 +5,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.onemobilekidz.mobilekidz.helper.DatabaseManager;
+import com.onemobilekidz.mobilekidz.model.MessagesModel;
 
 
 public class Messages extends Activity {
@@ -13,6 +17,12 @@ public class Messages extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
+    }
+
+    public void sendMessages(View view) {
+        DatabaseManager dbManager = new DatabaseManager(this);
+        MessagesModel messagesObj = new MessagesModel(1, "can you babysit?", "read");
+        dbManager.addRowMessages(messagesObj);
     }
 
 
