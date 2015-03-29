@@ -4,9 +4,14 @@ import android.app.ListActivity;
 import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,6 +30,7 @@ import java.util.Random;
 public class FriendRequests extends ListActivity {
 
 
+    private static final String LOG = "FriendRequests";
     private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
     private String mUsername;
     private Firebase mFirebaseRef;
@@ -39,6 +45,8 @@ public class FriendRequests extends ListActivity {
 
         // Setup our Firebase mFirebaseRef
         mFirebaseRef = new Firebase(FIREBASE_URL).child("friend_requests").child(UserModel.getCurrentUser().getUserId());
+
+
     }
 
     @Override
@@ -74,6 +82,7 @@ public class FriendRequests extends ListActivity {
 // No-op
             }
         });
+
     }
 
     @Override
@@ -96,9 +105,9 @@ public class FriendRequests extends ListActivity {
                     friendId = i;
                 }
                 System.out.println("Sending friend request from " + UserModel.getCurrentUser().getUserId() + " to " + email + " (" + friendId + ")");
-                new Firebase("https://crackling-heat-9656.firebaseio.com/friend_requests").
+                new Firebase(FIREBASE_URL).child("friend_requests").
                         child(UserModel.getCurrentUser().getUserId()).child(friendId).child("recipient").setValue(true);
-                new Firebase("https://crackling-heat-9656.firebaseio.com/friend_requests").
+                new Firebase(FIREBASE_URL).child("friend_requests").
                         child(friendId).child(UserModel.getCurrentUser().getUserId()).child("sender").setValue(true);
             }
 
@@ -107,65 +116,34 @@ public class FriendRequests extends ListActivity {
         });
     }
 
-
-}
     /*
-
-    private static final String LOG = "FriendRequests";
-    private Firebase mFirebaseRef;
-    private ValueEventListener mConnectedListener;
-    private FriendRequestsListAdapter friendRequestsListAdapter;
-
-    private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friend_requests);
-
-        mFirebaseRef = new Firebase(FIREBASE_URL).child("friend_requests");
-
-        Log.v(LOG, "friend requests" + UserModel.getCurrentUser().getUserId());
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-// Setup our view and list adapter. Ensure it scrolls to the bottom as data changes
-        final ListView listView = getListView();
-// Tell our list adapter that we only want 50 messages at a time
-        friendRequestsListAdapter = new FriendRequestsListAdapter(mFirebaseRef.child(UserModel.getCurrentUser().getUserId()).child("sent_to"), this, R.layout.activity_friend_requests);
-        listView.setAdapter(friendRequestsListAdapter);
-        friendRequestsListAdapter.registerDataSetObserver(new DataSetObserver() {
-            @Override
-            public void onChanged() {
-                super.onChanged();
-                listView.setSelection(friendRequestsListAdapter.getCount() - 1);
-            }
-        });
-// Finally, a little indication of connection status
-        mConnectedListener = mFirebaseRef.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                boolean connected = (Boolean) dataSnapshot.getValue();
-                if (connected) {
-                    Toast.makeText(FriendRequests.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(FriendRequests.this, "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
+    public void AcceptFriendRequest(View view) {
+        Toast.makeText(FriendRequests.this, "Friend Added", Toast.LENGTH_SHORT).show();
+        TextView recipientIdText = (TextView) view.findViewById(R.id.friendRequestName);
+        String email = (String) recipientIdText.getText();
+        UserModel.getOrCreateUserByEmail(email, new ValueEventListener() {
+            public void onDataChange(DataSnapshot snapshot) {
+                String friendId = null;
+                for (String i : ((Map<String, Object>) snapshot.getValue()).keySet()) {
+                    friendId = i;
                 }
+                new Firebase("https://crackling-heat-9656.firebaseio.com/friends").
+                        child(UserModel.getCurrentUser().getUserId()).child(friendId).setValue(true);
             }
-            @Override
+
             public void onCancelled(FirebaseError firebaseError) {
-// No-op
             }
         });
-    }
 
-    public void acceptFriendRequest(View view) {
 
     }
+
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        Log.v(LOG, "I'm being clicked!");
+    }
+    */
 
 
 }
-*/

@@ -198,7 +198,7 @@ public abstract class FirebaseListAdapter<T extends FirebaseListJoiner> extends 
         }
         T model = mModels.get(i);
         // Call out to subclass to marshall this model into the provided view
-        populateView(view, model);
+        populateView(view, model, i);
         return view;
     }
 
@@ -211,5 +211,5 @@ public abstract class FirebaseListAdapter<T extends FirebaseListJoiner> extends 
      * @param v     The view to populate
      * @param model The object containing the data used to populate the view
      */
-    protected abstract void populateView(View v, T model);
+    protected abstract void populateView(View v, T model, int i);
 }

@@ -9,21 +9,24 @@
         android:id="@+id/friendRequestName"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="4" />
+        android:layout_weight="4"
+        android:focusable="false" />
 
     <Button
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:text="Accept"
-        android:id="@+id/button"
-        android:layout_weight="2" />
+        android:id="@+id/acceptFriendButton"
+        android:layout_weight="2"
+        android:focusable="true" />
 
     <Button
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:text="Reject"
-        android:id="@+id/button2"
-        android:layout_weight="2" />
+        android:id="@+id/rejectFriendButton"
+        android:layout_weight="2"
+        android:focusable="true" />
 
 
 </LinearLayout>

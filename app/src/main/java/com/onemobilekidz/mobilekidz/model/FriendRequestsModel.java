@@ -18,15 +18,13 @@ import java.util.Set;
 public class FriendRequestsModel implements FirebaseListJoiner {
 
     String id;
-    Map<String, Boolean> sent_to;
-    Map<String, Boolean> received_from;
+    Boolean recipient;
+    Boolean sender;
     UserModel user;
 
     // Required default constructor for Firebase object mapping
     @SuppressWarnings("unused")
     private FriendRequestsModel() {
-        this.sent_to = new HashMap<>();
-        this.received_from = new HashMap<>();
     }
 
     public Map<Query, String> joinPaths(Firebase path) {
@@ -39,12 +37,12 @@ public class FriendRequestsModel implements FirebaseListJoiner {
         return id;
     }
 
-    public Set<String> getSent_to() {
-        return sent_to.keySet();
+    public Boolean isRecipient() {
+        return recipient;
     }
 
-    public Set<String> getReceived_from() {
-        return received_from.keySet();
+    public Boolean isSender() {
+        return sender;
     }
 
     public UserModel getUser() {

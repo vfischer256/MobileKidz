@@ -53,7 +53,7 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
 
         mGoogleApiClient.connect();*/
         //  initializeUser("vfischer@fischerfamily.us", "Vivienne Fischer");
-        initializeUser("jessica@gmail.com", "Jessica Fischer");
+        initializeUser("vfischer@fischerfamily.us", "vfischer1");
 
         setContentView(R.layout.activity_home);
         ActionBar actionBar = getActionBar();
