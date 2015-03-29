@@ -4,10 +4,13 @@ package com.onemobilekidz.mobilekidz;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.view.View;
 import android.view.LayoutInflater;
 import android.widget.Button;
+
+import com.onemobilekidz.mobilekidz.model.UserModel;
 
 import static com.onemobilekidz.mobilekidz.R.*;
 
@@ -16,6 +19,9 @@ import static com.onemobilekidz.mobilekidz.R.*;
  * Created by vfischer on 3/2/15.
  */
 public class BottomLinksFragment extends Fragment implements View.OnClickListener {
+
+    private static final String LOG = "BottomLinksFragment";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
@@ -29,6 +35,7 @@ public class BottomLinksFragment extends Fragment implements View.OnClickListene
         friendsButton.setOnClickListener(this);
         profileButton.setOnClickListener(this);
 
+
         return view;
     }
 
@@ -41,7 +48,9 @@ public class BottomLinksFragment extends Fragment implements View.OnClickListene
                 startActivity(intent);
                 break;
             case R.id.friendsButton:
+
                 intent = new Intent(getActivity(), Friends.class);
+
                 startActivity(intent);
                 break;
             case id.profileButton:

@@ -5,8 +5,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 
+import com.onemobilekidz.mobilekidz.model.UserModel;
+
 
 public class Friends extends Activity {
+
+    private static final String LOG = "Friends";
 
     private ListView friendList;
 
@@ -26,6 +30,12 @@ public class Friends extends Activity {
         friendList.setAdapter(friendListAdapter);
 
         registerForContextMenu(friendList);
+
+        UserModel userModel = new UserModel();
+
+
+        Log.v(LOG, "this is my userId " + UserModel.getCurrentUser().getUserId());
+
 
     }
 

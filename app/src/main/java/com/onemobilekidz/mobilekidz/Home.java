@@ -1,16 +1,12 @@
 package com.onemobilekidz.mobilekidz;
 
-import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
 import android.view.MenuItem;
-import android.view.Menu;
 
-import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -25,11 +21,7 @@ import com.google.android.gms.plus.model.people.Person;
 import com.onemobilekidz.mobilekidz.model.UserModel;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.TreeSet;
 
 import android.util.Log;
 
@@ -44,21 +36,24 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
     private String email;
     private String displayName;
 
+    public String key;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
+/*        mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(Plus.API, Plus.PlusOptions.builder().build())
                 .addScope(Plus.SCOPE_PLUS_LOGIN)
                 .build();
 
-        mGoogleApiClient.connect();
-
+        mGoogleApiClient.connect();*/
+        //  initializeUser("vfischer@fischerfamily.us", "Vivienne Fischer");
+        initializeUser("jessica@gmail.com", "Jessica Fischer");
 
         setContentView(R.layout.activity_home);
         ActionBar actionBar = getActionBar();
@@ -68,36 +63,27 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
         } else {
             System.out.println("No action bar");
         }
-
     }
 
-    private void initializeUser(final String email) {
-        Firebase myFirebaseRef = new Firebase("https://crackling-heat-9656.firebaseio.com/users");
+    private void initializeUser(final String email, final String displayName) {
+        Query query = new Firebase("https://crackling-heat-9656.firebaseio.com/users").equalTo(email);
 
-        myFirebaseRef.addValueEventListener(new ValueEventListener() {
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-
             public void onDataChange(DataSnapshot snapshot) {
-
                 try {
-                    Map<String, Object> value = (Map<String, Object>) snapshot.getValue();
-                    for (Object o : value.values()) {
-                        // Got a user. Cast it.
-                        Map<String, Object> user = (Map<String, Object>) o;
-                        System.out.println(user.get("email"));
-                        if (email.equals(user.get("email"))) {
-                            Log.v(LOG, "email  exists");
-                            emailExists = true;
+                    UserModel.getCurrentUser().setEmail(email);
+                    if (snapshot.getValue() == null) {
+                        UserModel.getCurrentUser().setUserId(createUser(email, displayName).getKey());
+                    } else {
+                        for (String id : ((Map<String, Object>) snapshot.getValue()).keySet()) {
+                            UserModel.getCurrentUser().setUserId(id);
                         }
                     }
+                    System.out.println(UserModel.getCurrentUser().getUserId());
                 } catch (Exception e) {
                     Log.e(LOG, e.toString());
                     e.printStackTrace();
-                }
-
-                if (!emailExists) {
-                    createUser(email, displayName);
-
                 }
             }
 
@@ -106,19 +92,18 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
                 System.out.println("The read failed: " + firebaseError.getMessage());
             }
         });
-
-
     }
 
-    private void createUser(String email, String displayName) {
-        Firebase myFirebaseRef = new Firebase("https://crackling-heat-9656.firebaseio.com");
-
-        Firebase postRef = myFirebaseRef.child("users");
+    private Firebase createUser(String email, String displayName) {
+        Firebase postRef = new Firebase("https://crackling-heat-9656.firebaseio.com/users");
         Map<String, String> user = new HashMap<String, String>();
         user.put("email", email);
         user.put("displayName", displayName);
-        postRef.push().setValue(user);
-
+        // Set the priority so we can easily search for users by email.
+        user.put(".priority", email);
+        Firebase ref = postRef.push();
+        ref.setValue(user);
+        return ref;
     }
 
     @Override
@@ -162,7 +147,11 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
             email = Plus.AccountApi.getAccountName(mGoogleApiClient);
             Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
             displayName = currentPerson.getDisplayName();
-            initializeUser(email);
+            initializeUser(email, displayName);
+            Log.v(LOG, "user Id + " + UserModel.getCurrentUser().getUserId());
+//            Log.v(LOG, "i am a key + " + key);
+
+//            bundle.putString("userId", key);
 
         }
 
@@ -178,4 +167,5 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
         intent = new Intent(this, Login.class);
         startActivity(intent);
     }
+
 }

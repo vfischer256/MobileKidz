@@ -1,36 +1,53 @@
 package com.onemobilekidz.mobilekidz.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.firebase.client.Firebase;
+import com.firebase.client.Query;
+import com.onemobilekidz.mobilekidz.FirebaseListJoiner;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * Created by vfischer on 3/14/15.
  */
-public class FriendRequestsModel {
 
-    String outOfNetworkUsers;
-    String status;
 
-    public FriendRequestsModel() {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class FriendRequestsModel implements FirebaseListJoiner {
+
+    String id;
+    Map<String, Boolean> sent_to;
+    Map<String, Boolean> received_from;
+    UserModel user;
+
+    // Required default constructor for Firebase object mapping
+    @SuppressWarnings("unused")
+    private FriendRequestsModel() {
+        this.sent_to = new HashMap<>();
+        this.received_from = new HashMap<>();
     }
 
-    public FriendRequestsModel(String outOfNetworkUsers, String status) {
-        this.outOfNetworkUsers = outOfNetworkUsers;
-        this.status = status;
+    public Map<Query, String> joinPaths(Firebase path) {
+        Map<Query, String> paths = new HashMap<>();
+        paths.put(path.getRoot().child("users").child(id), "user");
+        return paths;
     }
 
-    public String getOutOfNetworkUsers() {
-        return outOfNetworkUsers;
+    public String getId() {
+        return id;
     }
 
-    public void setOutOfNetworkUsers(String outOfNetworkUsers) {
-        this.outOfNetworkUsers = outOfNetworkUsers;
+    public Set<String> getSent_to() {
+        return sent_to.keySet();
     }
 
-    public String getStatus() {
-        return status;
+    public Set<String> getReceived_from() {
+        return received_from.keySet();
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public UserModel getUser() {
+        return user;
     }
-
-
 }

@@ -296,6 +296,7 @@ public class DatabaseManager {
         rowObj.setFriendName(cursor.getString(cursor.getColumnIndexOrThrow(KEY_FRIEND_NAME)));
     }
 
+    /*
     public void addRowFriendRequests(FriendRequestsModel friendRequestsObj) {
         ContentValues values = prepareFriendRequestsData(friendRequestsObj);
         // ask the database object to insert the new data
@@ -310,6 +311,7 @@ public class DatabaseManager {
 
     }
 
+
     private ContentValues prepareFriendRequestsData(FriendRequestsModel friendRequestsObj) {
 
         ContentValues values = new ContentValues();
@@ -319,7 +321,10 @@ public class DatabaseManager {
         values.put(KEY_STATUS, friendRequestsObj.getStatus());
         return values;
 
+
+
     }
+    */
 
     public void addRowMessages(MessagesModel messagesObj) {
         ContentValues values = prepareMessagesData(messagesObj);

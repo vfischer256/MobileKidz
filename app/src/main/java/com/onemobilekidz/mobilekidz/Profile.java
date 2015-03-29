@@ -17,12 +17,20 @@ import com.google.android.gms.plus.Plus;
 
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.plus.model.people.Person;
+import com.onemobilekidz.mobilekidz.model.UserModel;
 
 public class Profile extends Activity implements ConnectionCallbacks, OnConnectionFailedListener {
 
     private Button mSignOutButton;
 
     private GoogleApiClient mGoogleApiClient;
+
+    private String email;
+    private String displayName;
+    private String userId;
+
+    UserModel userModel = new UserModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +88,16 @@ public class Profile extends Activity implements ConnectionCallbacks, OnConnecti
 
     @Override
     public void onConnected(Bundle bundle) {
+        if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
+            email = Plus.AccountApi.getAccountName(mGoogleApiClient);
+            Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+            displayName = currentPerson.getDisplayName();
+
+
+        }
 
     }
+
 
     @Override
     public void onConnectionSuspended(int i) {

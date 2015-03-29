@@ -28,11 +28,28 @@
         android:orientation="vertical"
         android:paddingLeft="20dp">
 
-        <ListView
-            android:id="@+id/friendRequests"
+        <EditText
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:entries="@array/friendRequests" />
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:id="@+id/editEmailAddress"
+            android:autoText="true"
+            android:hint="Enter email address" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add a Friend"
+            android:id="@+id/buttonSendFriendRequest"
+            android:onClick="sendFriendRequest"
+            android:clickable="true" />
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
 
     </LinearLayout>
 
