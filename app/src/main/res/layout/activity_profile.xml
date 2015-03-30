@@ -122,30 +122,49 @@
             android:onClick="signOut">
 
 
-        <TextView
-            android:id="@+id/textView9"
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentRight="false"
+                android:layout_column="0"
+                android:layout_gravity="center_vertical|fill_vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_row="0"
+                android:layout_rowSpan="1"
+
+
+                android:layout_weight="2"
+                android:gravity="center"
+                android:singleLine="false"
+                android:text="Sign Out"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#3c0032"
+                android:textSize="35sp"
+                android:textStyle="bold" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/fourthRow"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="false"
-            android:layout_alignParentRight="false"
-            android:layout_column="0"
-            android:layout_gravity="center_vertical|fill_vertical"
-            android:layout_marginLeft="5dp"
-            android:layout_row="0"
-            android:layout_rowSpan="1"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:onClick="updateProfile">
 
-
-            android:layout_weight="2"
-            android:gravity="center"
-            android:singleLine="false"
-            android:text="Sign Out"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#3c0032"
-            android:textSize="35sp"
-            android:textStyle="bold" />
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="center"
+                android:src="@drawable/edit" />
         </TableRow>
 
     </TableLayout>
+
 
     <fragment
         android:id="@+id/bottomSection"
@@ -154,4 +173,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         tools:layout="@layout/fragment_bottom_section" />
+
+
 </LinearLayout>
