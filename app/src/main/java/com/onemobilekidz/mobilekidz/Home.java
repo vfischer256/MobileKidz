@@ -55,7 +55,7 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
         mGoogleApiClient.connect();*/
         //  initializeUser("vfischer@fischerfamily.us", "Vivienne Fischer");
         initializeUser("katie@gmail.com", "Katie");
-        //      initializeUser("vfischer@gmail.com", "vfischer");
+        //    initializeUser("vfischer@gmail.com", "vfischer");
         //   initializeUser("jessica@gmail.com", "Jessica Fischer");
 
         setContentView(R.layout.activity_home);
@@ -116,12 +116,10 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
 
     private Firebase updateDisplayName(String displayName) {
         Firebase postRef = new Firebase("https://crackling-heat-9656.firebaseio.com").child("users").child(UserModel.getCurrentUser().getUserId());
-        //  postRef.child(UserModel.getCurrentUser().getUserId()).child(displayName).removeValue();
         Map<String, Object> user = new HashMap<String, Object>();
         user.put("displayName", displayName);
         Log.v(LOG, "my new name " + displayName);
         postRef.updateChildren(user);
-
         return postRef;
 
     }
