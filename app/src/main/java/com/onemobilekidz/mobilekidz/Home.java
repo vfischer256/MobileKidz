@@ -79,6 +79,8 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
                     } else {
                         for (String id : ((Map<String, Object>) snapshot.getValue()).keySet()) {
                             UserModel.getCurrentUser().setUserId(id);
+                            String displayName = ((Map<String, Map<String, String>>) snapshot.getValue()).get(id).get("displayName");
+                            UserModel.getCurrentUser().setDisplayName(displayName);
                         }
                     }
                     System.out.println(UserModel.getCurrentUser().getUserId());

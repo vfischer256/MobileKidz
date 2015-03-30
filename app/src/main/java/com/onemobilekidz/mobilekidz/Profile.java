@@ -3,11 +3,13 @@ package com.onemobilekidz.mobilekidz;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.view.View;
 import android.app.Activity;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -20,8 +22,12 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.plus.model.people.Person;
 import com.onemobilekidz.mobilekidz.model.UserModel;
 
+import org.w3c.dom.Text;
+
 public class Profile extends Activity implements ConnectionCallbacks, OnConnectionFailedListener {
 
+
+    private static final String LOG = "Profile";
     private Button mSignOutButton;
 
     private GoogleApiClient mGoogleApiClient;
@@ -30,13 +36,11 @@ public class Profile extends Activity implements ConnectionCallbacks, OnConnecti
     private String displayName;
     private String userId;
 
-    UserModel userModel = new UserModel();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
+/*
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -45,7 +49,11 @@ public class Profile extends Activity implements ConnectionCallbacks, OnConnecti
                 .build();
 
         mGoogleApiClient.connect();
+*/
 
+        TextView displayNameView = (TextView) findViewById(R.id.profileName);
+
+        displayNameView.setText(UserModel.getCurrentUser().getDisplayName());
     }
 
 

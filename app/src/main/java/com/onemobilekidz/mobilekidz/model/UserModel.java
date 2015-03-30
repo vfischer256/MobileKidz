@@ -18,6 +18,8 @@ import java.util.Map;
  */
 public class UserModel {
     private String email;
+
+
     private String displayName;
     private static UserModel currentUser = new UserModel();
     private static final String LOG = "UserModel";
@@ -92,6 +94,10 @@ public class UserModel {
 
     public String getDisplayName() {
         return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     public void setEmail(String email) {
