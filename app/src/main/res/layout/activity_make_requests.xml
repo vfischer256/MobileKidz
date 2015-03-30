@@ -62,7 +62,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="Pick Time" />
+            android:text="Pick Start Time" />
+
+        <Button
+            android:id="@+id/endTime"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Pick End Time" />
 
         <TextView
             android:id="@+id/myChosenDate"

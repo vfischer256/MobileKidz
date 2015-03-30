@@ -14,12 +14,15 @@ import android.view.View;
 import android.app.Activity;
 import android.widget.*;
 
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 import com.onemobilekidz.mobilekidz.helper.DatabaseManager;
 import com.onemobilekidz.mobilekidz.model.FriendRequestsModel;
 import com.onemobilekidz.mobilekidz.model.FriendsModel;
 import com.onemobilekidz.mobilekidz.model.MessagesModel;
 import com.onemobilekidz.mobilekidz.model.PointsModel;
 import com.onemobilekidz.mobilekidz.model.RequestsModel;
+import com.onemobilekidz.mobilekidz.model.UserModel;
 
 import java.util.*;
 
@@ -29,18 +32,30 @@ for Java® Programmers. Course Technology PTR. */
 
 public class MakeRequests extends Activity {
 
+    private static final String LOG = "MakeRequests";
+    private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
+
     static final int TIME_DIALOG_ID = 0;
     static final int DATE_DIALOG_ID = 1;
     static final int BABYSITTER_DIALOG_ID = 2;
+    static final int END_TIME_DIALOG_ID = 3;
+
 
     String mChosenDateTime;
+    String mEndDateTime;
+
     private TextView mTimeDisplay;
     private Button mPickTime;
     private Button mPickDate;
+    private Button mEndTime;
     private Button mChooseBabysitter;
 
     private int mHour;
     private int mMinute;
+
+    private int mEndHour;
+    private int mEndMinute;
+
     // the callback received when the user "sets" the time in the dialog
     private TimePickerDialog.OnTimeSetListener mTimeSetListener =
             new TimePickerDialog.OnTimeSetListener() {
@@ -50,6 +65,7 @@ public class MakeRequests extends Activity {
                     updateDisplay();
                 }
             };
+
     private int mYear;
     private int mMonthOfYear;
     private int mDayOfMonth;
@@ -67,6 +83,7 @@ public class MakeRequests extends Activity {
 
                 }
             };
+
     private int babysitterId = 1;
 
     private static String pad(int c) {
@@ -83,11 +100,13 @@ public class MakeRequests extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_requests);
+        Firebase.setAndroidContext(this);
 
         // capture our View elements
         mTimeDisplay = (TextView) findViewById(R.id.myChosenDate);
         mPickTime = (Button) findViewById(R.id.pickTime);
         mPickDate = (Button) findViewById(R.id.pickDate);
+        mEndTime = (Button) findViewById(R.id.endTime);
         mChooseBabysitter = (Button) findViewById(R.id.chooseBabysitter);
 
         // add a click listener to the button
@@ -108,11 +127,22 @@ public class MakeRequests extends Activity {
                 showDialog(BABYSITTER_DIALOG_ID);
             }
         });
+        mEndTime.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                showDialog(END_TIME_DIALOG_ID);
+            }
+        });
+
 
         // get the current time
         final Calendar c = Calendar.getInstance();
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
+
+        mEndHour = c.get(Calendar.HOUR_OF_DAY);
+        mEndMinute = c.get(Calendar.MINUTE);
+
+
 
         // get the current date
         mYear = c.get(Calendar.YEAR);
@@ -136,6 +166,10 @@ public class MakeRequests extends Activity {
                         mDateSetListener, mYear, mMonthOfYear, mDayOfMonth);
             case BABYSITTER_DIALOG_ID:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            case END_TIME_DIALOG_ID:
+                return new TimePickerDialog(this,
+                        mTimeSetListener, mEndHour, mEndMinute, false);
+
 /*
                 builder.setTitle("Pick a Babysitter")
                         .setAdapter(new FriendListAdapter(this), new DialogInterface.OnClickListener() {
@@ -165,16 +199,39 @@ public class MakeRequests extends Activity {
                 .append(pad(mDayOfMonth)).append(" ")
                 .append(pad(mHour)).append(":")
                 .append(pad(mMinute)).toString();
-        mTimeDisplay.setText(mChosenDateTime
-        );
+
+        mEndDateTime = new StringBuilder()
+                .append(pad(mYear)).append("-")
+                .append(pad(mMonthOfYear)).append("-")
+                .append(pad(mDayOfMonth)).append(" ")
+                .append(pad(mEndHour)).append(":")
+                .append(pad(mEndMinute)).toString();
+        mTimeDisplay.setText("From: " + mChosenDateTime + " To: " + mEndDateTime);
+
     }
 
-    public void submitBabysittingRequest(View view) {
-        DatabaseManager dbManager = new DatabaseManager(this);
-        RequestsModel requestsModel = new RequestsModel(babysitterId, mChosenDateTime, "pending", "sent");
+    public void submitBabysittingRequest(final View view) {
 
-        // babysitterId, String requestDate, String requestStatus
-        dbManager.addRowRequests(requestsModel);
+
+        Firebase postRef = new Firebase(FIREBASE_URL).child("babysitting_requests").child(UserModel.getCurrentUser().getUserId());
+        Map<String, String> user = new HashMap<String, String>();
+        //    user.put("friend_id", babysitterId);
+        user.put("job_start_time", mChosenDateTime);
+        //  user.put("job_end_time", mEndDateTime);
+        Firebase ref = postRef.push();
+        ref.setValue(user,
+                new Firebase.CompletionListener() {
+                    @Override
+                    public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                        if (firebaseError != null) {
+                            System.out.println("Job could not be sent. " + firebaseError.getMessage());
+                        } else {
+
+                            Toast.makeText(view.getContext(), "Job requested", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
 
         Intent intent = new Intent(this, Requests.class);
         startActivity(intent);
