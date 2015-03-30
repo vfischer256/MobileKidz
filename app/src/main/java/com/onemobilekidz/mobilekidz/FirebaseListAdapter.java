@@ -59,6 +59,7 @@ public abstract class FirebaseListAdapter<T extends FirebaseListJoiner> extends 
         mModels = new ArrayList<>();
         mModelKeys = new HashMap<>();
         // Look for all child events. We will then map them to our own internal ArrayList, which backs ListView
+
         mListener = this.mRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {

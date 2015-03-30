@@ -214,6 +214,7 @@ public class DatabaseManager {
         rowObj.setRequestStatus(cursor.getString(cursor.getColumnIndexOrThrow(KEY_STATUS)));
         rowObj.setRequestSentReceived(cursor.getString(cursor.getColumnIndexOrThrow(KEY_REQUEST_SENT_RECEIVED)));
     }
+    /*
 
     public void addRowFriends(FriendsModel friendsObj) {
         ContentValues values = prepareFriendsData(friendsObj);
@@ -227,6 +228,7 @@ public class DatabaseManager {
             e.printStackTrace(); // prints the stack trace to the log
         }
     }
+
 
     private ContentValues prepareFriendsData(FriendsModel friendsObj) {
 
@@ -258,7 +260,7 @@ public class DatabaseManager {
     }
 
     // Returns all the rows data in form of ContactModel object list
-
+/*
     public ArrayList<FriendsModel> getAllFriendsData() {
 
         ArrayList<FriendsModel> allRowsObj = new ArrayList<FriendsModel>();
@@ -293,7 +295,7 @@ public class DatabaseManager {
     }
 
     private void prepareSendFriendsObject(FriendsModel rowObj, Cursor cursor) {
-        rowObj.setFriendName(cursor.getString(cursor.getColumnIndexOrThrow(KEY_FRIEND_NAME)));
+     //   rowObj.setFriendName(cursor.getString(cursor.getColumnIndexOrThrow(KEY_FRIEND_NAME)));
     }
 
     /*

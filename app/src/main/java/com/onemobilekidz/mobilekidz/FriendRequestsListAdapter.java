@@ -23,19 +23,13 @@ import com.onemobilekidz.mobilekidz.model.UserModel;
  */
 public class FriendRequestsListAdapter extends FirebaseListAdapter<FriendRequestsModel> {
 
-    private final Activity activity;
     private static final String LOG = "FRListAdapter";
-
     private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
-
-
     private String recipientId;
     private String recipientEmail;
 
     public FriendRequestsListAdapter(Query ref, Activity activity, int layout) {
         super(ref, FriendRequestsModel.class, layout, activity);
-        this.activity = activity;
-
     }
 
     /**
@@ -44,17 +38,14 @@ public class FriendRequestsListAdapter extends FirebaseListAdapter<FriendRequest
      * to the constructor, as well as a single <code>FriendRequestsModel</code> instance that represents the current data to bind.
      *
      * @param view              A view instance corresponding to the layout we passed to the constructor.
-     * @param friendRequestsObj An instance representing the current state of a chat message
+     * @param friendRequestObj An instance representing the current state of a chat message
      */
     @Override
-    protected void populateView(View view, final FriendRequestsModel friendRequestsObj, final int i) {
-// Map a Chat object to an entry in our listview
-        //   String recipientId = (String)friendRequestsObj.getRecipient().toArray()[0];
-
-        recipientId = friendRequestsObj.getId();
-        recipientEmail = friendRequestsObj.getId();
-        if (friendRequestsObj.getUser() != null) {
-            recipientEmail = friendRequestsObj.getUser().getEmail();
+    protected void populateView(View view, final FriendRequestsModel friendRequestObj, final int i) {
+        recipientId = friendRequestObj.getId();
+        recipientEmail = friendRequestObj.getId();
+        if (friendRequestObj.getUser() != null) {
+            recipientEmail = friendRequestObj.getUser().getEmail();
         }
         final TextView recipientIdText = (TextView) view.findViewById(R.id.friendRequestName);
         recipientIdText.setText(recipientEmail);
@@ -67,7 +58,7 @@ public class FriendRequestsListAdapter extends FirebaseListAdapter<FriendRequest
             public void onClick(final View v) {
                 Log.v(LOG, "this is my friend " + i);
                 Log.v(LOG, "this is my friend " + recipientId);
-                new Firebase(FIREBASE_URL).child("friends").child(UserModel.getCurrentUser().getUserId()).child(recipientId).setValue(true,
+                new Firebase(FIREBASE_URL).child("friends").child(UserModel.getCurrentUser().getUserId()).child(recipientId).child("friend").setValue(true,
                         new Firebase.CompletionListener() {
                             @Override
                             public void onComplete(FirebaseError firebaseError, Firebase firebase) {
@@ -75,6 +66,7 @@ public class FriendRequestsListAdapter extends FirebaseListAdapter<FriendRequest
                                     System.out.println("Friend could not be saved. " + firebaseError.getMessage());
                                 } else {
                                     new Firebase(FIREBASE_URL).child("friend_requests").child(UserModel.getCurrentUser().getUserId()).child(recipientId).removeValue();
+
                                     Toast.makeText(v.getContext(), "Friend Added", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -95,21 +87,4 @@ public class FriendRequestsListAdapter extends FirebaseListAdapter<FriendRequest
         });
 
     }
-
-
-
-/*
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.acceptFriendButton:
-
-
-
-
-
-                break;
-        }
-    }
-    */
 }

@@ -2,81 +2,55 @@ package com.onemobilekidz.mobilekidz;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
 import com.onemobilekidz.mobilekidz.helper.DatabaseManager;
+import com.onemobilekidz.mobilekidz.model.FriendRequestsModel;
 import com.onemobilekidz.mobilekidz.model.FriendsModel;
+import com.onemobilekidz.mobilekidz.model.UserModel;
 
 /**
  * Created by vfischer on 3/16/15.
  */
-public class FriendListAdapter extends BaseAdapter {
-    DatabaseManager dm;
-    ArrayList<FriendsModel> friendsModelArrayList;
-    LayoutInflater inflater;
-    Context _context;
+public class FriendListAdapter extends FirebaseListAdapter<FriendsModel> {
+    private static final String LOG = "FListAdapter";
 
-    public FriendListAdapter(Context context) {
+    private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
 
-        friendsModelArrayList = new ArrayList<FriendsModel>();
-        _context = context;
-        inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        dm = new DatabaseManager(_context);
-        friendsModelArrayList = dm.getAllFriendsData();
 
+    private String friendId;
+    private String friendName;
+
+    public FriendListAdapter(Query ref, Activity activity, int layout) {
+        super(ref, FriendsModel.class, layout, activity);
     }
 
+    /**
+     * Bind an instance of the <code>FriendRequestsModel</code> class to our view. This method is called by <code>FirebaseListAdapter</code>
+     * when there is a data change, and we are given an instance of a View that corresponds to the layout that we passed
+     * to the constructor, as well as a single <code>FriendRequestsModel</code> instance that represents the current data to bind.
+     *
+     * @param view      A view instance corresponding to the layout we passed to the constructor.
+     * @param friendObj An instance representing the current state of a chat message
+     */
     @Override
-    public void notifyDataSetChanged() {
-        super.notifyDataSetChanged();
-        //refetching the new data from database
-        friendsModelArrayList = dm.getAllFriendsData();
-
-    }
-
-    @Override
-    public int getCount() {
-        return friendsModelArrayList.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return friendsModelArrayList.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder vHolder;
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.friend_list_row, null);
-            vHolder = new ViewHolder();
-
-            vHolder.friend_name = (TextView) convertView
-                    .findViewById(R.id.friend_name);
-            convertView.setTag(vHolder);
-        } else {
-            vHolder = (ViewHolder) convertView.getTag();
+    protected void populateView(View view, final FriendsModel friendObj, final int i) {
+        final TextView friendIdText = (TextView) view.findViewById(R.id.friend_name);
+        if (friendObj.getFriend() != null) {
+            friendName = friendObj.getFriend().getDisplayName();
+            friendIdText.setText(friendName);
         }
-
-        FriendsModel friendsObj = friendsModelArrayList.get(position);
-
-        vHolder.friend_name.setText(friendsObj.getFriendName());
-
-        return convertView;
-    }
-
-    class ViewHolder {
-        TextView friend_name;
     }
 }

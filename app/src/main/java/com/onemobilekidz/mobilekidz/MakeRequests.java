@@ -136,7 +136,7 @@ public class MakeRequests extends Activity {
                         mDateSetListener, mYear, mMonthOfYear, mDayOfMonth);
             case BABYSITTER_DIALOG_ID:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
+/*
                 builder.setTitle("Pick a Babysitter")
                         .setAdapter(new FriendListAdapter(this), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -152,6 +152,7 @@ public class MakeRequests extends Activity {
 
 
                 return builder.create();
+                */
         }
         return null;
     }
@@ -183,8 +184,6 @@ public class MakeRequests extends Activity {
         Intent intent = new Intent(this, Points.class);
         startActivity(intent);
     }
-
-
 
 
 }

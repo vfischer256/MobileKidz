@@ -1,36 +1,44 @@
 package com.onemobilekidz.mobilekidz.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.firebase.client.Firebase;
+import com.firebase.client.Query;
+import com.onemobilekidz.mobilekidz.FirebaseListJoiner;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by vfischer on 3/11/15.
  */
-public class FriendsModel {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class FriendsModel implements FirebaseListJoiner {
 
-    String friendName;
-    int id;
+    String id;
+    UserModel user;
+    Boolean friend;
 
-    public FriendsModel() {
+    private FriendsModel() {
 
     }
 
-    public FriendsModel(String friendName) {
-        this.friendName = friendName;
+    public Boolean isFriendId() {
+        return friend;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+
+    public Map<Query, String> joinPaths(Firebase path) {
+        Map<Query, String> paths = new HashMap<>();
+        paths.put(path.getRoot().child("users").child(id), "user");
+        return paths;
     }
 
-    public String getFriendName() {
-        return friendName;
+    public UserModel getFriend() {
+        return user;
     }
-
-    public void setFriendName(String friendName) {
-        this.friendName = friendName;
-    }
-
 
 }
