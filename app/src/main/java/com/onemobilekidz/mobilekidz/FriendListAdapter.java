@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +27,7 @@ import com.onemobilekidz.mobilekidz.model.UserModel;
  * Created by vfischer on 3/16/15.
  */
 public class FriendListAdapter extends FirebaseListAdapter<FriendsModel> {
+
     private static final String LOG = "FListAdapter";
 
     private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
@@ -32,9 +35,12 @@ public class FriendListAdapter extends FirebaseListAdapter<FriendsModel> {
 
     private String friendId;
     private String friendName;
+    private Context mContext;
 
-    public FriendListAdapter(Query ref, Activity activity, int layout) {
-        super(ref, FriendsModel.class, layout, activity);
+
+    public FriendListAdapter(Context context, Query ref, Activity activity, int layout) {
+        super(context, ref, FriendsModel.class, layout, activity);
+        this.mContext = context;
     }
 
     /**
@@ -51,6 +57,28 @@ public class FriendListAdapter extends FirebaseListAdapter<FriendsModel> {
         if (friendObj.getFriend() != null) {
             friendName = friendObj.getFriend().getDisplayName();
             friendIdText.setText(friendName);
+            friendId = friendObj.getId();
         }
+
+        ImageButton sendMessageButton = (ImageButton) view.findViewById(R.id.sendMessageButton);
+        sendMessageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+
+                Log.v(LOG, "Sending message from " + UserModel.getCurrentUser().getEmail() + " to: " + friendId + " position: " + i);
+                Intent intent = new Intent(mContext, SendMessage.class);
+                intent.putExtra("friendId", friendId);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(intent);
+            }
+
+        });
+
+
+    }
+
+    public void onSendMessage(View view) {
+
+
     }
 }

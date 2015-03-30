@@ -50,7 +50,7 @@ public class FriendRequests extends ListActivity {
         final ListView listView = getListView();
 
         if (mFirebaseRef != null) {
-            friendRequestsListAdapter = new FriendRequestsListAdapter(mFirebaseRef, this, R.layout.friend_request_list_row);
+            friendRequestsListAdapter = new FriendRequestsListAdapter(getApplicationContext(), mFirebaseRef, this, R.layout.friend_request_list_row);
             listView.setAdapter(friendRequestsListAdapter);
             friendRequestsListAdapter.registerDataSetObserver(new DataSetObserver() {
                 @Override
@@ -92,7 +92,7 @@ public class FriendRequests extends ListActivity {
     // TODO: Delete the bogus user after 60 days if the user does not log in at least once.
     public void sendFriendRequest(View view) {
         EditText editText = (EditText) findViewById(R.id.editEmailAddress);
-        final String email = editText.getText().toString();
+        final String email = editText.getText().toString().toLowerCase();
         System.out.println("Sending friend request from " + UserModel.getCurrentUser().getEmail() + " to " + email);
         UserModel.getOrCreateUserByEmail(email, new ValueEventListener() {
             public void onDataChange(DataSnapshot snapshot) {

@@ -28,8 +28,8 @@ public class FriendRequestsListAdapter extends FirebaseListAdapter<FriendRequest
     private String recipientId;
     private String recipientEmail;
 
-    public FriendRequestsListAdapter(Query ref, Activity activity, int layout) {
-        super(ref, FriendRequestsModel.class, layout, activity);
+    public FriendRequestsListAdapter(Context context, Query ref, Activity activity, int layout) {
+        super(context, ref, FriendRequestsModel.class, layout, activity);
     }
 
     /**
@@ -37,7 +37,7 @@ public class FriendRequestsListAdapter extends FirebaseListAdapter<FriendRequest
      * when there is a data change, and we are given an instance of a View that corresponds to the layout that we passed
      * to the constructor, as well as a single <code>FriendRequestsModel</code> instance that represents the current data to bind.
      *
-     * @param view              A view instance corresponding to the layout we passed to the constructor.
+     * @param view             A view instance corresponding to the layout we passed to the constructor.
      * @param friendRequestObj An instance representing the current state of a chat message
      */
     @Override

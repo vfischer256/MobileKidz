@@ -67,5 +67,6 @@
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
     <string name="title_activity_points">Points</string>
+    <string name="title_activity_send_message">SendMessage</string>
 
 </resources>

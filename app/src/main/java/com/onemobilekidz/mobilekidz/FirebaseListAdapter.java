@@ -1,6 +1,7 @@
 package com.onemobilekidz.mobilekidz;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,7 @@ import java.util.Map;
  * you like and this class will handle updating the list as the data changes.
  */
 public abstract class FirebaseListAdapter<T extends FirebaseListJoiner> extends BaseAdapter {
+    private Context context;
     private Query mRef;
     private Class<T> mModelClass;
     private int mLayout;
@@ -51,7 +53,8 @@ public abstract class FirebaseListAdapter<T extends FirebaseListJoiner> extends 
      *                    instance of the corresponding view with the data from an instance of mModelClass.
      * @param activity    The activity containing the ListView
      */
-    public FirebaseListAdapter(Query mRef, Class<T> mModelClass, int mLayout, Activity activity) {
+    public FirebaseListAdapter(Context context, Query mRef, Class<T> mModelClass, int mLayout, Activity activity) {
+        this.context = context;
         this.mRef = mRef;
         this.mModelClass = mModelClass;
         this.mLayout = mLayout;

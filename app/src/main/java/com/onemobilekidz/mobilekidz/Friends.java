@@ -2,9 +2,11 @@ package com.onemobilekidz.mobilekidz;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ public class Friends extends ListActivity {
     private Firebase mFirebaseRef;
     private ValueEventListener mConnectedListener;
     private FriendListAdapter friendListAdapter;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,8 @@ public class Friends extends ListActivity {
         final ListView listView = getListView();
 
         if (mFirebaseRef != null) {
-            friendListAdapter = new FriendListAdapter(mFirebaseRef, this, R.layout.friend_list_row);
+            friendListAdapter = new FriendListAdapter(getApplicationContext(), mFirebaseRef, this, R.layout.friend_list_row);
+
             listView.setAdapter(friendListAdapter);
             friendListAdapter.registerDataSetObserver(new DataSetObserver() {
                 @Override
@@ -86,5 +90,6 @@ public class Friends extends ListActivity {
             friendListAdapter.cleanup();
         }
     }
+
 
 }
