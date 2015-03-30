@@ -35,6 +35,7 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
 
     private String email;
     private String displayName;
+    private String newDisplayName;
 
     public String key;
 
@@ -53,8 +54,9 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
 
         mGoogleApiClient.connect();*/
         //  initializeUser("vfischer@fischerfamily.us", "Vivienne Fischer");
-        //  initializeUser("vfischer1@gmail.com", "vfischer1");
-        initializeUser("jessica@gmail.com", "Jessica Fischer");
+        initializeUser("katie@gmail.com", "Katie");
+        //      initializeUser("vfischer@gmail.com", "vfischer");
+        //   initializeUser("jessica@gmail.com", "Jessica Fischer");
 
         setContentView(R.layout.activity_home);
         ActionBar actionBar = getActionBar();
@@ -79,7 +81,10 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
                     } else {
                         for (String id : ((Map<String, Object>) snapshot.getValue()).keySet()) {
                             UserModel.getCurrentUser().setUserId(id);
-                            String displayName = ((Map<String, Map<String, String>>) snapshot.getValue()).get(id).get("displayName");
+                            newDisplayName = ((Map<String, Map<String, String>>) snapshot.getValue()).get(id).get("displayName");
+                            if (newDisplayName.equals("Unknown User")) {
+                                updateDisplayName(displayName);
+                            }
                             UserModel.getCurrentUser().setDisplayName(displayName);
                         }
                     }
@@ -107,6 +112,18 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
         Firebase ref = postRef.push();
         ref.setValue(user);
         return ref;
+    }
+
+    private Firebase updateDisplayName(String displayName) {
+        Firebase postRef = new Firebase("https://crackling-heat-9656.firebaseio.com").child("users").child(UserModel.getCurrentUser().getUserId());
+        //  postRef.child(UserModel.getCurrentUser().getUserId()).child(displayName).removeValue();
+        Map<String, Object> user = new HashMap<String, Object>();
+        user.put("displayName", displayName);
+        Log.v(LOG, "my new name " + displayName);
+        postRef.updateChildren(user);
+
+        return postRef;
+
     }
 
     @Override

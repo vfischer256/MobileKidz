@@ -116,4 +116,8 @@ public class Profile extends Activity implements ConnectionCallbacks, OnConnecti
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
     }
+
+    public void updateProfile(View view) {
+
+    }
 }
