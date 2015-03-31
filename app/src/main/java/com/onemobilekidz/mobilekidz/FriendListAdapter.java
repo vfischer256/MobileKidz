@@ -33,8 +33,6 @@ public class FriendListAdapter extends FirebaseListAdapter<FriendsModel> {
     private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
 
 
-    private String friendId;
-    private String friendName;
     private Context mContext;
 
 
@@ -54,25 +52,27 @@ public class FriendListAdapter extends FirebaseListAdapter<FriendsModel> {
     @Override
     protected void populateView(View view, final FriendsModel friendObj, final int i) {
         final TextView friendIdText = (TextView) view.findViewById(R.id.friend_name);
+        final String friendName;
+        final String friendId;
         if (friendObj.getFriend() != null) {
             friendName = friendObj.getFriend().getDisplayName();
             friendIdText.setText(friendName);
             friendId = friendObj.getId();
+            ImageButton sendMessageButton = (ImageButton) view.findViewById(R.id.sendMessageButton);
+            sendMessageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+
+                    Log.v(LOG, "Sending message from " + UserModel.getCurrentUser().getEmail() + " to: " + friendId + " position: " + i);
+                    Intent intent = new Intent(mContext, SendMessage.class);
+                    intent.putExtra("friendId", friendId);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mContext.startActivity(intent);
+                }
+
+            });
+
         }
-
-        ImageButton sendMessageButton = (ImageButton) view.findViewById(R.id.sendMessageButton);
-        sendMessageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-
-                Log.v(LOG, "Sending message from " + UserModel.getCurrentUser().getEmail() + " to: " + friendId + " position: " + i);
-                Intent intent = new Intent(mContext, SendMessage.class);
-                intent.putExtra("friendId", friendId);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                mContext.startActivity(intent);
-            }
-
-        });
 
 
     }

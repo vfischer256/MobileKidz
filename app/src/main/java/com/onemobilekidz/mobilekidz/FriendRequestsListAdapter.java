@@ -25,8 +25,6 @@ public class FriendRequestsListAdapter extends FirebaseListAdapter<FriendRequest
 
     private static final String LOG = "FRListAdapter";
     private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
-    private String recipientId;
-    private String recipientEmail;
 
     public FriendRequestsListAdapter(Context context, Query ref, Activity activity, int layout) {
         super(context, ref, FriendRequestsModel.class, layout, activity);
@@ -42,11 +40,15 @@ public class FriendRequestsListAdapter extends FirebaseListAdapter<FriendRequest
      */
     @Override
     protected void populateView(View view, final FriendRequestsModel friendRequestObj, final int i) {
-        recipientId = friendRequestObj.getId();
-        recipientEmail = friendRequestObj.getId();
-        if (friendRequestObj.getUser() != null) {
+        final String recipientId = friendRequestObj.getId();
+        final String recipientEmail;
+        if (friendRequestObj.getUser() == null) {
+            recipientEmail = friendRequestObj.getId();
+        } else {
             recipientEmail = friendRequestObj.getUser().getEmail();
         }
+
+        Log.v(LOG, "1This is my recipientId: " + recipientId + " recipientEmail: " + recipientEmail + " pos: " + i);
         final TextView recipientIdText = (TextView) view.findViewById(R.id.friendRequestName);
         recipientIdText.setText(recipientEmail);
 
@@ -56,8 +58,7 @@ public class FriendRequestsListAdapter extends FirebaseListAdapter<FriendRequest
         acceptFriendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                Log.v(LOG, "this is my friend " + i);
-                Log.v(LOG, "this is my friend " + recipientId);
+                Log.v(LOG, "2This is my recipientId: " + recipientId + " recipientEmail: " + recipientEmail + " pos: " + i);
                 new Firebase(FIREBASE_URL).child("friends").child(UserModel.getCurrentUser().getUserId()).child(recipientId).child("friend").setValue(true,
                         new Firebase.CompletionListener() {
                             @Override
@@ -87,4 +88,6 @@ public class FriendRequestsListAdapter extends FirebaseListAdapter<FriendRequest
         });
 
     }
+
+
 }
