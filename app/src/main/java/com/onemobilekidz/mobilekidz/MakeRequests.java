@@ -4,8 +4,10 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.app.Activity;
 import android.widget.*;
@@ -24,6 +26,9 @@ public class MakeRequests extends Activity {
 
     private static final String LOG = "MakeRequests";
     private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
+
+    private Firebase mFirebaseRef;
+    private FriendListAdapter friendListAdapter;
 
     static final int TIME_DIALOG_ID = 0;
     static final int DATE_DIALOG_ID = 1;
@@ -56,6 +61,16 @@ public class MakeRequests extends Activity {
                 }
             };
 
+    // the callback received when the user "sets" the time in the dialog
+    private TimePickerDialog.OnTimeSetListener mEndTimeSetListener =
+            new TimePickerDialog.OnTimeSetListener() {
+                public void onTimeSet(android.widget.TimePicker view, int hourOfDay, int minute) {
+                    mEndHour = hourOfDay;
+                    mEndMinute = minute;
+                    updateDisplay();
+                }
+            };
+
     private int mYear;
     private int mMonthOfYear;
     private int mDayOfMonth;
@@ -74,7 +89,7 @@ public class MakeRequests extends Activity {
                 }
             };
 
-    private int babysitterId = 1;
+    private String babysitterId;
 
     private static String pad(int c) {
         if (c >= 10)
@@ -90,7 +105,10 @@ public class MakeRequests extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_requests);
+
+
         Firebase.setAndroidContext(this);
+        mFirebaseRef = new Firebase(FIREBASE_URL).child("friends").child(UserModel.getCurrentUser().getUserId());
 
         // capture our View elements
         mTimeDisplay = (TextView) findViewById(R.id.myChosenDate);
@@ -155,27 +173,30 @@ public class MakeRequests extends Activity {
                         mDateSetListener, mYear, mMonthOfYear, mDayOfMonth);
             case BABYSITTER_DIALOG_ID:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            case END_TIME_DIALOG_ID:
-                return new TimePickerDialog(this,
-                        mTimeSetListener, mEndHour, mEndMinute, false);
+                friendListAdapter = new FriendListAdapter(getApplicationContext(), mFirebaseRef, this, R.layout.babysitter_list_row);
 
-/*
-                builder.setTitle("Pick a Babysitter")
-                        .setAdapter(new FriendListAdapter(this), new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                babysitterId = which + babysitterId;
-                                Log.v("LOG", String.valueOf(babysitterId));
-                            }
-                        })
-                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                Log.v("LOG", "I'm being cancelled.");
-                            }
-                        });
+                builder.setTitle("Pick a Babysitter");
 
+                if (friendListAdapter != null) {
+                    builder.setAdapter(friendListAdapter, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.v("LOG", "Position: " + String.valueOf(which) + "Count: " + friendListAdapter.getCount());
+                        }
+                    })
+                            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Log.v("LOG", "I'm being cancelled.");
+                                }
+                            });
+
+                }
 
                 return builder.create();
-                */
+            case END_TIME_DIALOG_ID:
+                return new TimePickerDialog(this,
+                        mEndTimeSetListener, mEndHour, mEndMinute, false);
+
+
         }
         return null;
     }
@@ -195,25 +216,24 @@ public class MakeRequests extends Activity {
                 .append(pad(mDayOfMonth)).append(" ")
                 .append(pad(mEndHour)).append(":")
                 .append(pad(mEndMinute)).toString();
+
         mTimeDisplay.setText("From: " + mChosenDateTime + " To: " + mEndDateTime);
 
     }
 
     public void submitBabysittingRequest(final View view) {
-
-
-        Firebase postRef = new Firebase(FIREBASE_URL).child("babysitting_requests").child(UserModel.getCurrentUser().getUserId());
-        Map<String, String> user = new HashMap<String, String>();
-        //    user.put("friend_id", babysitterId);
-        user.put("job_start_time", mChosenDateTime);
-        //  user.put("job_end_time", mEndDateTime);
+        Firebase postRef = new Firebase(FIREBASE_URL).child("babysitting_requests").child("-JldM9BDW_CvwGfaQIoz");
+        Map<String, String> babysitingRequests = new HashMap<String, String>();
+        babysitingRequests.put("job_start_time", mChosenDateTime);
+        babysitingRequests.put("job_end_time", mEndDateTime);
+        babysitingRequests.put("requestor", UserModel.getCurrentUser().getUserId());
         Firebase ref = postRef.push();
-        ref.setValue(user,
+        ref.setValue(babysitingRequests,
                 new Firebase.CompletionListener() {
                     @Override
                     public void onComplete(FirebaseError firebaseError, Firebase firebase) {
                         if (firebaseError != null) {
-                            System.out.println("Job could not be sent. " + firebaseError.getMessage());
+                            Toast.makeText(view.getContext(), "Job could not be sent. " + firebaseError.getMessage(), Toast.LENGTH_SHORT).show();
                         } else {
 
                             Toast.makeText(view.getContext(), "Job requested", Toast.LENGTH_SHORT).show();
@@ -221,8 +241,7 @@ public class MakeRequests extends Activity {
                     }
                 });
 
-
-        Intent intent = new Intent(this, Requests.class);
+        Intent intent = new Intent(this, BabySittingRequests.class);
         startActivity(intent);
     }
 

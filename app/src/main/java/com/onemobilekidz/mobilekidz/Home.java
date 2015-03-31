@@ -53,8 +53,8 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
                 .build();
 
         mGoogleApiClient.connect();*/
-        //  initializeUser("vfischer@fischerfamily.us", "Vivienne Fischer");
-        initializeUser("katie@gmail.com", "Katie");
+        initializeUser("vfischer@fischerfamily.us", "Vivienne Fischer");
+        //initializeUser("katie@gmail.com", "Katie");
         //    initializeUser("vfischer@gmail.com", "vfischer");
         //   initializeUser("jessica@gmail.com", "Jessica Fischer");
         //initializeUser("ethan@gmail.com", "Ethan");
@@ -149,7 +149,7 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
     }
 
     public void goRequests(View view) {
-        intent = new Intent(this, Requests.class);
+        intent = new Intent(this, BabySittingRequests.class);
         startActivity(intent);
     }
 

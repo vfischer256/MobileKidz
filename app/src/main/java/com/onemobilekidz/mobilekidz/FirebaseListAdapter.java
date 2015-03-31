@@ -190,6 +190,7 @@ public abstract class FirebaseListAdapter<T extends FirebaseListJoiner> extends 
         return mModels.get(i);
     }
 
+
     @Override
     public long getItemId(int i) {
         return i;

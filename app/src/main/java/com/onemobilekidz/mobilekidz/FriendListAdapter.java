@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.firebase.client.Query;
+import com.onemobilekidz.mobilekidz.model.FriendRequestsModel;
 import com.onemobilekidz.mobilekidz.model.FriendsModel;
 import com.onemobilekidz.mobilekidz.model.UserModel;
 
@@ -47,23 +48,27 @@ public class FriendListAdapter extends FirebaseListAdapter<FriendsModel> {
             friendName = friendObj.getFriend().getDisplayName();
             friendIdText.setText(friendName);
             friendId = friendObj.getId();
-            ImageButton sendMessageButton = (ImageButton) view.findViewById(R.id.sendMessageButton);
-            sendMessageButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(final View v) {
 
-                    Log.v(LOG, "Sending message from " + UserModel.getCurrentUser().getEmail() + " to: " + friendId + " position: " + i);
-                    Intent intent = new Intent(mContext, SendMessage.class);
-                    intent.putExtra("friendId", friendId);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    mContext.startActivity(intent);
-                }
+            try {
+                ImageButton sendMessageButton = (ImageButton) view.findViewById(R.id.sendMessageButton);
 
-            });
+                sendMessageButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View v) {
+
+                        Log.v(LOG, "Sending message from " + UserModel.getCurrentUser().getEmail() + " to: " + friendId + " position: " + i);
+                        Intent intent = new Intent(mContext, SendMessage.class);
+                        intent.putExtra("friendId", friendId);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mContext.startActivity(intent);
+                    }
+
+                });
+            } catch (Exception e) {
+                Log.e(LOG, e.toString());
+            }
 
         }
-
-
     }
 
 

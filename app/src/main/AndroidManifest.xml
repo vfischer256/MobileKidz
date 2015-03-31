@@ -106,7 +106,7 @@
                 android:value="com.onemobilekidz.mobilekidz.Home" />
         </activity>
         <activity
-            android:name=".Requests"
+            android:name=".BabySittingRequests"
             android:label="@string/title_activity_requests"
             android:parentActivityName=".Home">
             <meta-data

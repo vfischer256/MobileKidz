@@ -2,11 +2,10 @@ package com.onemobilekidz.mobilekidz;
 
 
 import android.os.Bundle;
-import android.util.Log;
 import android.app.Activity;
 import android.widget.ListView;
 
-public class Requests extends Activity {
+public class BabySittingRequests extends Activity {
 
     private ListView requestList;
 
@@ -15,7 +14,7 @@ public class Requests extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_requests);
+        setContentView(R.layout.activity_babysitting_requests);
         bindViews();
 
     }
