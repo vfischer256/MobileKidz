@@ -1,50 +1,91 @@
 package com.onemobilekidz.mobilekidz;
 
-import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
+import android.app.ListActivity;
+import android.database.DataSetObserver;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.util.Log;
+import android.widget.ListView;
+import android.widget.Toast;
 
-import com.onemobilekidz.mobilekidz.helper.DatabaseManager;
-import com.onemobilekidz.mobilekidz.model.MessagesModel;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+import com.onemobilekidz.mobilekidz.model.UserModel;
 
 
-public class Messages extends Activity {
+public class Messages extends ListActivity {
+
+
+    private static final String LOG = "Messages";
+    private Firebase mFirebaseRef;
+    private MessageListAdapter messageListAdapter;
+    private ValueEventListener mConnectedListener;
+
+    private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
-    }
+        Firebase.setAndroidContext(this);
 
-    public void sendMessages(View view) {
-        DatabaseManager dbManager = new DatabaseManager(this);
-        MessagesModel messagesObj = new MessagesModel(1, "can you babysit?", "read");
-        dbManager.addRowMessages(messagesObj);
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_messages, menu);
-        return true;
+        try {
+            mFirebaseRef = new Firebase(FIREBASE_URL).child("messages").child(UserModel.getCurrentUser().getUserId());
+        } catch (Exception e) {
+            Log.e(LOG, e.toString());
+        }
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void onStart() {
+        super.onStart();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        // Setup our view and list adapter. Ensure it scrolls to the bottom as data changes
+        final ListView listView = getListView();
+
+        if (mFirebaseRef != null) {
+            messageListAdapter = new MessageListAdapter(getApplicationContext(), mFirebaseRef, this, R.layout.message_list_row);
+
+            listView.setAdapter(messageListAdapter);
+            messageListAdapter.registerDataSetObserver(new DataSetObserver() {
+                @Override
+                public void onChanged() {
+                    super.onChanged();
+                    listView.setSelection(messageListAdapter.getCount() - 1);
+                }
+            });
+
+// Finally, a little indication of connection status
+            mConnectedListener = mFirebaseRef.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    boolean connected = (Boolean) dataSnapshot.getValue();
+                    if (connected) {
+                        Toast.makeText(Messages.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(Messages.this, "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+// No-op
+                }
+            });
         }
 
-        return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mFirebaseRef != null) {
+            mFirebaseRef.getRoot().child(".info/connected").removeEventListener(mConnectedListener);
+            messageListAdapter.cleanup();
+        }
+    }
+
+
 }

@@ -18,15 +18,6 @@ public class Requests extends Activity {
         setContentView(R.layout.activity_requests);
         bindViews();
 
-        try {
-            requestListAdapter = new RequestListAdapter(this);
-        } catch (Exception e) {
-            Log.e("ERROR", e.toString());
-        }
-        requestList.setAdapter(requestListAdapter);
-
-        registerForContextMenu(requestList);
-
     }
 
     private void bindViews() {

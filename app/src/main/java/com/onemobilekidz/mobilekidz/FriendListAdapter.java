@@ -1,25 +1,14 @@
 package com.onemobilekidz.mobilekidz;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
-import com.onemobilekidz.mobilekidz.helper.DatabaseManager;
-import com.onemobilekidz.mobilekidz.model.FriendRequestsModel;
 import com.onemobilekidz.mobilekidz.model.FriendsModel;
 import com.onemobilekidz.mobilekidz.model.UserModel;
 
@@ -77,8 +66,5 @@ public class FriendListAdapter extends FirebaseListAdapter<FriendsModel> {
 
     }
 
-    public void onSendMessage(View view) {
 
-
-    }
 }

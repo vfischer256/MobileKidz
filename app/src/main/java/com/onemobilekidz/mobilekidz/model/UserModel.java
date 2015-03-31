@@ -18,8 +18,6 @@ import java.util.Map;
  */
 public class UserModel {
     private String email;
-
-
     private String displayName;
     private static UserModel currentUser = new UserModel();
     private static final String LOG = "UserModel";

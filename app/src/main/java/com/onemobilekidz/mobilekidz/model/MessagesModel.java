@@ -1,48 +1,44 @@
 package com.onemobilekidz.mobilekidz.model;
 
+import com.firebase.client.Firebase;
+import com.firebase.client.Query;
+import com.onemobilekidz.mobilekidz.FirebaseListJoiner;
+import com.onemobilekidz.mobilekidz.Messages;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by vfischer on 3/14/15.
  */
-public class MessagesModel {
+public class MessagesModel implements FirebaseListJoiner {
 
-
-    int babysitterId;
+    String id;
+    UserModel user;
     String message;
-    String status;
 
-    public MessagesModel() {
+    private static final String LOG = "MessagesModel";
 
+    public Map<Query, String> joinPaths(Firebase path) {
+        Map<Query, String> paths = new HashMap<>();
+        paths.put(path.getRoot().child("users").child(id), "user");
+        return paths;
     }
 
-    public MessagesModel(int babysitterId, String message, String status) {
-        this.babysitterId = babysitterId;
-        this.message = message;
-        this.status = status;
+    public String getId() {
+        return id;
     }
 
-    public int getBabysitterId() {
-        return babysitterId;
+    public UserModel getFriend() {
+        return user;
     }
 
-    public void setBabysitterId(int babysitterId) {
-        this.babysitterId = babysitterId;
-    }
 
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }
 
 

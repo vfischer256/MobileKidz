@@ -4,24 +4,14 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.app.Activity;
 import android.widget.*;
 
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.onemobilekidz.mobilekidz.helper.DatabaseManager;
-import com.onemobilekidz.mobilekidz.model.FriendRequestsModel;
-import com.onemobilekidz.mobilekidz.model.FriendsModel;
-import com.onemobilekidz.mobilekidz.model.MessagesModel;
-import com.onemobilekidz.mobilekidz.model.PointsModel;
-import com.onemobilekidz.mobilekidz.model.RequestsModel;
 import com.onemobilekidz.mobilekidz.model.UserModel;
 
 import java.util.*;
@@ -141,7 +131,6 @@ public class MakeRequests extends Activity {
 
         mEndHour = c.get(Calendar.HOUR_OF_DAY);
         mEndMinute = c.get(Calendar.MINUTE);
-
 
 
         // get the current date
