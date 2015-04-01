@@ -3,7 +3,6 @@ package com.onemobilekidz.mobilekidz.model;
 import com.firebase.client.Firebase;
 import com.firebase.client.Query;
 import com.onemobilekidz.mobilekidz.FirebaseListJoiner;
-import com.onemobilekidz.mobilekidz.Messages;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,9 +17,11 @@ public class MessagesModel implements FirebaseListJoiner {
     UserModel user;
     String message;
 
+    String sender;
+
     public Map<Query, String> joinPaths(Firebase path) {
         Map<Query, String> paths = new HashMap<>();
-        paths.put(path.getRoot().child("users").child(id), "user");
+        paths.put(path.getRoot().child("users").child(sender), "user");
         return paths;
     }
 
@@ -31,6 +32,16 @@ public class MessagesModel implements FirebaseListJoiner {
     public UserModel getFriend() {
         return user;
     }
+
+    public String getSender() {
+        return sender;
+    }
+
+
+    public String getSenderName() {
+        return user == null ? null : user.getDisplayName();
+    }
+
 
 
     public String getMessage() {

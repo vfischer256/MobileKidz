@@ -51,7 +51,7 @@ public class MessageListAdapter extends FirebaseListAdapter<MessagesModel> {
 
         if (messageObj.getFriend() != null) {
 
-            String friendName = messageObj.getFriend().getDisplayName();
+            String friendName = messageObj.getSenderName();
             friendIdText.setText("From: " + friendName);
             String message = messageObj.getMessage();
             messageIdText.setText("Message: " + message);
