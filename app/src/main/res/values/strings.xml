@@ -68,5 +68,7 @@
     <string name="cancel">Cancel</string>
     <string name="title_activity_points">Points</string>
     <string name="title_activity_send_message">SendMessage</string>
+    <string name="title_activity_out_babysitting_requests">Outgoing Babysitting Requests</string>
+    <string name="title_activity_in_babysitting_requests">Incoming Babysitting Requests</string>
 
 </resources>

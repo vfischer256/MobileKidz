@@ -222,13 +222,13 @@ public class MakeRequests extends Activity {
     }
 
     public void submitBabysittingRequest(final View view) {
-        Firebase postRef = new Firebase(FIREBASE_URL).child("babysitting_requests").child("-JldM9BDW_CvwGfaQIoz");
-        Map<String, String> babysitingRequests = new HashMap<String, String>();
-        babysitingRequests.put("job_start_time", mChosenDateTime);
-        babysitingRequests.put("job_end_time", mEndDateTime);
-        babysitingRequests.put("requestor", UserModel.getCurrentUser().getUserId());
+        Firebase postRef = new Firebase(FIREBASE_URL).child("incoming_babysitting_requests").child("-JldHutTeMpT5VO7eLnf");
+        Map<String, String> inBabysitingRequests = new HashMap<String, String>();
+        inBabysitingRequests.put("job_start_time", mChosenDateTime);
+        inBabysitingRequests.put("job_end_time", mEndDateTime);
+        inBabysitingRequests.put("requestor", UserModel.getCurrentUser().getUserId());
         Firebase ref = postRef.push();
-        ref.setValue(babysitingRequests,
+        ref.setValue(inBabysitingRequests,
                 new Firebase.CompletionListener() {
                     @Override
                     public void onComplete(FirebaseError firebaseError, Firebase firebase) {
@@ -241,7 +241,29 @@ public class MakeRequests extends Activity {
                     }
                 });
 
-        Intent intent = new Intent(this, BabySittingRequests.class);
+        String postId = ref.getKey();
+        //outgoing babysitting requests
+
+        Firebase outRef = new Firebase(FIREBASE_URL).child("outgoing_babysitting_requests").child(UserModel.getCurrentUser().getUserId()).child(postId);
+        Map<String, String> outBabysittingRequests = new HashMap<String, String>();
+        outBabysittingRequests.put("job_start_time", mChosenDateTime);
+        outBabysittingRequests.put("job_end_time", mEndDateTime);
+        outBabysittingRequests.put("requestee", "-JldHutTeMpT5VO7eLnf");
+        outRef.setValue(outBabysittingRequests,
+                new Firebase.CompletionListener() {
+                    @Override
+                    public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                        if (firebaseError != null) {
+                            Toast.makeText(view.getContext(), "Job could not be sent. " + firebaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                        } else {
+
+                            Toast.makeText(view.getContext(), "Job requested", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+
+        Intent intent = new Intent(this, OutBabysittingRequests.class);
         startActivity(intent);
     }
 

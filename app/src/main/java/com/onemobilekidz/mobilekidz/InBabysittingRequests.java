@@ -1,8 +1,6 @@
 package com.onemobilekidz.mobilekidz;
 
-
 import android.app.ListActivity;
-
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,27 +13,30 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.onemobilekidz.mobilekidz.model.UserModel;
 
+/**
+ * Created by vfischer on 3/31/15.
+ */
+public class InBabysittingRequests extends ListActivity {
 
-public class Friends extends ListActivity {
 
-    private static final String LOG = "Friends";
+    private static final String LOG = "InBabysittingReq";
 
     private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
     private Firebase mFirebaseRef;
     private ValueEventListener mConnectedListener;
-    private FriendListAdapter friendListAdapter;
+    private BabysittingRequestsListAdapter babysittingRequestsListAdapter;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friends);
+        setContentView(R.layout.activity_in_babysitting_requests);
         Firebase.setAndroidContext(this);
 
         Log.v(LOG, "this is my userid " + UserModel.getCurrentUser().getUserId());
         // Setup our Firebase mFirebaseRef
         try {
-            mFirebaseRef = new Firebase(FIREBASE_URL).child("friends").child(UserModel.getCurrentUser().getUserId());
+            mFirebaseRef = new Firebase(FIREBASE_URL).child("babysitting_requests").child(UserModel.getCurrentUser().getUserId());
         } catch (Exception e) {
             Log.e(LOG, e.toString());
         }
@@ -49,14 +50,15 @@ public class Friends extends ListActivity {
         final ListView listView = getListView();
 
         if (mFirebaseRef != null) {
-            friendListAdapter = new FriendListAdapter(getApplicationContext(), mFirebaseRef, this, R.layout.friend_list_row);
+            babysittingRequestsListAdapter = new BabysittingRequestsListAdapter(getApplicationContext(), mFirebaseRef, this, R.layout.babysitting_request_list_row);
+            Log.v(LOG, "getCount: " + babysittingRequestsListAdapter.getCount());
 
-            listView.setAdapter(friendListAdapter);
-            friendListAdapter.registerDataSetObserver(new DataSetObserver() {
+            listView.setAdapter(babysittingRequestsListAdapter);
+            babysittingRequestsListAdapter.registerDataSetObserver(new DataSetObserver() {
                 @Override
                 public void onChanged() {
                     super.onChanged();
-                    listView.setSelection(friendListAdapter.getCount() - 1);
+                    listView.setSelection(babysittingRequestsListAdapter.getCount() - 1);
                 }
             });
 
@@ -66,9 +68,9 @@ public class Friends extends ListActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     boolean connected = (Boolean) dataSnapshot.getValue();
                     if (connected) {
-                        Toast.makeText(Friends.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(InBabysittingRequests.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(Friends.this, "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(InBabysittingRequests.this, "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -86,9 +88,8 @@ public class Friends extends ListActivity {
         super.onStop();
         if (mFirebaseRef != null) {
             mFirebaseRef.getRoot().child(".info/connected").removeEventListener(mConnectedListener);
-            friendListAdapter.cleanup();
+            babysittingRequestsListAdapter.cleanup();
         }
     }
-
 
 }

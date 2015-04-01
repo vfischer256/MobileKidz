@@ -29,11 +29,11 @@ public class BottomLinksFragment extends Fragment implements View.OnClickListene
 
         Button homeButton = (Button) view.findViewById(R.id.homeButton);
         Button friendsButton = (Button) view.findViewById(id.friendsButton);
-        Button profileButton = (Button) view.findViewById(id.profileButton);
+        Button babysittingRequestButton = (Button) view.findViewById(id.babysittingRequestButton);
 
         homeButton.setOnClickListener(this);
         friendsButton.setOnClickListener(this);
-        profileButton.setOnClickListener(this);
+        babysittingRequestButton.setOnClickListener(this);
 
 
         return view;
@@ -53,8 +53,8 @@ public class BottomLinksFragment extends Fragment implements View.OnClickListene
 
                 startActivity(intent);
                 break;
-            case id.profileButton:
-                intent = new Intent(getActivity(), Profile.class);
+            case R.id.babysittingRequestButton:
+                intent = new Intent(getActivity(), BabysittingRequests.class);
                 startActivity(intent);
                 break;
         }
