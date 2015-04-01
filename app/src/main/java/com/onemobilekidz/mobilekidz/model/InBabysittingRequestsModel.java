@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BabysittingRequestsModel implements FirebaseListJoiner {
+public class InBabysittingRequestsModel implements FirebaseListJoiner {
 
     String id;
     String job_start_time;
@@ -25,7 +25,7 @@ public class BabysittingRequestsModel implements FirebaseListJoiner {
 
     // Required default constructor for Firebase object mapping
     @SuppressWarnings("unused")
-    private BabysittingRequestsModel() {
+    private InBabysittingRequestsModel() {
     }
 
     public Map<Query, String> joinPaths(Firebase path) {

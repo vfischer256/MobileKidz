@@ -29,7 +29,6 @@ public class BabysittingRequests extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_babysitting_requests);
 
-
     }
 
     public void goIncomingBabysittingRequests(View view) {

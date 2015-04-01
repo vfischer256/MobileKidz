@@ -24,7 +24,7 @@ public class InBabysittingRequests extends ListActivity {
     private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
     private Firebase mFirebaseRef;
     private ValueEventListener mConnectedListener;
-    private BabysittingRequestsListAdapter babysittingRequestsListAdapter;
+    private InBabysittingRequestsListAdapter inBabysittingRequestsListAdapter;
 
 
     @Override
@@ -36,7 +36,7 @@ public class InBabysittingRequests extends ListActivity {
         Log.v(LOG, "this is my userid " + UserModel.getCurrentUser().getUserId());
         // Setup our Firebase mFirebaseRef
         try {
-            mFirebaseRef = new Firebase(FIREBASE_URL).child("babysitting_requests").child(UserModel.getCurrentUser().getUserId());
+            mFirebaseRef = new Firebase(FIREBASE_URL).child("incoming_babysitting_requests").child(UserModel.getCurrentUser().getUserId());
         } catch (Exception e) {
             Log.e(LOG, e.toString());
         }
@@ -50,15 +50,15 @@ public class InBabysittingRequests extends ListActivity {
         final ListView listView = getListView();
 
         if (mFirebaseRef != null) {
-            babysittingRequestsListAdapter = new BabysittingRequestsListAdapter(getApplicationContext(), mFirebaseRef, this, R.layout.babysitting_request_list_row);
-            Log.v(LOG, "getCount: " + babysittingRequestsListAdapter.getCount());
+            inBabysittingRequestsListAdapter = new InBabysittingRequestsListAdapter(getApplicationContext(), mFirebaseRef, this, R.layout.babysitting_request_list_row);
+            Log.v(LOG, "getCount: " + inBabysittingRequestsListAdapter.getCount());
 
-            listView.setAdapter(babysittingRequestsListAdapter);
-            babysittingRequestsListAdapter.registerDataSetObserver(new DataSetObserver() {
+            listView.setAdapter(inBabysittingRequestsListAdapter);
+            inBabysittingRequestsListAdapter.registerDataSetObserver(new DataSetObserver() {
                 @Override
                 public void onChanged() {
                     super.onChanged();
-                    listView.setSelection(babysittingRequestsListAdapter.getCount() - 1);
+                    listView.setSelection(inBabysittingRequestsListAdapter.getCount() - 1);
                 }
             });
 
@@ -88,7 +88,7 @@ public class InBabysittingRequests extends ListActivity {
         super.onStop();
         if (mFirebaseRef != null) {
             mFirebaseRef.getRoot().child(".info/connected").removeEventListener(mConnectedListener);
-            babysittingRequestsListAdapter.cleanup();
+            inBabysittingRequestsListAdapter.cleanup();
         }
     }
 

@@ -2,16 +2,11 @@ package com.onemobilekidz.mobilekidz;
 
 import android.app.Activity;
 import android.content.Context;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.firebase.client.Query;
-import com.onemobilekidz.mobilekidz.model.BabysittingRequestsModel;
-
-import java.util.StringTokenizer;
+import com.onemobilekidz.mobilekidz.model.InBabysittingRequestsModel;
 
 /**
  * /**
@@ -21,15 +16,15 @@ import java.util.StringTokenizer;
  * This class is an example of how to use FirebaseListAdapter. It uses the <code>Chat</code> class to encapsulate the
  * data for each individual chat message
  */
-public class BabysittingRequestsListAdapter extends FirebaseListAdapter<BabysittingRequestsModel> {
+public class InBabysittingRequestsListAdapter extends FirebaseListAdapter<InBabysittingRequestsModel> {
 
     private static final String LOG = "BSRListAdapter";
     private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
 
-    public BabysittingRequestsListAdapter(Context context, Query ref, Activity activity, int layout) {
-        super(context, ref, BabysittingRequestsModel.class, layout, activity);
+    public InBabysittingRequestsListAdapter(Context context, Query ref, Activity activity, int layout) {
+        super(context, ref, InBabysittingRequestsModel.class, layout, activity);
         Log.v(LOG, "I'm here");
-        System.out.println(BabysittingRequestsModel.class);
+        System.out.println(InBabysittingRequestsModel.class);
     }
 
     /**
@@ -43,7 +38,7 @@ public class BabysittingRequestsListAdapter extends FirebaseListAdapter<Babysitt
 
 
     @Override
-    protected void populateView(View view, final BabysittingRequestsModel babysittingRequestObj, final int i) {/*
+    protected void populateView(View view, final InBabysittingRequestsModel babysittingRequestObj, final int i) {/*
         final String requestor;
         final String jobStartTime;
         final String jobEndTime;
