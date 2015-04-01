@@ -40,13 +40,13 @@ public class OutBabysittingRequestsListAdapter extends FirebaseListAdapter<OutBa
         final String requestee;
         final String requesteeName;
         final String jobStartTime;
-        final String jobEndTime;
+        final int duration;
         Log.v(LOG, "I'm here still");
-        if ( babysittingRequestObj != null) {
+        if (babysittingRequestObj != null) {
             requestee = babysittingRequestObj.getRequestee();
             requesteeName = babysittingRequestObj.getRequesteeName();
             jobStartTime = babysittingRequestObj.getJob_start_time();
-            jobEndTime = babysittingRequestObj.getJob_end_time();
+            duration = babysittingRequestObj.getDuration();
             final TextView babysitterNameText = (TextView) view.findViewById(R.id.babySitterName);
             babysitterNameText.setText(requesteeName);
 
@@ -54,10 +54,10 @@ public class OutBabysittingRequestsListAdapter extends FirebaseListAdapter<OutBa
             jobStartTimeText.setText(jobStartTime);
 
             final TextView jobEndTimeText = (TextView) view.findViewById(R.id.requestEndTime);
-            jobEndTimeText.setText(jobEndTime);
+            jobEndTimeText.setText(duration + " hours ");
 
             Log.v(LOG, "requestor: " + requestee);
-            Log.v(LOG, " requestorName: " + requesteeName + " jobstartTime: " + jobStartTime + " jobEndTime: " + jobEndTime);
+            Log.v(LOG, " requestorName: " + requesteeName + " jobstartTime: " + jobStartTime + " duration: " + duration);
         }
 
     }

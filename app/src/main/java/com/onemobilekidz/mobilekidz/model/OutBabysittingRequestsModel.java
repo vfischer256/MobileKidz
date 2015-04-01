@@ -21,12 +21,10 @@ public class OutBabysittingRequestsModel implements FirebaseListJoiner {
         return job_start_time;
     }
 
-    public String getJob_end_time() {
-        return job_end_time;
-    }
 
     String job_start_time;
-    String job_end_time;
+
+    int duration;
     String requestee;
     UserModel user;
 
@@ -47,6 +45,10 @@ public class OutBabysittingRequestsModel implements FirebaseListJoiner {
         return id;
     }
 
+
+    public int getDuration() {
+        return duration;
+    }
 
     public String getRequestee() {
         return requestee;

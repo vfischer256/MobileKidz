@@ -65,11 +65,11 @@
             android:text="Pick Start Time" />
 
         <Button
-            android:id="@+id/endTime"
+            android:id="@+id/duration"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="Pick End Time" />
+            android:text="How long?" />
 
         <TextView
             android:id="@+id/myChosenDate"

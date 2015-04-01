@@ -18,10 +18,12 @@ import com.google.android.gms.plus.Plus;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.plus.model.people.Person;
+import com.onemobilekidz.mobilekidz.model.ScheduleModel;
 import com.onemobilekidz.mobilekidz.model.UserModel;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import android.util.Log;
 
@@ -36,6 +38,8 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
     private String email;
     private String displayName;
     private String newDisplayName;
+    private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

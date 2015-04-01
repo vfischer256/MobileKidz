@@ -50,14 +50,14 @@ public class InBabysittingRequestsListAdapter extends FirebaseListAdapter<InBaby
     protected void populateView(final View view, final InBabysittingRequestsModel babysittingRequestObj, final int i) {
         final String requestor;
         final String requestorName;
+        final int duration;
         final String jobStartTime;
-        final String jobEndTime;
         Log.v(LOG, "I'm here still");
         if (babysittingRequestObj != null) {
             requestor = babysittingRequestObj.getRequestor();
             requestorName = babysittingRequestObj.getRequestorName();
             jobStartTime = babysittingRequestObj.getJob_start_time();
-            jobEndTime = babysittingRequestObj.getJob_end_time();
+            duration = babysittingRequestObj.getDuration();
             final TextView babysitterNameText = (TextView) view.findViewById(R.id.babySitterName);
             babysitterNameText.setText(requestorName);
 
@@ -65,10 +65,10 @@ public class InBabysittingRequestsListAdapter extends FirebaseListAdapter<InBaby
             jobStartTimeText.setText(jobStartTime);
 
             final TextView jobEndTimeText = (TextView) view.findViewById(R.id.requestEndTime);
-            jobEndTimeText.setText(jobEndTime);
+            jobEndTimeText.setText(duration + "hours");
 
             Log.v(LOG, "requestor: " + requestor);
-            Log.v(LOG, " requestorName: " + requestorName + " jobstartTime: " + jobStartTime + " jobEndTime: " + jobEndTime);
+            Log.v(LOG, " requestorName: " + requestorName + " jobstartTime: " + jobStartTime + " jobEndTime: " + duration);
 
             Button acceptJobButton = (Button) view.findViewById(R.id.acceptJobButton);
             Button rejectJobButton = (Button) view.findViewById(R.id.rejectJobButton);
@@ -76,11 +76,13 @@ public class InBabysittingRequestsListAdapter extends FirebaseListAdapter<InBaby
             acceptJobButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
+
+                    // Records the job in the My Schedule page
                     Log.v(LOG, "requestor: " + requestor + " pos: " + i);
                     Firebase outRef = new Firebase(FIREBASE_URL).child("my_schedule").child(UserModel.getCurrentUser().getUserId()).child(babysittingRequestObj.getId());
-                    Map<String, String> outBabysittingRequests = new HashMap<String, String>();
+                    Map<String, Object> outBabysittingRequests = new HashMap<String, Object>();
                     outBabysittingRequests.put("job_start_time", jobStartTime);
-                    outBabysittingRequests.put("job_end_time", jobEndTime);
+                    outBabysittingRequests.put("duration", duration);
                     outBabysittingRequests.put("requestor", requestor);
                     outRef.setValue(outBabysittingRequests,
                             new Firebase.CompletionListener() {
@@ -99,6 +101,40 @@ public class InBabysittingRequestsListAdapter extends FirebaseListAdapter<InBaby
                     Log.v(LOG, "requestor: " + requestor + " pos: " + i);
                     new Firebase(FIREBASE_URL).child("incoming_babysitting_requests").child(UserModel.getCurrentUser().getUserId()).child(babysittingRequestObj.getId()).removeValue();
                     Toast.makeText(v.getContext(), "Job Accepted", Toast.LENGTH_SHORT).show();
+
+                    // Subtract points from the requester.
+
+                    Log.v(LOG, "Subtracting points from the requestor");
+                    Firebase pointRef = new Firebase(FIREBASE_URL).child("points").child(requestor).child(babysittingRequestObj.getId());
+                    Map<String, Object> points = new HashMap<String, Object>();
+                    points.put("points", duration * -1);
+                    pointRef.setValue(points, new Firebase.CompletionListener() {
+                        @Override
+                        public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                            if (firebaseError != null) {
+                                Log.v(LOG, "Points could not be updated. " + firebaseError.getMessage());
+                            } else {
+                                Log.v(LOG, "Points " + duration + " was subtracted.");
+                            }
+                        }
+                    });
+
+                    // Add points to the requestee.
+                    Log.v(LOG, "Adding points from the requestee");
+                    Firebase pointRef1 = new Firebase(FIREBASE_URL).child("points").child(UserModel.getCurrentUser().getUserId()).child(babysittingRequestObj.getId());
+                    Map<String, Object> points1 = new HashMap<String, Object>();
+                    points.put("points", duration);
+                    pointRef.setValue(points, new Firebase.CompletionListener() {
+                        @Override
+                        public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                            if (firebaseError != null) {
+                                Log.v(LOG, "Points could not be updated. " + firebaseError.getMessage());
+                            } else {
+                                Log.v(LOG, "Points " + duration + " was added.");
+                            }
+                        }
+                    });
+
 
                     //Send a message to the requestor letting them know that the request cannot be committed to.
                     Firebase messageRef = new Firebase(FIREBASE_URL).child("messages").child(requestor);

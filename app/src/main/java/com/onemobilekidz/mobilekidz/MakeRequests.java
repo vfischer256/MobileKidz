@@ -31,13 +31,19 @@ public class MakeRequests extends Activity {
     private static final String LOG = "MakeRequests";
     private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
     String mChosenDateTime;
-    String mEndDateTime;
+    int mDuration = 1;
+
+    private static TextView tv;
+    static Dialog d;
+
     private Firebase mFirebaseRef;
     private FriendListAdapter friendListAdapter;
     private TextView mTimeDisplay;
     private Button mPickTime;
     private Button mPickDate;
-    private Button mEndTime;
+    private Button duration;
+
+
     private Button mChooseBabysitter;
 
     private int mHour;
@@ -51,17 +57,7 @@ public class MakeRequests extends Activity {
                     updateDisplay();
                 }
             };
-    private int mEndHour;
-    private int mEndMinute;
-    // the callback received when the user "sets" the time in the dialog
-    private TimePickerDialog.OnTimeSetListener mEndTimeSetListener =
-            new TimePickerDialog.OnTimeSetListener() {
-                public void onTimeSet(android.widget.TimePicker view, int hourOfDay, int minute) {
-                    mEndHour = hourOfDay;
-                    mEndMinute = minute;
-                    updateDisplay();
-                }
-            };
+
 
     private int mYear;
     private int mMonthOfYear;
@@ -80,6 +76,7 @@ public class MakeRequests extends Activity {
 
                 }
             };
+
 
     private String babysitterId;
 
@@ -106,7 +103,7 @@ public class MakeRequests extends Activity {
         mTimeDisplay = (TextView) findViewById(R.id.myChosenDate);
         mPickTime = (Button) findViewById(R.id.pickTime);
         mPickDate = (Button) findViewById(R.id.pickDate);
-        mEndTime = (Button) findViewById(R.id.endTime);
+        duration = (Button) findViewById(R.id.duration);
         mChooseBabysitter = (Button) findViewById(R.id.chooseBabysitter);
 
         // add a click listener to the button
@@ -127,7 +124,7 @@ public class MakeRequests extends Activity {
                 showDialog(BABYSITTER_DIALOG_ID);
             }
         });
-        mEndTime.setOnClickListener(new View.OnClickListener() {
+        duration.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showDialog(END_TIME_DIALOG_ID);
             }
@@ -138,10 +135,6 @@ public class MakeRequests extends Activity {
         final Calendar c = Calendar.getInstance();
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
-
-        mEndHour = c.get(Calendar.HOUR_OF_DAY);
-        mEndMinute = c.get(Calendar.MINUTE);
-
 
         // get the current date
         mYear = c.get(Calendar.YEAR);
@@ -185,13 +178,24 @@ public class MakeRequests extends Activity {
 
                 return builder.create();
             case END_TIME_DIALOG_ID:
-                return new TimePickerDialog(this,
-                        mEndTimeSetListener, mEndHour, mEndMinute, false);
+                final CharSequence[] items = {"1", "2", "3", "4", "5", "6"};
 
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+                dialogBuilder.setTitle("Choose number of hours.");
+                dialogBuilder.setItems(items, new DialogInterface.OnClickListener() {
 
+                    public void onClick(DialogInterface dialog, int which) {
+                        mDuration = which + 1;
+                        Log.v(LOG, String.valueOf(mDuration));
+                        updateDisplay();
+                    }
+
+                });
+                dialogBuilder.create().show();
         }
         return null;
     }
+
 
     // updates the time we display in the TextView
     private void updateDisplay() {
@@ -202,22 +206,19 @@ public class MakeRequests extends Activity {
                 .append(pad(mHour)).append(":")
                 .append(pad(mMinute)).toString();
 
-        mEndDateTime = new StringBuilder()
-                .append(pad(mYear)).append("-")
-                .append(pad(mMonthOfYear)).append("-")
-                .append(pad(mDayOfMonth)).append(" ")
-                .append(pad(mEndHour)).append(":")
-                .append(pad(mEndMinute)).toString();
-
-        mTimeDisplay.setText("From: " + mChosenDateTime + " To: " + mEndDateTime);
+        String hour = "hour";
+        if (mDuration > 1) {
+            hour = "hours";
+        }
+        mTimeDisplay.setText("On: " + mChosenDateTime + " for: " + mDuration + " " + hour);
 
     }
 
     public void submitBabysittingRequest(final View view) {
         Firebase postRef = new Firebase(FIREBASE_URL).child("incoming_babysitting_requests").child("-JldHutTeMpT5VO7eLnf");
-        Map<String, String> inBabysitingRequests = new HashMap<String, String>();
+        Map<String, Object> inBabysitingRequests = new HashMap<String, Object>();
         inBabysitingRequests.put("job_start_time", mChosenDateTime);
-        inBabysitingRequests.put("job_end_time", mEndDateTime);
+        inBabysitingRequests.put("duration", mDuration);
         inBabysitingRequests.put("requestor", UserModel.getCurrentUser().getUserId());
         Firebase ref = postRef.push();
         ref.setValue(inBabysitingRequests,
@@ -237,9 +238,9 @@ public class MakeRequests extends Activity {
         //outgoing babysitting requests
 
         Firebase outRef = new Firebase(FIREBASE_URL).child("outgoing_babysitting_requests").child(UserModel.getCurrentUser().getUserId()).child(postId);
-        Map<String, String> outBabysittingRequests = new HashMap<String, String>();
+        Map<String, Object> outBabysittingRequests = new HashMap<String, Object>();
         outBabysittingRequests.put("job_start_time", mChosenDateTime);
-        outBabysittingRequests.put("job_end_time", mEndDateTime);
+        outBabysittingRequests.put("duration", mDuration);
         outBabysittingRequests.put("requestee", "-JldHutTeMpT5VO7eLnf");
         outRef.setValue(outBabysittingRequests,
                 new Firebase.CompletionListener() {
