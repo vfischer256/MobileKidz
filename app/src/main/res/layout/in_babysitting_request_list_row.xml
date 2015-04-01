@@ -24,6 +24,13 @@
                 android:layout_weight="5"
                 android:text="Request Date" />
 
+            <TextView
+                android:id="@+id/requestEndTime"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+
+
         </TableRow>
 
         <TableRow>
@@ -32,7 +39,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="Accept"
-                android:id="@+id/acceptFriendButton"
+                android:id="@+id/acceptJobButton"
                 android:layout_weight="2"
                 android:focusable="true" />
 
@@ -40,7 +47,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="Reject"
-                android:id="@+id/rejectFriendButton"
+                android:id="@+id/rejectJobButton"
                 android:layout_weight="2"
                 android:focusable="true" />
         </TableRow>

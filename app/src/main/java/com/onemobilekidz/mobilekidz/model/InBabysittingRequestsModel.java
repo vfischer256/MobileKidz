@@ -11,7 +11,7 @@ import com.onemobilekidz.mobilekidz.FirebaseListJoiner;
 import java.util.HashMap;
 import java.util.Map;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+//@JsonIgnoreProperties(ignoreUnknown = true)
 public class InBabysittingRequestsModel implements FirebaseListJoiner {
 
     private static final String LOG = "BSRListAdapter";
@@ -19,7 +19,7 @@ public class InBabysittingRequestsModel implements FirebaseListJoiner {
     String job_start_time;
     String job_end_time;
     String requestor;
-    UserModel babysitter;
+    UserModel user;
 
 
     // Required default constructor for Firebase object mapping
@@ -37,16 +37,23 @@ public class InBabysittingRequestsModel implements FirebaseListJoiner {
         return id;
     }
 
-    public String getJobStartTime() {
-        return job_start_time;
-    }
-
-    public String getJobEndTime() {
-        return job_end_time;
-    }
 
     public String getRequestor() {
         return requestor;
+    }
+
+
+    public String getJob_start_time() {
+        return job_start_time;
+    }
+
+    public String getJob_end_time() {
+        return job_end_time;
+    }
+
+
+    public String getRequestorName() {
+        return user == null ? null : user.getDisplayName();
     }
 
 

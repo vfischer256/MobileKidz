@@ -53,7 +53,7 @@ public class OutBabysittingRequestsListAdapter extends FirebaseListAdapter<OutBa
             final TextView jobStartTimeText = (TextView) view.findViewById(R.id.requestDate);
             jobStartTimeText.setText(jobStartTime);
 
-            final TextView jobEndTimeText = (TextView) view.findViewById(R.id.requestSentReceived);
+            final TextView jobEndTimeText = (TextView) view.findViewById(R.id.requestEndTime);
             jobEndTimeText.setText(jobEndTime);
 
             Log.v(LOG, "requestor: " + requestee);
