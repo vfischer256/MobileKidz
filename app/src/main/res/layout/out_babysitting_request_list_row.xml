@@ -33,24 +33,7 @@
 
         </TableRow>
 
-        <TableRow>
 
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="Accept"
-                android:id="@+id/acceptFriendButton"
-                android:layout_weight="2"
-                android:focusable="true" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="Reject"
-                android:id="@+id/rejectFriendButton"
-                android:layout_weight="2"
-                android:focusable="true" />
-        </TableRow>
     </TableLayout>
 
 </LinearLayout>

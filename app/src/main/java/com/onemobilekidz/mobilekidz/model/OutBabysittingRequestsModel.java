@@ -16,10 +16,19 @@ public class OutBabysittingRequestsModel implements FirebaseListJoiner {
 
     private static final String LOG = "OutBSRListAdapter";
     String id;
+
+    public String getJob_start_time() {
+        return job_start_time;
+    }
+
+    public String getJob_end_time() {
+        return job_end_time;
+    }
+
     String job_start_time;
     String job_end_time;
     String requestee;
-    UserModel babysitter;
+    UserModel user;
 
 
     // Required default constructor for Firebase object mapping
@@ -29,7 +38,8 @@ public class OutBabysittingRequestsModel implements FirebaseListJoiner {
 
     public Map<Query, String> joinPaths(Firebase path) {
         Map<Query, String> paths = new HashMap<>();
-        paths.put(path.getRoot().child("users").child(id), "user");
+        if (getRequestee() != null)
+            paths.put(path.getRoot().child("users").child(getRequestee()), "user");
         return paths;
     }
 
@@ -37,16 +47,13 @@ public class OutBabysittingRequestsModel implements FirebaseListJoiner {
         return id;
     }
 
-    public String getJobStartTime() {
-        return job_start_time;
-    }
 
-    public String getJobEndTime() {
-        return job_end_time;
-    }
-
-    public String getRequestor() {
+    public String getRequestee() {
         return requestee;
+    }
+
+    public String getRequesteeName() {
+        return user == null ? null : user.getDisplayName();
     }
 
 

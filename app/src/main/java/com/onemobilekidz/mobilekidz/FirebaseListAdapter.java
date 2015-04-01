@@ -45,6 +45,8 @@ public abstract class FirebaseListAdapter<T extends FirebaseListJoiner> extends 
     private Map<String, T> mModelKeys;
     private ChildEventListener mListener;
 
+    private static final String LOG = "FirebaseListAdapter";
+
     /**
      * @param mRef        The Firebase location to watch for data changes. Can also be a slice of a location, using some
      *                    combination of <code>limit()</code>, <code>startAt()</code>, and <code>endAt()</code>,
@@ -69,7 +71,7 @@ public abstract class FirebaseListAdapter<T extends FirebaseListJoiner> extends 
                 T model = dataSnapshot.getValue(FirebaseListAdapter.this.mModelClass);
                 setField(model, "id", dataSnapshot.getKey());
                 insertChild(model, dataSnapshot.getKey(), previousChildName);
-                System.out.println("My values " + dataSnapshot.getKey() + " " + dataSnapshot.getValue());
+                Log.v(LOG, "My values " + dataSnapshot.getKey() + " " + dataSnapshot.getValue());
                 populateJoins(model, dataSnapshot);
                 notifyDataSetChanged();
             }
@@ -77,7 +79,7 @@ public abstract class FirebaseListAdapter<T extends FirebaseListJoiner> extends 
             private void populateJoins(T model, final DataSnapshot dataSnapshot) {
                 Map<Query, String> joins = model.joinPaths(dataSnapshot.getRef());
                 for (final Map.Entry<Query, String> join : joins.entrySet()) {
-                    System.out.println(join.getKey().toString() + " " + join.getValue().toString());
+                    Log.v(LOG, join.getKey().toString() + " " + join.getValue().toString());
                     join.getKey().addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot subSnap) {
@@ -160,14 +162,14 @@ public abstract class FirebaseListAdapter<T extends FirebaseListJoiner> extends 
             }
 
             private void setField(T model, String fieldName, DataSnapshot value) {
-                System.out.println("setField(" + model + ", " + fieldName + ", " + value + ")");
+                Log.v(LOG, "setField(" + model + ", " + fieldName + ", " + value + ")");
                 try {
                     Field field = model.getClass().getDeclaredField(fieldName);
                     field.setAccessible(true);
                     field.set(model, value.getValue(field.getType()));
                 } catch (Exception e) {
                     // Ignore.
-                    System.out.println(e);
+                    Log.v(LOG, e.toString());
                 }
             }
         });

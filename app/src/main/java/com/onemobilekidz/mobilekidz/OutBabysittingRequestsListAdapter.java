@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.firebase.client.Query;
 import com.onemobilekidz.mobilekidz.model.OutBabysittingRequestsModel;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by vfischer on 3/31/15.
@@ -33,22 +36,30 @@ public class OutBabysittingRequestsListAdapter extends FirebaseListAdapter<OutBa
 
 
     @Override
-    protected void populateView(View view, final OutBabysittingRequestsModel babysittingRequestObj, final int i) {/*
-        final String requestor;
+    protected void populateView(View view, final OutBabysittingRequestsModel babysittingRequestObj, final int i) {
+        final String requestee;
+        final String requesteeName;
         final String jobStartTime;
         final String jobEndTime;
         Log.v(LOG, "I'm here still");
         if ( babysittingRequestObj != null) {
-            requestor = babysittingRequestObj.getRequestor();
-            jobStartTime = babysittingRequestObj.getJobStartTime();
-            jobEndTime = babysittingRequestObj.getJobEndTime();
+            requestee = babysittingRequestObj.getRequestee();
+            requesteeName = babysittingRequestObj.getRequesteeName();
+            jobStartTime = babysittingRequestObj.getJob_start_time();
+            jobEndTime = babysittingRequestObj.getJob_end_time();
             final TextView babysitterNameText = (TextView) view.findViewById(R.id.babySitterName);
-            babysitterNameText.setText(requestor);
+            babysitterNameText.setText(requesteeName);
 
+            final TextView jobStartTimeText = (TextView) view.findViewById(R.id.requestDate);
+            jobStartTimeText.setText(jobStartTime);
 
-            Log.v(LOG, "requestor: " + babysittingRequestObj.getBabysitter().getDisplayName() + " jobstartTime: " + jobStartTime + " jobEndTime: " + jobEndTime);
+            final TextView jobEndTimeText = (TextView) view.findViewById(R.id.requestSentReceived);
+            jobEndTimeText.setText(jobEndTime);
+
+            Log.v(LOG, "requestor: " + requestee);
+            Log.v(LOG, " requestorName: " + requesteeName + " jobstartTime: " + jobStartTime + " jobEndTime: " + jobEndTime);
         }
-*/
+
     }
 
 

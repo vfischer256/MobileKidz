@@ -50,7 +50,7 @@ public class InBabysittingRequests extends ListActivity {
         final ListView listView = getListView();
 
         if (mFirebaseRef != null) {
-            inBabysittingRequestsListAdapter = new InBabysittingRequestsListAdapter(getApplicationContext(), mFirebaseRef, this, R.layout.babysitting_request_list_row);
+            inBabysittingRequestsListAdapter = new InBabysittingRequestsListAdapter(getApplicationContext(), mFirebaseRef, this, R.layout.in_babysitting_request_list_row);
             Log.v(LOG, "getCount: " + inBabysittingRequestsListAdapter.getCount());
 
             listView.setAdapter(inBabysittingRequestsListAdapter);

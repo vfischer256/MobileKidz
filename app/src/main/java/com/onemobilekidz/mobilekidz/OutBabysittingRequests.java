@@ -2,11 +2,8 @@ package com.onemobilekidz.mobilekidz;
 
 import android.app.ListActivity;
 import android.database.DataSetObserver;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -50,7 +47,7 @@ public class OutBabysittingRequests extends ListActivity {
         final ListView listView = getListView();
 
         if (mFirebaseRef != null) {
-            outBabysittingRequestsListAdapter = new OutBabysittingRequestsListAdapter(getApplicationContext(), mFirebaseRef, this, R.layout.babysitting_request_list_row);
+            outBabysittingRequestsListAdapter = new OutBabysittingRequestsListAdapter(getApplicationContext(), mFirebaseRef, this, R.layout.out_babysitting_request_list_row);
             Log.v(LOG, "getCount: " + outBabysittingRequestsListAdapter.getCount());
 
             listView.setAdapter(outBabysittingRequestsListAdapter);
