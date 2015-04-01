@@ -12,24 +12,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class InBabysittingRequestsModel implements FirebaseListJoiner {
+public class OutBabysittingRequestsModel implements FirebaseListJoiner {
 
-    private static final String LOG = "BSRListAdapter";
+    private static final String LOG = "OutBSRListAdapter";
     String id;
     String job_start_time;
     String job_end_time;
-    String requestor;
+    String requestee;
     UserModel babysitter;
 
 
     // Required default constructor for Firebase object mapping
     @SuppressWarnings("unused")
-    private InBabysittingRequestsModel() {
+    private OutBabysittingRequestsModel() {
     }
 
     public Map<Query, String> joinPaths(Firebase path) {
         Map<Query, String> paths = new HashMap<>();
-        paths.put(path.getRoot().child("users").child(requestor), "user");
+        paths.put(path.getRoot().child("users").child(id), "user");
         return paths;
     }
 
@@ -46,7 +46,7 @@ public class InBabysittingRequestsModel implements FirebaseListJoiner {
     }
 
     public String getRequestor() {
-        return requestor;
+        return requestee;
     }
 
 

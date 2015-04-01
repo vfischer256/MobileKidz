@@ -18,12 +18,10 @@ public class Messages extends ListActivity {
 
 
     private static final String LOG = "Messages";
+    private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
     private Firebase mFirebaseRef;
     private MessageListAdapter messageListAdapter;
     private ValueEventListener mConnectedListener;
-
-    private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

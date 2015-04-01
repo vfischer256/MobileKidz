@@ -13,11 +13,10 @@ import java.util.Map;
  */
 public class MessagesModel implements FirebaseListJoiner {
 
+    private static final String LOG = "MessagesModel";
     String id;
     UserModel user;
     String message;
-
-    private static final String LOG = "MessagesModel";
 
     public Map<Query, String> joinPaths(Firebase path) {
         Map<Query, String> paths = new HashMap<>();

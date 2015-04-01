@@ -23,8 +23,8 @@ public class SendMessage extends Activity {
 
 
     private static final String LOG = "SendMessage";
-    private String friendId;
     private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
+    private String friendId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

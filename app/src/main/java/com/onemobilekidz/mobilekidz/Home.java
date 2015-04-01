@@ -29,16 +29,13 @@ import android.util.Log;
 public class Home extends Activity implements ConnectionCallbacks, OnConnectionFailedListener {
 
     private static final String LOG = "Home";
+    public String key;
     Intent intent;
     private GoogleApiClient mGoogleApiClient;
     private boolean emailExists;
-
     private String email;
     private String displayName;
     private String newDisplayName;
-
-    public String key;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

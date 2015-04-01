@@ -24,21 +24,16 @@ for Java® Programmers. Course Technology PTR. */
 
 public class MakeRequests extends Activity {
 
-    private static final String LOG = "MakeRequests";
-    private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
-
-    private Firebase mFirebaseRef;
-    private FriendListAdapter friendListAdapter;
-
     static final int TIME_DIALOG_ID = 0;
     static final int DATE_DIALOG_ID = 1;
     static final int BABYSITTER_DIALOG_ID = 2;
     static final int END_TIME_DIALOG_ID = 3;
-
-
+    private static final String LOG = "MakeRequests";
+    private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
     String mChosenDateTime;
     String mEndDateTime;
-
+    private Firebase mFirebaseRef;
+    private FriendListAdapter friendListAdapter;
     private TextView mTimeDisplay;
     private Button mPickTime;
     private Button mPickDate;
@@ -47,10 +42,6 @@ public class MakeRequests extends Activity {
 
     private int mHour;
     private int mMinute;
-
-    private int mEndHour;
-    private int mEndMinute;
-
     // the callback received when the user "sets" the time in the dialog
     private TimePickerDialog.OnTimeSetListener mTimeSetListener =
             new TimePickerDialog.OnTimeSetListener() {
@@ -60,7 +51,8 @@ public class MakeRequests extends Activity {
                     updateDisplay();
                 }
             };
-
+    private int mEndHour;
+    private int mEndMinute;
     // the callback received when the user "sets" the time in the dialog
     private TimePickerDialog.OnTimeSetListener mEndTimeSetListener =
             new TimePickerDialog.OnTimeSetListener() {

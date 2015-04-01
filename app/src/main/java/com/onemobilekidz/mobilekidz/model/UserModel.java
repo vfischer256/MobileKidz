@@ -17,10 +17,19 @@ import java.util.Map;
  * Created by vfischer on 3/26/15.
  */
 public class UserModel {
+    private static final String LOG = "UserModel";
+    private static UserModel currentUser = new UserModel();
     private String email;
     private String displayName;
-    private static UserModel currentUser = new UserModel();
-    private static final String LOG = "UserModel";
+    private String userId;
+
+    public UserModel() {
+    }
+
+    public UserModel(String email, String displayName) {
+        this.email = email;
+        this.displayName = displayName;
+    }
 
     public static void getOrCreateUserByEmail(final String email, final ValueEventListener onComplete) {
         getUserByEmail(email, new ValueEventListener() {
@@ -47,7 +56,7 @@ public class UserModel {
             }
 
             public void onCancelled(FirebaseError firebaseError) {
-                System.out.println("The read failed: " + firebaseError.getMessage());
+                Log.v(LOG, "The read failed: " + firebaseError.getMessage());
             }
         });
     }
@@ -76,18 +85,12 @@ public class UserModel {
         this.userId = userId;
     }
 
-    private String userId;
-
-    public UserModel() {
-    }
-
-    public UserModel(String email, String displayName) {
-        this.email = email;
-        this.displayName = displayName;
-    }
-
     public String getEmail() {
         return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getDisplayName() {
@@ -96,10 +99,6 @@ public class UserModel {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }
 
