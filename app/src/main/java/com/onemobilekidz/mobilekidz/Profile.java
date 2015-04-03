@@ -40,7 +40,7 @@ public class Profile extends Activity implements ConnectionCallbacks, OnConnecti
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-/*
+
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -49,7 +49,7 @@ public class Profile extends Activity implements ConnectionCallbacks, OnConnecti
                 .build();
 
         mGoogleApiClient.connect();
-*/
+
 
         TextView displayNameView = (TextView) findViewById(R.id.profileName);
 

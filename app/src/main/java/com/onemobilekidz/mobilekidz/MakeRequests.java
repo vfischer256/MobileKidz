@@ -14,6 +14,7 @@ import android.widget.*;
 
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.onemobilekidz.mobilekidz.model.FriendsModel;
 import com.onemobilekidz.mobilekidz.model.UserModel;
 
 import java.util.*;
@@ -166,6 +167,9 @@ public class MakeRequests extends Activity {
                     builder.setAdapter(friendListAdapter, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             Log.v("LOG", "Position: " + String.valueOf(which) + "Count: " + friendListAdapter.getCount());
+                            FriendsModel model = friendListAdapter.getItem(which);
+                            Log.v("LOG", "MODEL "+model.getFriend().getDisplayName() + model.getId());
+
                         }
                     })
                             .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

@@ -188,7 +188,7 @@ public abstract class FirebaseListAdapter<T extends FirebaseListJoiner> extends 
     }
 
     @Override
-    public Object getItem(int i) {
+    public T getItem(int i) {
         return mModels.get(i);
     }
 
