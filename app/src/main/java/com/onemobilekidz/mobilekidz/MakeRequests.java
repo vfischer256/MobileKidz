@@ -169,6 +169,7 @@ public class MakeRequests extends Activity {
                             Log.v("LOG", "Position: " + String.valueOf(which) + "Count: " + friendListAdapter.getCount());
                             FriendsModel model = friendListAdapter.getItem(which);
                             Log.v("LOG", "MODEL "+model.getFriend().getDisplayName() + model.getId());
+                            babysitterId = model.getId();
 
                         }
                     })
@@ -219,7 +220,7 @@ public class MakeRequests extends Activity {
     }
 
     public void submitBabysittingRequest(final View view) {
-        Firebase postRef = new Firebase(FIREBASE_URL).child("incoming_babysitting_requests").child("-JldHutTeMpT5VO7eLnf");
+        Firebase postRef = new Firebase(FIREBASE_URL).child("incoming_babysitting_requests").child(babysitterId);
         Map<String, Object> inBabysitingRequests = new HashMap<String, Object>();
         inBabysitingRequests.put("job_start_time", mChosenDateTime);
         inBabysitingRequests.put("duration", mDuration);
@@ -245,7 +246,7 @@ public class MakeRequests extends Activity {
         Map<String, Object> outBabysittingRequests = new HashMap<String, Object>();
         outBabysittingRequests.put("job_start_time", mChosenDateTime);
         outBabysittingRequests.put("duration", mDuration);
-        outBabysittingRequests.put("requestee", "-JldHutTeMpT5VO7eLnf");
+        outBabysittingRequests.put("requestee", babysitterId);
         outRef.setValue(outBabysittingRequests,
                 new Firebase.CompletionListener() {
                     @Override
