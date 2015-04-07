@@ -98,7 +98,12 @@ public class MakeRequests extends Activity {
 
 
         Firebase.setAndroidContext(this);
-        mFirebaseRef = new Firebase(FIREBASE_URL).child("friends").child(UserModel.getCurrentUser().getUserId());
+        try {
+            mFirebaseRef = new Firebase(FIREBASE_URL).child("friends").child(UserModel.getCurrentUser().getUserId());
+        } catch (Exception e) {
+            Log.e(LOG, e.toString());
+        }
+
 
         // capture our View elements
         mTimeDisplay = (TextView) findViewById(R.id.myChosenDate);
@@ -168,7 +173,7 @@ public class MakeRequests extends Activity {
                         public void onClick(DialogInterface dialog, int which) {
                             Log.v("LOG", "Position: " + String.valueOf(which) + "Count: " + friendListAdapter.getCount());
                             FriendsModel model = friendListAdapter.getItem(which);
-                            Log.v("LOG", "MODEL "+model.getFriend().getDisplayName() + model.getId());
+                            Log.v("LOG", "MODEL " + model.getFriend().getDisplayName() + model.getId());
                             babysitterId = model.getId();
 
                         }

@@ -45,7 +45,7 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
-
+/*
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -54,12 +54,13 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
                 .build();
 
         mGoogleApiClient.connect();
+        */
         //initializeUser("vfischer@fischerfamily.us", "Vivienne Fischer");
         //initializeUser("katie@gmail.com", "Katie");
         //    initializeUser("vfischer@gmail.com", "vfischer");
-      //  initializeUser("jessica@gmail.com", "Jessica Fischer");
+        initializeUser("jessica@gmail.com", "Jessica Fischer");
         //initializeUser("ethan@gmail.com", "Ethan");
-     //   initializeUser(email, displayName);
+        //   initializeUser(email, displayName);
 
         setContentView(R.layout.activity_home);
         ActionBar actionBar = getActionBar();
