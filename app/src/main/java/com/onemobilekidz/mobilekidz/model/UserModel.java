@@ -8,6 +8,9 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.LocationCallback;
 
 
 import java.util.HashMap;
@@ -21,7 +24,7 @@ public class UserModel {
     private static UserModel currentUser = new UserModel();
     private String email;
     private String displayName;
-    private String userId;
+    private static String userId;
 
     public UserModel() {
     }
@@ -52,6 +55,7 @@ public class UserModel {
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             public void onDataChange(DataSnapshot snapshot) {
+
                 onComplete.onDataChange(snapshot);
             }
 
@@ -100,5 +104,7 @@ public class UserModel {
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
+
+
 }
 

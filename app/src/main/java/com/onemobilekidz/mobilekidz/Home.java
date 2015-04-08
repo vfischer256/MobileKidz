@@ -2,6 +2,7 @@ package com.onemobilekidz.mobilekidz;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.location.Location;
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
@@ -12,8 +13,11 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
@@ -26,6 +30,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import android.util.Log;
+import android.widget.Toast;
 
 
 public class Home extends Activity implements ConnectionCallbacks, OnConnectionFailedListener {
@@ -38,29 +43,35 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
     private String email;
     private String displayName;
     private String newDisplayName;
+    private double mLatitude;
+    private double mLongitude;
     private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
-
+    Location mLastLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
-/*
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
+
+       /* mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(Plus.API, Plus.PlusOptions.builder().build())
+                 .addApi(LocationServices.API)
+
                 .addScope(Plus.SCOPE_PLUS_LOGIN)
                 .build();
 
         mGoogleApiClient.connect();
-        */
+*/
+
         //initializeUser("vfischer@fischerfamily.us", "Vivienne Fischer");
         //initializeUser("katie@gmail.com", "Katie");
-        //    initializeUser("vfischer@gmail.com", "vfischer");
-        initializeUser("jessica@gmail.com", "Jessica Fischer");
+        initializeUser("vfischer@gmail.com", "vfischer");
+        //  initializeUser("jessica@gmail.com", "Jessica Fischer");
         //initializeUser("ethan@gmail.com", "Ethan");
         //   initializeUser(email, displayName);
+        // initializeUser("vfischertablet@gmail.com", "Vivienne Fischer");
 
         setContentView(R.layout.activity_home);
         ActionBar actionBar = getActionBar();
@@ -82,6 +93,9 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
                     UserModel.getCurrentUser().setEmail(email);
                     if (snapshot.getValue() == null) {
                         UserModel.getCurrentUser().setUserId(createUser(email, displayName).getKey());
+                        //   updateLocation(UserModel.getCurrentUser().getUserId(), mLatitude, mLongitude);
+                        updateLocation(UserModel.getCurrentUser().getUserId(), 34.198198, -118.399390);
+
                     } else {
                         for (String id : ((Map<String, Object>) snapshot.getValue()).keySet()) {
                             UserModel.getCurrentUser().setUserId(id);
@@ -90,6 +104,9 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
                                 updateDisplayName(displayName);
                             }
                             UserModel.getCurrentUser().setDisplayName(displayName);
+                            // updateLocation(UserModel.getCurrentUser().getUserId(), mLatitude, mLongitude);
+                            updateLocation(UserModel.getCurrentUser().getUserId(), 34.198198, -118.399390);
+
                         }
                     }
                     System.out.println(UserModel.getCurrentUser().getUserId());
@@ -166,9 +183,19 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
             displayName = currentPerson.getDisplayName();
             initializeUser(email, displayName);
             Log.v(LOG, "user Id + " + UserModel.getCurrentUser().getUserId());
-//            Log.v(LOG, "i am a key + " + key);
+            if (UserModel.getCurrentUser().getUserId() == null) {
+                Toast.makeText(Home.this, "Click on Home to Reconnect", Toast.LENGTH_SHORT).show();
+            }
 
-//            bundle.putString("userId", key);
+        }
+
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+        if (mLastLocation != null) {
+            mLatitude = mLastLocation.getLatitude();
+            mLongitude = mLastLocation.getLongitude();
+            Log.v(LOG, "Latitude: " + String.valueOf(mLastLocation.getLatitude()));
+            Log.v(LOG, "Longitude: " + String.valueOf(mLastLocation.getLongitude()));
 
         }
 
@@ -185,4 +212,17 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
         startActivity(intent);
     }
 
+    private void updateLocation(String userId, double latitude, double longitude) {
+        GeoFire geoFire = new GeoFire(new Firebase("https://crackling-heat-9656.firebaseio.com").child("user_location"));
+        geoFire.setLocation(userId, new GeoLocation(latitude, longitude), new GeoFire.CompletionListener() {
+            @Override
+            public void onComplete(String key, FirebaseError error) {
+                if (error != null) {
+                    System.err.println("There was an error saving the location to GeoFire: " + error);
+                } else {
+                    System.out.println("Location saved on server successfully!");
+                }
+            }
+        });
+    }
 }
