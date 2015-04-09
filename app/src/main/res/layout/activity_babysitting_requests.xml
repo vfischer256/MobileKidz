@@ -13,6 +13,7 @@
         android:id="@+id/middleSection"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="#e3f4a3"
         android:layout_weight="5">
 
 

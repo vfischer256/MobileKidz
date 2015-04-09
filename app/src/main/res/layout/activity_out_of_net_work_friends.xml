@@ -31,10 +31,10 @@
         <ListView
             android:id="@+id/outOfNetworkFriends"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:entries="@array/outOfNetworkFriends" />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
+
     <fragment
         android:id="@+id/bottomSection"
         android:name="com.onemobilekidz.mobilekidz.BottomLinksFragment"

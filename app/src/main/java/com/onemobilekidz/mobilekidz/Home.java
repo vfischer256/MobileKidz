@@ -53,7 +53,7 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
 
-       /* mGoogleApiClient = new GoogleApiClient.Builder(this)
+    /*   mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(Plus.API, Plus.PlusOptions.builder().build())
@@ -67,8 +67,8 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
 
         //initializeUser("vfischer@fischerfamily.us", "Vivienne Fischer");
         //initializeUser("katie@gmail.com", "Katie");
-        initializeUser("vfischer@gmail.com", "vfischer");
-        //  initializeUser("jessica@gmail.com", "Jessica Fischer");
+        //   initializeUser("vfischer@gmail.com", "vfischer");
+        initializeUser("jessica@gmail.com", "Jessica Fischer");
         //initializeUser("ethan@gmail.com", "Ethan");
         //   initializeUser(email, displayName);
         // initializeUser("vfischertablet@gmail.com", "Vivienne Fischer");
@@ -93,8 +93,9 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
                     UserModel.getCurrentUser().setEmail(email);
                     if (snapshot.getValue() == null) {
                         UserModel.getCurrentUser().setUserId(createUser(email, displayName).getKey());
-                        //   updateLocation(UserModel.getCurrentUser().getUserId(), mLatitude, mLongitude);
-                        updateLocation(UserModel.getCurrentUser().getUserId(), 34.198198, -118.399390);
+                        updateLocation(UserModel.getCurrentUser().getUserId(), mLatitude, mLongitude);
+                        //updateLocation(UserModel.getCurrentUser().getUserId(), 34.198198, -118.399390);
+                        initializePoints(UserModel.getCurrentUser().getUserId());
 
                     } else {
                         for (String id : ((Map<String, Object>) snapshot.getValue()).keySet()) {
@@ -104,8 +105,9 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
                                 updateDisplayName(displayName);
                             }
                             UserModel.getCurrentUser().setDisplayName(displayName);
-                            // updateLocation(UserModel.getCurrentUser().getUserId(), mLatitude, mLongitude);
-                            updateLocation(UserModel.getCurrentUser().getUserId(), 34.198198, -118.399390);
+                            updateLocation(UserModel.getCurrentUser().getUserId(), mLatitude, mLongitude);
+
+                            //    updateLocation(UserModel.getCurrentUser().getUserId(), 34.198198, -118.399390);
 
                         }
                     }
@@ -160,6 +162,24 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
                 return super.onOptionsItemSelected(item);
         }
         return true;
+
+    }
+
+
+    public static void initializePoints(String userId) {
+        Firebase pointRef = new Firebase(FIREBASE_URL).child("points").child(userId).child("initial");
+        Map<String, Object> points = new HashMap<String, Object>();
+        points.put("points", 0);
+        pointRef.setValue(points, new Firebase.CompletionListener() {
+            @Override
+            public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                if (firebaseError != null) {
+                    Log.v(LOG, "Points could not be updated. " + firebaseError.getMessage());
+                } else {
+                    Log.v(LOG, "Points was initialized to 0.");
+                }
+            }
+        });
 
     }
 

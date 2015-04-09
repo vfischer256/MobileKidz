@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +30,7 @@ import java.util.Map;
 
 public class OutOfNetWorkFriends extends Activity {
 
+    private static final String LOG = "OONFriends";
     private String userId = UserModel.getCurrentUser().getUserId();
     private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
     public GeoFire geoFireOtherUser;
@@ -65,85 +67,89 @@ public class OutOfNetWorkFriends extends Activity {
     }
 
     private void getOutOfNetworkUser() {
-        GeoFire geoFireUser = new GeoFire(new Firebase(FIREBASE_URL).child("user_location"));
+        try {
+            GeoFire geoFireUser = new GeoFire(new Firebase(FIREBASE_URL).child("user_location"));
 
-        geoFireUser.getLocation(userId, new LocationCallback() {
-
-
-            @Override
-            public void onLocationResult(String key, GeoLocation location) {
-                if (location != null) {
-                    System.out.println(String.format("The location for key %s is [%f,%f]", key, location.latitude, location.longitude));
+            geoFireUser.getLocation(userId, new LocationCallback() {
 
 
-                    geoFireOtherUser = new GeoFire(new Firebase(FIREBASE_URL).child("user_location"));
+                @Override
+                public void onLocationResult(String key, GeoLocation location) {
+                    if (location != null) {
+                        System.out.println(String.format("The location for key %s is [%f,%f]", key, location.latitude, location.longitude));
 
 
-                    geoQuery = geoFireOtherUser.queryAtLocation(new GeoLocation(location.latitude, location.longitude), 3);
+                        geoFireOtherUser = new GeoFire(new Firebase(FIREBASE_URL).child("user_location"));
 
 
-                    System.out.println("My center: " + geoQuery.getCenter());
-
-                    geoQuery.toString();
-
-                    geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
-                        @Override
-                        public void onKeyEntered(String key, GeoLocation location) {
-                            System.out.println(String.format("Key %s entered the search area at [%f,%f]", key, location.latitude, location.longitude));
-                            //         outOfNetworkList.add(key);
-                            otherUserId = key;
-                            Firebase ref = new Firebase(FIREBASE_URL).child("users").child(otherUserId).child("email");
-                            ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    System.out.println(dataSnapshot.getValue());
-                                    outOfNetworkList.add(dataSnapshot.getValue().toString());
-
-                                }
-
-                                @Override
-                                public void onCancelled(FirebaseError firebaseError) {
-
-                                }
-                            });
-
-                        }
-
-                        @Override
-                        public void onKeyExited(String key) {
-                            System.out.println(String.format("Key %s is no longer in the search area", key));
-                        }
-
-                        @Override
-                        public void onKeyMoved(String key, GeoLocation location) {
-                            System.out.println(String.format("Key %s moved within the search area to [%f,%f]", key, location.latitude, location.longitude));
-                        }
-
-                        @Override
-                        public void onGeoQueryReady() {
+                        geoQuery = geoFireOtherUser.queryAtLocation(new GeoLocation(location.latitude, location.longitude), 3);
 
 
-                            displayUser();
-                            System.out.println("All initial data has been loaded and events have been fired!");
-                        }
+                        System.out.println("My center: " + geoQuery.getCenter());
 
-                        @Override
-                        public void onGeoQueryError(FirebaseError error) {
-                            System.err.println("There was an error with this query: " + error);
-                        }
-                    });
+                        geoQuery.toString();
 
-                } else {
-                    System.out.println(String.format("There is no location for key %s in GeoFire", key));
+                        geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
+                            @Override
+                            public void onKeyEntered(String key, GeoLocation location) {
+                                System.out.println(String.format("Key %s entered the search area at [%f,%f]", key, location.latitude, location.longitude));
+                                //         outOfNetworkList.add(key);
+                                otherUserId = key;
+                                Firebase ref = new Firebase(FIREBASE_URL).child("users").child(otherUserId).child("email");
+                                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        System.out.println(dataSnapshot.getValue());
+                                        outOfNetworkList.add(dataSnapshot.getValue().toString());
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(FirebaseError firebaseError) {
+
+                                    }
+                                });
+
+                            }
+
+                            @Override
+                            public void onKeyExited(String key) {
+                                System.out.println(String.format("Key %s is no longer in the search area", key));
+                            }
+
+                            @Override
+                            public void onKeyMoved(String key, GeoLocation location) {
+                                System.out.println(String.format("Key %s moved within the search area to [%f,%f]", key, location.latitude, location.longitude));
+                            }
+
+                            @Override
+                            public void onGeoQueryReady() {
+
+
+                                displayUser();
+                                System.out.println("All initial data has been loaded and events have been fired!");
+                            }
+
+                            @Override
+                            public void onGeoQueryError(FirebaseError error) {
+                                System.err.println("There was an error with this query: " + error);
+                            }
+                        });
+
+                    } else {
+                        System.out.println(String.format("There is no location for key %s in GeoFire", key));
+                    }
+
                 }
 
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-                System.err.println("There was an error getting the GeoFire location: " + firebaseError);
-            }
-        });
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    System.err.println("There was an error getting the GeoFire location: " + firebaseError);
+                }
+            });
+        } catch (Exception e) {
+            Log.e(LOG, e.toString());
+        }
     }
 
     private void displayUser() {
