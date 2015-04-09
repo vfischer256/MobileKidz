@@ -49,6 +49,7 @@ public class MakeRequests extends Activity {
     private static TextView tv;
     static Dialog d;
 
+    private Firebase mFirebaseRefPoints;
     private Firebase mFirebaseRef;
     private FriendListAdapter friendListAdapter;
     private TextView mTimeDisplay;
@@ -182,38 +183,32 @@ public class MakeRequests extends Activity {
                         mDateSetListener, mYear, mMonthOfYear, mDayOfMonth);
             case BABYSITTER_DIALOG_ID:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                try {
-                    friendListAdapter = new FriendListAdapter(getApplicationContext(), mFirebaseRef, this, R.layout.babysitter_list_row);
-                } catch (Exception e) {
-                    Log.e(LOG, e.toString());
-                }
+
+                friendListAdapter = new FriendListAdapter(getApplicationContext(), mFirebaseRef, this, R.layout.babysitter_list_row);
                 builder.setTitle("Pick a Babysitter");
 
-                try {
-                    if (friendListAdapter != null) {
-                        builder.setAdapter(friendListAdapter, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                Log.v("LOG", "Position: " + String.valueOf(which) + "Count: " + friendListAdapter.getCount());
-                                FriendsModel model = friendListAdapter.getItem(which);
-                                Log.v("LOG", "MODEL " + model.getFriend().getDisplayName() + model.getId());
-                                babysitterId = model.getId();
 
-                            }
-                        });
+                if (friendListAdapter != null) {
+                    builder.setAdapter(friendListAdapter, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.v("LOG", "Position: " + String.valueOf(which) + "Count: " + friendListAdapter.getCount());
+                            FriendsModel model = friendListAdapter.getItem(which);
+                            Log.v("LOG", "MODEL " + model.getFriend().getDisplayName() + model.getId());
 
-                    }
-                } catch (Exception e) {
-                    Log.e(LOG, e.toString());
+                            babysitterId = model.getId();
+                        }
+                    })
+                            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Log.v("LOG", "I'm being cancelled.");
+                                }
+                            });
+
                 }
 
-                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Log.v("LOG", "I'm being cancelled.");
-                    }
-                });
-
-
                 return builder.create();
+
+
             case END_TIME_DIALOG_ID:
                 final CharSequence[] items = {"1", "2", "3", "4", "5", "6"};
 
@@ -230,6 +225,7 @@ public class MakeRequests extends Activity {
                 });
                 dialogBuilder.create().show();
         }
+
         return null;
     }
 
@@ -305,10 +301,10 @@ public class MakeRequests extends Activity {
     private void displayPoints() {
 
         try {
-            mFirebaseRef = new Firebase(FIREBASE_URL).child("points").child(UserModel.getCurrentUser().getUserId());
+            mFirebaseRefPoints = new Firebase(FIREBASE_URL).child("points").child(UserModel.getCurrentUser().getUserId());
 
 
-            mFirebaseRef.addValueEventListener(new ValueEventListener() {
+            mFirebaseRefPoints.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
 
