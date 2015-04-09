@@ -29,22 +29,24 @@
         android:orientation="vertical"
         android:paddingLeft="20dp">
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="Send"
+            android:id="@+id/button"
+            android:layout_weight="1"
+            android:onClick="onClick" />
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:inputType="textMultiLine"
+            android:hint="Enter message"
             android:ems="10"
-            android:id="@+id/messageText" />
+            android:id="@+id/messageText"
+            android:layout_weight="5" />
     </LinearLayout>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="Send"
-        android:id="@+id/button"
-        android:layout_weight="1"
-        android:onClick="onClick" />
 
     <fragment
         android:id="@+id/bottomSection"
