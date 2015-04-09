@@ -13,8 +13,8 @@
         android:id="@+id/middleSection"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#e3f4a3"
-        android:layout_weight="5">
+        android:layout_weight="5"
+        android:background="#e3f4a3">
 
 
         <TableRow
@@ -42,9 +42,8 @@
                 android:gravity="center"
                 android:singleLine="false"
                 android:text="Incoming Babysitting Requests"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#3c0032"
-                android:textSize="35sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
 
@@ -61,7 +60,6 @@
                 android:layout_margin="5dp"
                 android:layout_row="1"
                 android:layout_rowWeight="1"
-                android:layout_weight="1"
                 android:clickable="false"
                 android:contentDescription="schedule"
                 android:src="@drawable/baby" />
@@ -74,8 +72,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:onClick="goOutgoingBabysittingRequests"
-            android:clickable="true">
+            android:clickable="true"
+            android:onClick="goOutgoingBabysittingRequests">
 
             <TextView
                 android:id="@+id/textView"
@@ -96,7 +94,7 @@
                 android:text="Outgoing Babysitting Requests"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#3c0032"
-                android:textSize="35sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <ImageView
@@ -111,7 +109,6 @@
                 android:layout_gravity="right|fill_vertical"
                 android:layout_margin="5dp"
                 android:layout_row="0"
-                android:layout_weight="1"
                 android:clickable="false"
                 android:contentDescription="schedule"
                 android:src="@drawable/calendar" />
@@ -144,7 +141,7 @@
                 android:text="Make Request"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#3c0032"
-                android:textSize="35sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
 
@@ -161,7 +158,6 @@
                 android:layout_margin="5dp"
                 android:layout_row="2"
                 android:layout_rowWeight="1"
-                android:layout_weight="1"
                 android:clickable="false"
                 android:contentDescription="schedule"
                 android:src="@drawable/help" />
