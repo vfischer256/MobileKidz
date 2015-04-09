@@ -93,7 +93,7 @@ public class FriendRequests extends ListActivity {
     // TODO: When we send a friend request to a user that doesn't exist, it makes a bogus user.
     // TODO: Delete the bogus user after 60 days if the user does not log in at least once.
     public void sendFriendRequest(View view) {
-        EditText editText = (EditText) findViewById(R.id.editEmailAddress);
+        final EditText editText = (EditText) findViewById(R.id.editEmailAddress);
         final String email = editText.getText().toString().toLowerCase();
         System.out.println("Sending friend request from " + UserModel.getCurrentUser().getEmail() + " to " + email);
         UserModel.getOrCreateUserByEmail(email, new ValueEventListener() {
@@ -109,7 +109,9 @@ public class FriendRequests extends ListActivity {
                         child(friendId).child(UserModel.getCurrentUser().getUserId()).child("sender").setValue(true);
                 Toast.makeText(FriendRequests.this, "Friend Request Sent ", Toast.LENGTH_SHORT).show();
 
-                Home.initializePoints(friendId);
+
+                editText.setText("");
+                editText.setHint("Enter email address");
             }
 
             public void onCancelled(FirebaseError firebaseError) {

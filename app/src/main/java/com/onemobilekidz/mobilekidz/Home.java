@@ -53,22 +53,22 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
 
-    /*   mGoogleApiClient = new GoogleApiClient.Builder(this)
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(Plus.API, Plus.PlusOptions.builder().build())
-                 .addApi(LocationServices.API)
+                .addApi(LocationServices.API)
 
                 .addScope(Plus.SCOPE_PLUS_LOGIN)
                 .build();
 
         mGoogleApiClient.connect();
-*/
+
 
         //initializeUser("vfischer@fischerfamily.us", "Vivienne Fischer");
         //initializeUser("katie@gmail.com", "Katie");
         //   initializeUser("vfischer@gmail.com", "vfischer");
-        initializeUser("jessica@gmail.com", "Jessica Fischer");
+        //  initializeUser("jessica@gmail.com", "Jessica Fischer");
         //initializeUser("ethan@gmail.com", "Ethan");
         //   initializeUser(email, displayName);
         // initializeUser("vfischertablet@gmail.com", "Vivienne Fischer");
@@ -103,6 +103,7 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
                             newDisplayName = ((Map<String, Map<String, String>>) snapshot.getValue()).get(id).get("displayName");
                             if (newDisplayName.equals("Unknown User")) {
                                 updateDisplayName(displayName);
+                                initializePoints(UserModel.getCurrentUser().getUserId());
                             }
                             UserModel.getCurrentUser().setDisplayName(displayName);
                             updateLocation(UserModel.getCurrentUser().getUserId(), mLatitude, mLongitude);
