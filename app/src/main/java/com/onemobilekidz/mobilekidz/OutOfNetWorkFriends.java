@@ -2,14 +2,17 @@ package com.onemobilekidz.mobilekidz;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -162,8 +165,15 @@ public class OutOfNetWorkFriends extends Activity {
         }
         // Create The Adapter with passing ArrayList as 3rd parameter
         ArrayAdapter<String> arrayAdapter =
-                new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, outOfNetworkList);
-        // Set The Adapter
+                new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, outOfNetworkList) {
+                    @Override
+                    public View getView(int position, View convertView, ViewGroup parent) {
+                        View view = super.getView(position, convertView, parent);
+                        TextView text = (TextView) view.findViewById(android.R.id.text1);
+                        text.setTextColor(Color.BLACK);
+                        return view;
+                    }
+                };        // Set The Adapter
         userList.setAdapter(arrayAdapter);
 
     }
