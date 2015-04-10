@@ -69,7 +69,8 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
         //initializeUser("katie@gmail.com", "Katie");
         //initializeUser("vfischer@gmail.com", "vfischer");
         //    initializeUser("jessica@gmail.com", "Jessica Fischer");
-        //initializeUser("ethan@gmail.com", "Ethan");
+        //  initializeUser("timothy@gmail.com", "Timothy Fischer");
+        // initializeUser("corinaa@gmail.com", "Corina Alvarez");
         //   initializeUser(email, displayName);
         // initializeUser("vfischertablet@gmail.com", "Vivienne Fischer");
 
