@@ -21,7 +21,7 @@ public class MessagesModel implements FirebaseListJoiner {
 
     public Map<Query, String> joinPaths(Firebase path) {
         Map<Query, String> paths = new HashMap<>();
-        paths.put(path.getRoot().child("users").child(sender), "user");
+        paths.put(path.getRoot().child("users").child(id), "user");
         return paths;
     }
 
@@ -32,11 +32,6 @@ public class MessagesModel implements FirebaseListJoiner {
     public UserModel getFriend() {
         return user;
     }
-
-    public String getSender() {
-        return sender;
-    }
-
 
     public String getSenderName() {
         return user == null ? null : user.getDisplayName();

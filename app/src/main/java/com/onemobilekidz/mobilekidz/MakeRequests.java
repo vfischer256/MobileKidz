@@ -184,7 +184,12 @@ public class MakeRequests extends Activity {
             case BABYSITTER_DIALOG_ID:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-                friendListAdapter = new FriendListAdapter(getApplicationContext(), mFirebaseRef, this, R.layout.babysitter_list_row);
+                try {
+                    friendListAdapter = new FriendListAdapter(getApplicationContext(), mFirebaseRef, this, R.layout.babysitter_list_row);
+                } catch (Exception e) {
+                    Log.v(LOG, e.toString());
+                }
+
                 builder.setTitle("Pick a Babysitter");
 
 
