@@ -35,7 +35,7 @@
             android:layout_height="match_parent"
             android:id="@+id/requestDateText"
             android:text="Request Date"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:textColor="#b478aa"
             android:background="#405100"
             android:gravity="center" />
@@ -44,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="Duration"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:textColor="#b478aa"
             android:background="#405100"
             android:gravity="center" />

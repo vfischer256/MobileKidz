@@ -58,6 +58,8 @@ public class FriendRequestsListAdapter extends FirebaseListAdapter<FriendRequest
         acceptFriendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
+
+                // Add friend to the requestor
                 Log.v(LOG, "2This is my recipientId: " + recipientId + " recipientEmail: " + recipientEmail + " pos: " + i);
                 new Firebase(FIREBASE_URL).child("friends").child(UserModel.getCurrentUser().getUserId()).child(recipientId).child("friend").setValue(true,
                         new Firebase.CompletionListener() {
@@ -72,6 +74,18 @@ public class FriendRequestsListAdapter extends FirebaseListAdapter<FriendRequest
                                 }
                             }
                         });
+
+                // Add friend to the requestee
+                new Firebase(FIREBASE_URL).child("friends").child(recipientId).child(UserModel.getCurrentUser().getUserId()).child("friend").setValue(true,
+                        new Firebase.CompletionListener() {
+                            @Override
+                            public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                                if (firebaseError != null) {
+                                    System.out.println("Friend could not be saved. " + firebaseError.getMessage());
+                                }
+                            }
+                        });
+
 
             }
 

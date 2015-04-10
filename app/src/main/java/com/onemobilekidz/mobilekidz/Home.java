@@ -53,7 +53,7 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
 
-/*
+
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -64,20 +64,19 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
                 .build();
 
         mGoogleApiClient.connect();
-*/
 
 
         //initializeUser("katie@gmail.com", "Katie Fischer");
         //    initializeUser("jessica@gmail.com", "Jessica Fischer");
         //  initializeUser("timothy@gmail.com", "Timothy Fischer");
         // initializeUser("corinaa@gmail.com", "Corina Alvarez");
-        // initializeUser("allanon256@gmail.com", "Ethan Fischer");
-        // initializeUser("gabbya@gmail.com", "Gabby Alvarez");
+        //     initializeUser("allanon256@gmail.com", "Ethan Fischer");
+        //     initializeUser("gabbya@gmail.com", "Gabby Alvarez");
 
         //   initializeUser("lisapoobear@gmail.com", "Lisa Po");
         //   initializeUser("apple1980@hotmail.com", "Apple Hsu");
         //   initializeUser("eli_24343@gmail.com", "Elizabeth Carter");
-        initializeUser("buckwildman@yahoo.com", "William Chu");
+        //  initializeUser("buckwildman@yahoo.com", "William Chu");
 
 
 
