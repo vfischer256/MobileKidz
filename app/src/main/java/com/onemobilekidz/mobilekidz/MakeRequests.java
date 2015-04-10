@@ -58,6 +58,7 @@ public class MakeRequests extends Activity {
     private Button mPickTime;
     private Button mPickDate;
     private Button duration;
+    private Button submit;
 
 
     private Button mChooseBabysitter;
@@ -130,6 +131,7 @@ public class MakeRequests extends Activity {
         mPickDate = (Button) findViewById(R.id.pickDate);
         duration = (Button) findViewById(R.id.duration);
         mChooseBabysitter = (Button) findViewById(R.id.chooseBabysitter);
+        submit = (Button) findViewById(R.id.submitMakeRequests);
 
         // add a click listener to the button
         mPickTime.setOnClickListener(new View.OnClickListener() {
@@ -168,6 +170,19 @@ public class MakeRequests extends Activity {
 
         // display the current date
         updateDisplay();
+
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                if (sum < 1) {
+                    Toast.makeText(getApplicationContext(), "You need to render babysitting hours first before you can make a request.", Toast.LENGTH_SHORT).show();
+                } else {
+                    submitBabysittingRequest(v);
+                }
+
+            }
+        });
 
 
     }
@@ -253,7 +268,7 @@ public class MakeRequests extends Activity {
 
     }
 
-    public void submitBabysittingRequest(final View view) {
+    private void submitBabysittingRequest(final View view) {
         try {
             Firebase postRef = new Firebase(FIREBASE_URL).child("incoming_babysitting_requests").child(babysitterId);
             Map<String, Object> inBabysitingRequests = new HashMap<String, Object>();
@@ -301,6 +316,7 @@ public class MakeRequests extends Activity {
         } catch (Exception e) {
             Log.e(LOG, e.toString());
         }
+
     }
 
     private void displayPoints() {
@@ -319,7 +335,14 @@ public class MakeRequests extends Activity {
                         System.out.println("child " + o);
                         sum += ((PointsModel) o.getValue(PointsModel.class)).getPoints();
                     }
-                    System.out.println(sum);
+                    Log.v(LOG, "This is my sum: " + sum);
+
+                    String pointText = "You have " + sum + " points.";
+
+                    if (sum < 1) {
+                        pointText = pointText.concat(" You need to render babysitting hours first before you can make a request.");
+                    }
+                    pointsText.setText(pointText);
                 }
 
                 @Override
@@ -327,9 +350,6 @@ public class MakeRequests extends Activity {
                     System.out.println("The read failed: " + firebaseError.getMessage());
                 }
             });
-
-
-            pointsText.setText("You have " + sum + " points.");
 
 
         } catch (Exception e) {

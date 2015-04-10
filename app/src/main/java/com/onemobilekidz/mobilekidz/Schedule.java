@@ -30,7 +30,7 @@ public class Schedule extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_schedule);
+        setContentView(R.layout.activity_out_babysitting_requests);
         Log.v(LOG, "this is my userid " + UserModel.getCurrentUser().getUserId());
         // Setup our Firebase mFirebaseRef
         try {

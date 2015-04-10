@@ -51,7 +51,7 @@ public class InBabysittingRequestsModel implements FirebaseListJoiner {
     }
 
     public String getRequestorName() {
-        return user == null ? null : user.getDisplayName();
+        return user == null ? "Unknown User" : user.getDisplayName();
     }
 
 

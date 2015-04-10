@@ -18,12 +18,6 @@ public class ScheduleModel implements FirebaseListJoiner {
     String requestor;
     UserModel user;
 
-    public Boolean isAssignPoints() {
-        return assignPoints;
-    }
-
-    Boolean assignPoints;
-
     public String getJob_start_time() {
         return job_start_time;
     }
@@ -55,7 +49,7 @@ public class ScheduleModel implements FirebaseListJoiner {
     }
 
     public String getRequestorName() {
-        return user == null ? null : user.getDisplayName();
+        return user == null ? "Unknown User" : user.getDisplayName();
     }
 
 

@@ -65,7 +65,7 @@ public class InBabysittingRequestsListAdapter extends FirebaseListAdapter<InBaby
             jobStartTimeText.setText(jobStartTime);
 
             final TextView jobEndTimeText = (TextView) view.findViewById(R.id.requestEndTime);
-            jobEndTimeText.setText(duration + "hours");
+            jobEndTimeText.setText(duration + " hours");
 
             Log.v(LOG, "requestor: " + requestor);
             Log.v(LOG, " requestorName: " + requestorName + " jobstartTime: " + jobStartTime + " jobEndTime: " + duration);

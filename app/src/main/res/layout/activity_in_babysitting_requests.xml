@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="Babysitter Name"
+            android:text="Friend Name"
             android:layout_weight="3"
             android:textColor="#b478aa"
             android:background="#405100"

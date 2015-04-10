@@ -66,7 +66,7 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
         mGoogleApiClient.connect();
 
 
-        //initializeUser("katie@gmail.com", "Katie Fischer");
+        //  initializeUser("katie@gmail.com", "Katie Fischer");
         //    initializeUser("jessica@gmail.com", "Jessica Fischer");
         //  initializeUser("timothy@gmail.com", "Timothy Fischer");
         // initializeUser("corinaa@gmail.com", "Corina Alvarez");
@@ -178,7 +178,7 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
     public static void initializePoints(String userId) {
         Firebase pointRef = new Firebase(FIREBASE_URL).child("points").child(userId).child("initial");
         Map<String, Object> points = new HashMap<String, Object>();
-        points.put("points", 0);
+        points.put("points", 5);
         pointRef.setValue(points, new Firebase.CompletionListener() {
             @Override
             public void onComplete(FirebaseError firebaseError, Firebase firebase) {

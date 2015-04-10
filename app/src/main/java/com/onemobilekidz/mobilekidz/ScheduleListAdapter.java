@@ -26,7 +26,6 @@ import org.w3c.dom.Text;
 public class ScheduleListAdapter extends FirebaseListAdapter<ScheduleModel> {
 
     private static final String LOG = "SchedListAdapter";
-    private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
 
     public ScheduleListAdapter(Context context, Query ref, Activity activity, int layout) {
         super(context, ref, ScheduleModel.class, layout, activity);
@@ -38,7 +37,7 @@ public class ScheduleListAdapter extends FirebaseListAdapter<ScheduleModel> {
      * when there is a data change, and we are given an instance of a View that corresponds to the layout that we passed
      * to the constructor, as well as a single <code>FriendRequestsModel</code> instance that represents the current data to bind.
      *
-     * @param view                  A view instance corresponding to the layout we passed to the constructor.
+     * @param view        A view instance corresponding to the layout we passed to the constructor.
      * @param scheduleObj An instance representing the current state of a chat message
      */
 
@@ -55,6 +54,11 @@ public class ScheduleListAdapter extends FirebaseListAdapter<ScheduleModel> {
             requestorName = scheduleObj.getRequestorName();
             jobStartTime = scheduleObj.getJob_start_time();
             duration = scheduleObj.getDuration();
+
+            Log.v(LOG, "requestor: " + requestor);
+            Log.v(LOG, " requestorName: " + requestorName + " jobstartTime: " + jobStartTime + " jobEndTime: " + duration);
+
+
             final TextView babysitterNameText = (TextView) view.findViewById(R.id.babySitterName);
             babysitterNameText.setText(requestorName);
 
@@ -62,7 +66,7 @@ public class ScheduleListAdapter extends FirebaseListAdapter<ScheduleModel> {
             jobStartTimeText.setText(jobStartTime);
 
             final TextView jobEndTimeText = (TextView) view.findViewById(R.id.requestEndTime);
-            jobEndTimeText.setText(duration);
+            jobEndTimeText.setText(duration + " hours");
 
             Log.v(LOG, "requestor: " + requestor);
             Log.v(LOG, " requestorName: " + requestorName + " jobstartTime: " + jobStartTime + " jobEndTime: " + duration);
