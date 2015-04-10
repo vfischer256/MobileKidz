@@ -59,7 +59,7 @@
     <string name="close">Close</string>
     <string name="profile_picture">User\'s profile picture.</string>
     <string name="title_activity_friend_requests">FriendRequests</string>
-    <string name="title_activity_out_of_net_work_friends">OutOfNetWorkFriends</string>
+    <string name="title_activity_out_of_net_work_friends">Users In The Area</string>
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_requests">Requests</string>
     <string name="title_activity_make_requests">MakeRequests</string>

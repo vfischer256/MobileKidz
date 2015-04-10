@@ -43,7 +43,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:id="@+id/outOfNetworkFriendsButton"
-        android:text="Out Of Network Users"
+        android:text="Users In The Area"
         android:onClick="onClick"
         android:layout_weight="1"
         android:textColor="#b478aa"

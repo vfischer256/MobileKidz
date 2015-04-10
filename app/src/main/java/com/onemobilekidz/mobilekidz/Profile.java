@@ -96,13 +96,6 @@ public class Profile extends Activity implements ConnectionCallbacks, OnConnecti
 
     @Override
     public void onConnected(Bundle bundle) {
-        if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
-            email = Plus.AccountApi.getAccountName(mGoogleApiClient);
-            Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-            displayName = currentPerson.getDisplayName();
-
-
-        }
 
     }
 
@@ -117,7 +110,5 @@ public class Profile extends Activity implements ConnectionCallbacks, OnConnecti
 
     }
 
-    public void updateProfile(View view) {
 
-    }
 }

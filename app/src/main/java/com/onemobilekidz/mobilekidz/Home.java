@@ -53,6 +53,7 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
 
+/*
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -63,16 +64,23 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
                 .build();
 
         mGoogleApiClient.connect();
+*/
 
 
-        //initializeUser("vfischer@fischerfamily.us", "Vivienne Fischer");
-        //initializeUser("katie@gmail.com", "Katie");
-        //initializeUser("vfischer@gmail.com", "vfischer");
+        //initializeUser("katie@gmail.com", "Katie Fischer");
         //    initializeUser("jessica@gmail.com", "Jessica Fischer");
         //  initializeUser("timothy@gmail.com", "Timothy Fischer");
         // initializeUser("corinaa@gmail.com", "Corina Alvarez");
-        //   initializeUser(email, displayName);
-        // initializeUser("vfischertablet@gmail.com", "Vivienne Fischer");
+        // initializeUser("allanon256@gmail.com", "Ethan Fischer");
+        // initializeUser("gabbya@gmail.com", "Gabby Alvarez");
+
+        //   initializeUser("lisapoobear@gmail.com", "Lisa Po");
+        //   initializeUser("apple1980@hotmail.com", "Apple Hsu");
+        //   initializeUser("eli_24343@gmail.com", "Elizabeth Carter");
+        initializeUser("buckwildman@yahoo.com", "William Chu");
+
+
+
 
         setContentView(R.layout.activity_home);
         ActionBar actionBar = getActionBar();
@@ -94,8 +102,8 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
                     UserModel.getCurrentUser().setEmail(email);
                     if (snapshot.getValue() == null) {
                         UserModel.getCurrentUser().setUserId(createUser(email, displayName).getKey());
-                        updateLocation(UserModel.getCurrentUser().getUserId(), mLatitude, mLongitude);
-                        //updateLocation(UserModel.getCurrentUser().getUserId(), 34.198198, -118.399390);
+                        //  updateLocation(UserModel.getCurrentUser().getUserId(), mLatitude, mLongitude);
+                        updateLocation(UserModel.getCurrentUser().getUserId(), 34.198198, -118.399390);
                         initializePoints(UserModel.getCurrentUser().getUserId());
 
                     } else {
@@ -107,9 +115,9 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
                                 initializePoints(UserModel.getCurrentUser().getUserId());
                             }
                             UserModel.getCurrentUser().setDisplayName(displayName);
-                            updateLocation(UserModel.getCurrentUser().getUserId(), mLatitude, mLongitude);
+                            //   updateLocation(UserModel.getCurrentUser().getUserId(), mLatitude, mLongitude);
 
-                            //    updateLocation(UserModel.getCurrentUser().getUserId(), 34.198198, -118.399390);
+                            updateLocation(UserModel.getCurrentUser().getUserId(), 34.198198, -118.399390);
 
                         }
                     }
