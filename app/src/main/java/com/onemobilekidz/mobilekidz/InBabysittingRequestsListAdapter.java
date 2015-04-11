@@ -20,10 +20,6 @@ import java.util.Map;
 /**
  * /**
  * Created by vfischer on 3/16/15.
- * <p/>
- * <p/>
- * This class is an example of how to use FirebaseListAdapter. It uses the <code>Chat</code> class to encapsulate the
- * data for each individual chat message
  */
 public class InBabysittingRequestsListAdapter extends FirebaseListAdapter<InBabysittingRequestsModel> {
 
@@ -35,16 +31,6 @@ public class InBabysittingRequestsListAdapter extends FirebaseListAdapter<InBaby
         Log.v(LOG, "I'm here");
         System.out.println(InBabysittingRequestsModel.class);
     }
-
-    /**
-     * Bind an instance of the <code>FriendRequestsModel</code> class to our view. This method is called by <code>FirebaseListAdapter</code>
-     * when there is a data change, and we are given an instance of a View that corresponds to the layout that we passed
-     * to the constructor, as well as a single <code>FriendRequestsModel</code> instance that represents the current data to bind.
-     *
-     * @param view                  A view instance corresponding to the layout we passed to the constructor.
-     * @param babysittingRequestObj An instance representing the current state of a chat message
-     */
-
 
     @Override
     protected void populateView(final View view, final InBabysittingRequestsModel babysittingRequestObj, final int i) {
@@ -114,29 +100,29 @@ public class InBabysittingRequestsListAdapter extends FirebaseListAdapter<InBaby
                             if (firebaseError != null) {
                                 Log.v(LOG, "Points could not be updated. " + firebaseError.getMessage());
                             } else {
-                                Log.v(LOG, "Points " + duration + " was subtracted.");
+                                Log.v(LOG, "Points " + duration + " was subtracted from " + requestor + ".");
                             }
                         }
                     });
 
                     // Add points to the requestee.
-                    Log.v(LOG, "Adding points from the requestee");
+                    Log.v(LOG, "Adding points to the requestee");
                     Firebase pointRef1 = new Firebase(FIREBASE_URL).child("points").child(UserModel.getCurrentUser().getUserId()).child(babysittingRequestObj.getId());
                     Map<String, Object> points1 = new HashMap<String, Object>();
-                    points.put("points", duration);
-                    pointRef.setValue(points, new Firebase.CompletionListener() {
+                    points1.put("points", duration);
+                    pointRef1.setValue(points1, new Firebase.CompletionListener() {
                         @Override
                         public void onComplete(FirebaseError firebaseError, Firebase firebase) {
                             if (firebaseError != null) {
                                 Log.v(LOG, "Points could not be updated. " + firebaseError.getMessage());
                             } else {
-                                Log.v(LOG, "Points " + duration + " was added.");
+                                Log.v(LOG, "Points " + duration + " was added to " + UserModel.getCurrentUser().getUserId() + ".");
                             }
                         }
                     });
 
 
-                    //Send a message to the requestor letting them know that the request cannot be committed to.
+                    //Send a message to the requestor letting them know that the request has been accepted.
                     Firebase messageRef = new Firebase(FIREBASE_URL).child("messages").child(requestor);
                     Map<String, String> message = new HashMap<String, String>();
                     message.put("sender", requestor);

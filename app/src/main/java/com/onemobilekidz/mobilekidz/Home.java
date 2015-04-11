@@ -78,9 +78,6 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
         //   initializeUser("eli_24343@gmail.com", "Elizabeth Carter");
         //  initializeUser("buckwildman@yahoo.com", "William Chu");
 
-
-
-
         setContentView(R.layout.activity_home);
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
@@ -101,8 +98,7 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
                     UserModel.getCurrentUser().setEmail(email);
                     if (snapshot.getValue() == null) {
                         UserModel.getCurrentUser().setUserId(createUser(email, displayName).getKey());
-                        //  updateLocation(UserModel.getCurrentUser().getUserId(), mLatitude, mLongitude);
-                        updateLocation(UserModel.getCurrentUser().getUserId(), 34.198198, -118.399390);
+                        updateLocation(UserModel.getCurrentUser().getUserId(), mLatitude, mLongitude);
                         initializePoints(UserModel.getCurrentUser().getUserId());
 
                     } else {
@@ -114,9 +110,9 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
                                 initializePoints(UserModel.getCurrentUser().getUserId());
                             }
                             UserModel.getCurrentUser().setDisplayName(displayName);
-                            //   updateLocation(UserModel.getCurrentUser().getUserId(), mLatitude, mLongitude);
+                            updateLocation(UserModel.getCurrentUser().getUserId(), mLatitude, mLongitude);
 
-                            updateLocation(UserModel.getCurrentUser().getUserId(), 34.198198, -118.399390);
+                            //   updateLocation(UserModel.getCurrentUser().getUserId(), 34.198198, -118.399390);
 
                         }
                     }
@@ -185,7 +181,7 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
                 if (firebaseError != null) {
                     Log.v(LOG, "Points could not be updated. " + firebaseError.getMessage());
                 } else {
-                    Log.v(LOG, "Points was initialized to 0.");
+                    Log.v(LOG, "Points was initialized to 5.");
                 }
             }
         });
@@ -194,6 +190,11 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
 
     public void goSchedule(View view) {
         intent = new Intent(this, Schedule.class);
+        startActivity(intent);
+    }
+
+    public void goMessages(View view) {
+        intent = new Intent(this, Messages.class);
         startActivity(intent);
     }
 
@@ -213,7 +214,7 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
             initializeUser(email, displayName);
             Log.v(LOG, "user Id + " + UserModel.getCurrentUser().getUserId());
             if (UserModel.getCurrentUser().getUserId() == null) {
-                Toast.makeText(Home.this, "Click on Home to Reconnect", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Home.this, "You're Offline. Click on Home to Reconnect", Toast.LENGTH_SHORT).show();
             }
 
         }

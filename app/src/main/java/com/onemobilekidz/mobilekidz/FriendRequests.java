@@ -17,8 +17,6 @@ import com.onemobilekidz.mobilekidz.model.UserModel;
 
 import java.util.Map;
 
-import static com.onemobilekidz.mobilekidz.Home.*;
-
 
 public class FriendRequests extends ListActivity {
 
@@ -67,9 +65,9 @@ public class FriendRequests extends ListActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     boolean connected = (Boolean) dataSnapshot.getValue();
                     if (connected) {
-                        Toast.makeText(FriendRequests.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(FriendRequests.this, "Connected to Mobile Kidz", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(FriendRequests.this, "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(FriendRequests.this, "Working Offline", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -103,8 +101,6 @@ public class FriendRequests extends ListActivity {
                     friendId = i;
                 }
                 System.out.println("Sending friend request from " + UserModel.getCurrentUser().getUserId() + " to " + email + " (" + friendId + ")");
-                //   new Firebase(FIREBASE_URL).child("friend_requests").
-                //           child(UserModel.getCurrentUser().getUserId()).child(friendId).child("recipient").setValue(true);
                 new Firebase(FIREBASE_URL).child("friend_requests").
                         child(friendId).child(UserModel.getCurrentUser().getUserId()).child("sender").setValue(true);
                 Toast.makeText(FriendRequests.this, "Friend Request Sent ", Toast.LENGTH_SHORT).show();

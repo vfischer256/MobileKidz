@@ -7,7 +7,6 @@ import com.onemobilekidz.mobilekidz.FirebaseListJoiner;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by vfischer on 3/14/15.

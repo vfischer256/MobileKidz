@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.LayoutInflater;
 import android.widget.Button;
 
-import com.onemobilekidz.mobilekidz.model.UserModel;
-
 import static com.onemobilekidz.mobilekidz.R.*;
 
 

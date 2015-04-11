@@ -1,7 +1,5 @@
 package com.onemobilekidz.mobilekidz.model;
 
-import android.text.format.DateFormat;
-import android.util.Log;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.firebase.client.Firebase;

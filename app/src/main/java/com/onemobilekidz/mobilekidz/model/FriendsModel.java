@@ -5,7 +5,6 @@ import com.firebase.client.Firebase;
 import com.firebase.client.Query;
 import com.onemobilekidz.mobilekidz.FirebaseListJoiner;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 

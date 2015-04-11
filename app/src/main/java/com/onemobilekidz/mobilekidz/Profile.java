@@ -22,8 +22,6 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.plus.model.people.Person;
 import com.onemobilekidz.mobilekidz.model.UserModel;
 
-import org.w3c.dom.Text;
-
 public class Profile extends Activity implements ConnectionCallbacks, OnConnectionFailedListener {
 
 

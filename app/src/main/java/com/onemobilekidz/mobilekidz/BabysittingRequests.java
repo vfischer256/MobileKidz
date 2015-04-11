@@ -2,22 +2,10 @@ package com.onemobilekidz.mobilekidz;
 
 
 import android.app.Activity;
-import android.app.ListActivity;
-
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
-import com.onemobilekidz.mobilekidz.model.UserModel;
-
 
 public class BabysittingRequests extends Activity {
 

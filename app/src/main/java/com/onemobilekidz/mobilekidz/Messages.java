@@ -61,9 +61,9 @@ public class Messages extends ListActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     boolean connected = (Boolean) dataSnapshot.getValue();
                     if (connected) {
-                        Toast.makeText(Messages.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Messages.this, "Connected to Mobile Kidz", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(Messages.this, "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Messages.this, "Working Offline", Toast.LENGTH_SHORT).show();
                     }
                 }
 

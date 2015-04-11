@@ -36,14 +36,6 @@ public class MessageListAdapter extends FirebaseListAdapter<MessagesModel> {
         this.mContext = context;
     }
 
-    /**
-     * Bind an instance of the <code>FriendRequestsModel</code> class to our view. This method is called by <code>FirebaseListAdapter</code>
-     * when there is a data change, and we are given an instance of a View that corresponds to the layout that we passed
-     * to the constructor, as well as a single <code>FriendRequestsModel</code> instance that represents the current data to bind.
-     *
-     * @param view       A view instance corresponding to the layout we passed to the constructor.
-     * @param messageObj An instance representing the current state of a chat message
-     */
     @Override
     protected void populateView(View view, final MessagesModel messageObj, final int i) {
         final TextView friendIdText = (TextView) view.findViewById(R.id.messageSender);

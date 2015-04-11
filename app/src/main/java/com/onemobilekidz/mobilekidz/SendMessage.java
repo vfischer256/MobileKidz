@@ -1,9 +1,7 @@
 package com.onemobilekidz.mobilekidz;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,10 +12,6 @@ import android.widget.Toast;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.onemobilekidz.mobilekidz.model.UserModel;
-
-import java.util.HashMap;
-import java.util.Map;
-
 
 public class SendMessage extends Activity {
 

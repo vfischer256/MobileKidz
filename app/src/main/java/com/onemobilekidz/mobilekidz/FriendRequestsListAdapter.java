@@ -14,13 +14,6 @@ import com.firebase.client.Query;
 import com.onemobilekidz.mobilekidz.model.FriendRequestsModel;
 import com.onemobilekidz.mobilekidz.model.UserModel;
 
-/**
- * @author greg
- * @since 6/21/13
- * <p/>
- * This class is an example of how to use FirebaseListAdapter. It uses the <code>Chat</code> class to encapsulate the
- * data for each individual chat message
- */
 public class FriendRequestsListAdapter extends FirebaseListAdapter<FriendRequestsModel> {
 
     private static final String LOG = "FRListAdapter";
@@ -30,14 +23,6 @@ public class FriendRequestsListAdapter extends FirebaseListAdapter<FriendRequest
         super(context, ref, FriendRequestsModel.class, layout, activity);
     }
 
-    /**
-     * Bind an instance of the <code>FriendRequestsModel</code> class to our view. This method is called by <code>FirebaseListAdapter</code>
-     * when there is a data change, and we are given an instance of a View that corresponds to the layout that we passed
-     * to the constructor, as well as a single <code>FriendRequestsModel</code> instance that represents the current data to bind.
-     *
-     * @param view             A view instance corresponding to the layout we passed to the constructor.
-     * @param friendRequestObj An instance representing the current state of a chat message
-     */
     @Override
     protected void populateView(View view, final FriendRequestsModel friendRequestObj, final int i) {
         final String recipientId = friendRequestObj.getId();
