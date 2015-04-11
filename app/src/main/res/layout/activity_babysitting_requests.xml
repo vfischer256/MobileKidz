@@ -62,7 +62,7 @@
                 android:layout_rowWeight="1"
                 android:clickable="false"
                 android:contentDescription="schedule"
-                android:src="@drawable/baby" />
+                android:src="@drawable/family" />
 
         </TableRow>
 
