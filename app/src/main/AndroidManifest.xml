@@ -115,9 +115,6 @@
                 android:value="com.onemobilekidz.mobilekidz.Home" />
         </activity>
         <activity
-            android:name=".Points"
-            android:label="@string/title_activity_points" />
-        <activity
             android:name=".SendMessage"
             android:label="@string/title_activity_send_message"
             android:parentActivityName=".Friends">
