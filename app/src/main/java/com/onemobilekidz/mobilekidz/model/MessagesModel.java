@@ -1,5 +1,6 @@
 package com.onemobilekidz.mobilekidz.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.firebase.client.Firebase;
 import com.firebase.client.Query;
 import com.onemobilekidz.mobilekidz.FirebaseListJoiner;
@@ -10,6 +11,7 @@ import java.util.Map;
 /**
  * Created by vfischer on 3/14/15.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MessagesModel implements FirebaseListJoiner {
 
     private static final String LOG = "MessagesModel";
