@@ -54,14 +54,14 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
         Firebase.setAndroidContext(this);
 
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(Plus.API, Plus.PlusOptions.builder().build())
-                .addApi(LocationServices.API)
-
-                .addScope(Plus.SCOPE_PLUS_LOGIN)
-                .build();
+        mGoogleApiClient =
+                new GoogleApiClient.Builder(this)
+                        .addApi(Plus.API)
+                        .addScope(Plus.SCOPE_PLUS_LOGIN)
+                        .addConnectionCallbacks(this)
+                        .addOnConnectionFailedListener(this)
+                        .addApi(LocationServices.API)
+                        .build();
 
         mGoogleApiClient.connect();
 

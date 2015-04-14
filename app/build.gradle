@@ -8,7 +8,7 @@ android {
         applicationId "com.onemobilekidz.mobilekidz"
         minSdkVersion 16
         targetSdkVersion 21
-        versionCode 1
+        versionCode 3
         versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -16,7 +16,7 @@ android {
         release {
             storeFile file("mobilekidz.jks")
             storePassword "GreGraypijAf1!"
-            keyAlias "MyReleaseKey"
+            keyAlias "MyMobileKidzKey"
             keyPassword "GreGraypijAf1!"
         }
     }
