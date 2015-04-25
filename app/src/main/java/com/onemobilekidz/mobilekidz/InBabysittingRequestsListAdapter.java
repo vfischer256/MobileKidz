@@ -125,7 +125,7 @@ public class InBabysittingRequestsListAdapter extends FirebaseListAdapter<InBaby
                     //Send a message to the requestor letting them know that the request has been accepted.
                     Firebase messageRef = new Firebase(FIREBASE_URL).child("messages").child(requestor);
                     Map<String, String> message = new HashMap<String, String>();
-                    message.put("sender", requestor);
+                    message.put("sender", UserModel.getCurrentUser().getUserId());
                     message.put("message", "I just accepted your request for " + jobStartTime + ".");
                     Firebase ref = messageRef.push();
                     ref.setValue(message,
@@ -156,7 +156,7 @@ public class InBabysittingRequestsListAdapter extends FirebaseListAdapter<InBaby
                     //Send a message to the requestor letting them know that the request cannot be committed to.
                     Firebase messageRef = new Firebase(FIREBASE_URL).child("messages").child(requestor);
                     Map<String, String> message = new HashMap<String, String>();
-                    message.put("sender", requestor);
+                    message.put("sender", UserModel.getCurrentUser().getUserId());
                     message.put("message", "Sorry I can't babysit on " + jobStartTime + ".");
                     Firebase ref = messageRef.push();
                     ref.setValue(message,
