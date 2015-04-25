@@ -26,22 +26,4 @@ public class MakeRequestsTest extends ActivityUnitTestCase<MakeRequests> {
     }
 
 
-    /**
-     * Tests the preconditions of this test fixture.
-     */
-    @MediumTest
-    public void testViewPoints() {
-        startActivity(mLaunchIntent, null, null);
-        final Button launchNextButton = (Button) getActivity().findViewById(R.id.goToPoints);
-        //Because this is an isolated ActivityUnitTestCase we have to directly click the
-        //button from code
-        launchNextButton.performClick();
-
-        // Get the intent for the next started activity
-        final Intent launchIntent = getStartedActivityIntent();
-        //Verify the intent was not null.
-        assertNotNull("Intent was null", launchIntent);
-    }
-
-
 }

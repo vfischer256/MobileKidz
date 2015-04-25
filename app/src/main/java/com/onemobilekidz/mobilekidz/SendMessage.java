@@ -13,6 +13,9 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.onemobilekidz.mobilekidz.model.UserModel;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SendMessage extends Activity {
 
 
@@ -59,7 +62,12 @@ public class SendMessage extends Activity {
         String messageText = messageView.getText().toString();
         String userId = UserModel.getCurrentUser().getUserId();
 
-        new Firebase(FIREBASE_URL).child("messages").child(friendId).child(userId).child("message").setValue(messageText,
+        Firebase messageRef = new Firebase(FIREBASE_URL).child("messages").child(friendId);
+        Map<String, String> message = new HashMap<String, String>();
+        message.put("sender", userId);
+        message.put("message", messageText);
+        Firebase ref = messageRef.push();
+        ref.setValue(message,
                 new Firebase.CompletionListener() {
                     @Override
                     public void onComplete(FirebaseError firebaseError, Firebase firebase) {
@@ -70,6 +78,7 @@ public class SendMessage extends Activity {
                         }
                     }
                 });
+
         Intent intent = new Intent(this, Friends.class);
         this.startActivity(intent);
 
