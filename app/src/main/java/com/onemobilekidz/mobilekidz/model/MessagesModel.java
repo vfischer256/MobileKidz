@@ -18,16 +18,22 @@ public class MessagesModel implements FirebaseListJoiner {
     String id;
     UserModel user;
     String message;
+    String sender;
 
     public Map<Query, String> joinPaths(Firebase path) {
         Map<Query, String> paths = new HashMap<>();
-        paths.put(path.getRoot().child("users").child(id), "user");
+        paths.put(path.getRoot().child("users").child(sender), "user");
         return paths;
     }
 
     public String getId() {
         return id;
     }
+
+    public String getSender() {
+        return sender;
+    }
+
 
     public UserModel getFriend() {
         return user;
