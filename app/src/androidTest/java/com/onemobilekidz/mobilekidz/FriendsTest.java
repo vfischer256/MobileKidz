@@ -48,6 +48,10 @@ public class FriendsTest extends ActivityInstrumentationTestCase2<Friends> {
                 .waitForActivityWithTimeout(TIMEOUT_IN_MS);
 
         assertNotNull("Home is null", home);
+        assertEquals("Monitor for ReceiverActivity has not been called",
+                1, homeActivityMonitor.getHits());
+        assertEquals("Activity is of wrong type",
+                Home.class, home.getClass());
 
         getInstrumentation().removeMonitor(homeActivityMonitor);
 
@@ -63,6 +67,10 @@ public class FriendsTest extends ActivityInstrumentationTestCase2<Friends> {
                 .waitForActivityWithTimeout(TIMEOUT_IN_MS);
 
         assertNotNull("Friends is null", friends);
+        assertEquals("Monitor for ReceiverActivity has not been called",
+                1, friendsActivityMonitor.getHits());
+        assertEquals("Activity is of wrong type",
+                Friends.class, friends.getClass());
 
         getInstrumentation().removeMonitor(friendsActivityMonitor);
 
@@ -78,6 +86,10 @@ public class FriendsTest extends ActivityInstrumentationTestCase2<Friends> {
                 .waitForActivityWithTimeout(TIMEOUT_IN_MS);
 
         assertNotNull("Babysitting Request is null", babysittingRequests);
+        assertEquals("Monitor for ReceiverActivity has not been called",
+                1, bRActivityMonitor.getHits());
+        assertEquals("Activity is of wrong type",
+                BabysittingRequests.class, babysittingRequests.getClass());
 
         getInstrumentation().removeMonitor(bRActivityMonitor);
 

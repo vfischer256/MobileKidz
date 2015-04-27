@@ -10,9 +10,9 @@ import android.widget.Button;
 
 import junit.framework.TestCase;
 
-public class ProfileTest extends ActivityInstrumentationTestCase2<Profile> {
+public class OutOfNetworkFriendsTest extends ActivityInstrumentationTestCase2<OutOfNetWorkFriends> {
 
-    private Profile profile;
+    private OutOfNetWorkFriends outOfNetworkFriends;
     private Button homeButton;
     private Button friendsButton;
     private Button babysittingButton;
@@ -20,21 +20,21 @@ public class ProfileTest extends ActivityInstrumentationTestCase2<Profile> {
     private static final int TIMEOUT_IN_MS = 5000;
 
 
-    public ProfileTest() {
-        super(Profile.class);
+    public OutOfNetworkFriendsTest() {
+        super(OutOfNetWorkFriends.class);
     }
 
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        profile = getActivity();
+        outOfNetworkFriends = getActivity();
 
-        homeButton = (Button) profile.findViewById(R.id.homeButton);
+        homeButton = (Button) outOfNetworkFriends.findViewById(R.id.homeButton);
 
-        friendsButton = (Button) profile.findViewById(R.id.friendsButton);
+        friendsButton = (Button) outOfNetworkFriends.findViewById(R.id.friendsButton);
 
-        babysittingButton = (Button) profile.findViewById(R.id.babysittingRequestButton);
+        babysittingButton = (Button) outOfNetworkFriends.findViewById(R.id.babysittingRequestButton);
 
     }
 
