@@ -1,10 +1,12 @@
 package com.onemobilekidz.mobilekidz;
 
 import android.app.Activity;
+import android.app.Instrumentation;
 import android.content.Context;
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.ActivityUnitTestCase;
+import android.test.TouchUtils;
 import android.test.suitebuilder.annotation.MediumTest;
 import android.view.View;
 import android.widget.TextView;
@@ -20,7 +22,11 @@ public class HomeTest extends ActivityInstrumentationTestCase2<Home> {
     private TextView homeText;
     private TextView messagesText;
     private TextView profileText;
+    private View myScheduleView;
+    private View messagesView;
+    private View profileView;
 
+    private static final int TIMEOUT_IN_MS = 5000;
 
     public HomeTest() {
         super(Home.class);
@@ -36,6 +42,12 @@ public class HomeTest extends ActivityInstrumentationTestCase2<Home> {
         messagesText = (TextView) home.findViewById(R.id.messageTextView);
 
         profileText = (TextView) home.findViewById(R.id.textView9);
+
+        myScheduleView = home.findViewById(R.id.firstRow);
+
+        messagesView = home.findViewById(R.id.secondRow);
+
+        profileView = home.findViewById(R.id.thirdRow);
 
     }
 
@@ -60,8 +72,56 @@ public class HomeTest extends ActivityInstrumentationTestCase2<Home> {
         assertEquals(expected, actual);
     }
 
+    public void testMyScheduleLink() {
+        final View myScheduleButton = getActivity().findViewById(R.id.firstRow);
+        Instrumentation.ActivityMonitor myScheduleActivityMonitor = getInstrumentation()
+                .addMonitor(Schedule.class.getName(), null, false);
+        getInstrumentation().waitForIdleSync();
+        TouchUtils.clickView(this, myScheduleButton);
 
 
+        Schedule schedule = (Schedule) myScheduleActivityMonitor
+                .waitForActivityWithTimeout(TIMEOUT_IN_MS);
+
+        assertNotNull("Schedule is null", schedule);
+
+        getInstrumentation().removeMonitor(myScheduleActivityMonitor);
+
+    }
+
+    public void testMessagesLink() {
+        final View messagesButton = getActivity().findViewById(R.id.secondRow);
+        Instrumentation.ActivityMonitor messagesActivityMonitor = getInstrumentation()
+                .addMonitor(Messages.class.getName(), null, false);
+        getInstrumentation().waitForIdleSync();
+        TouchUtils.clickView(this, messagesButton);
+
+
+        Messages messages = (Messages) messagesActivityMonitor
+                .waitForActivityWithTimeout(TIMEOUT_IN_MS);
+
+        assertNotNull("Messages is null", messages);
+
+        getInstrumentation().removeMonitor(messagesActivityMonitor);
+
+    }
+
+    public void testProfileLink() {
+        final View profileButton = getActivity().findViewById(R.id.thirdRow);
+        Instrumentation.ActivityMonitor profileActivityMonitor = getInstrumentation()
+                .addMonitor(Profile.class.getName(), null, false);
+        getInstrumentation().waitForIdleSync();
+        TouchUtils.clickView(this, profileButton);
+
+
+        Profile profile = (Profile) profileActivityMonitor
+                .waitForActivityWithTimeout(TIMEOUT_IN_MS);
+
+        assertNotNull("Profile is null", profile);
+
+        getInstrumentation().removeMonitor(profileActivityMonitor);
+
+    }
 
 
 }

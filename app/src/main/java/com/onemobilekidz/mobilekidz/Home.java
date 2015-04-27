@@ -53,7 +53,7 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
 
-
+/*
         mGoogleApiClient =
                 new GoogleApiClient.Builder(this)
                         .addApi(Plus.API)
@@ -64,9 +64,9 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
                         .build();
 
         mGoogleApiClient.connect();
+*/
 
-
-        //  initializeUser("katie@gmail.com", "Katie Fischer");
+        initializeUser("katie@gmail.com", "Katie Fischer");
         //    initializeUser("jessica@gmail.com", "Jessica Fischer");
         //  initializeUser("timothy@gmail.com", "Timothy Fischer");
         // initializeUser("corinaa@gmail.com", "Corina Alvarez");
