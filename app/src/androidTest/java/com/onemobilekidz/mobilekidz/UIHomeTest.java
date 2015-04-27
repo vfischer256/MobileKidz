@@ -7,6 +7,7 @@ import android.support.test.uiautomator.By;
 
 public class UIHomeTest extends InstrumentationTestCase {
 
+
     private UiDevice mDevice;
 
     public void setUp() {
@@ -17,4 +18,6 @@ public class UIHomeTest extends InstrumentationTestCase {
         mDevice.pressHome();
 
     }
+
+
 }

@@ -1,71 +1,67 @@
 package com.onemobilekidz.mobilekidz;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.test.ActivityInstrumentationTestCase2;
 import android.test.ActivityUnitTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
 import android.view.View;
+import android.widget.TextView;
 
 import junit.framework.TestCase;
 
-public class HomeTest extends ActivityUnitTestCase<Home> {
+import org.w3c.dom.Text;
 
-    private Intent mLaunchIntent;
+
+public class HomeTest extends ActivityInstrumentationTestCase2<Home> {
+
+    private Home home;
+    private TextView homeText;
+    private TextView messagesText;
+    private TextView profileText;
+
 
     public HomeTest() {
         super(Home.class);
     }
 
-
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        //Create an intent to launch target Activity
-        mLaunchIntent = new Intent(getInstrumentation().getTargetContext(),
-                Home.class);
-    }
+        home = getActivity();
+        homeText =
+                (TextView) home
+                        .findViewById(R.id.textView);
+        messagesText = (TextView) home.findViewById(R.id.messageTextView);
 
-
-    /**
-     * Tests the preconditions of this test fixture.
-     */
-    @MediumTest
-    public void testPreconditionsGoSchedule() {
-        //Start the activity under test in isolation, without values for savedInstanceState and
-        //lastNonConfigurationInstance
-        startActivity(mLaunchIntent, null, null);
-        final View launchNextButton = getActivity().findViewById(R.id.firstRow);
-
-        assertNotNull("mLaunchActivity is null", getActivity());
-        assertNotNull("mLaunchNextButton is null", launchNextButton);
-    }
-
-
-    @MediumTest
-    public void testGoSchedule() {
-        startActivity(mLaunchIntent, null, null);
-        final View launchNextButton = getActivity().findViewById(R.id.firstRow);
-        //Because this is an isolated ActivityUnitTestCase we have to directly click the
-        //button from code
-        launchNextButton.performClick();
-
-        // Get the intent for the next started activity
-        final Intent launchIntent = getStartedActivityIntent();
-        //Verify the intent was not null.
-        assertNotNull("Intent was null", launchIntent);
+        profileText = (TextView) home.findViewById(R.id.textView9);
 
     }
 
-    public void testGoProfile() throws Exception {
-        startActivity(mLaunchIntent, null, null);
-        final View launchNextButton = getActivity().findViewById(R.id.thirdRow);
-        //Because this is an isolated ActivityUnitTestCase we have to directly click the
-        //button from code
-        launchNextButton.performClick();
-
-        // Get the intent for the next started activity
-        final Intent launchIntent = getStartedActivityIntent();
-        //Verify the intent was not null.
-        assertNotNull("Intent was null", launchIntent);
-
+    public void testMySchedule_labelText() {
+        final String expected =
+                "My Schedule";
+        final String actual = homeText.getText().toString();
+        assertEquals(expected, actual);
     }
+
+    public void testMessages_labelText() {
+        final String expected =
+                "Messages";
+        final String actual = messagesText.getText().toString();
+        assertEquals(expected, actual);
+    }
+
+    public void testProfile_labelText() {
+        final String expected =
+                "Profile";
+        final String actual = profileText.getText().toString();
+        assertEquals(expected, actual);
+    }
+
+
+
+
+
 }
