@@ -9,6 +9,7 @@ import android.test.ActivityUnitTestCase;
 import android.test.TouchUtils;
 import android.test.suitebuilder.annotation.MediumTest;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import junit.framework.TestCase;
@@ -25,6 +26,9 @@ public class HomeTest extends ActivityInstrumentationTestCase2<Home> {
     private View myScheduleView;
     private View messagesView;
     private View profileView;
+    private Button homeButton;
+    private Button friendsButton;
+    private Button babysittingButton;
 
     private static final int TIMEOUT_IN_MS = 5000;
 
@@ -48,6 +52,13 @@ public class HomeTest extends ActivityInstrumentationTestCase2<Home> {
         messagesView = home.findViewById(R.id.secondRow);
 
         profileView = home.findViewById(R.id.thirdRow);
+
+        homeButton = (Button) home.findViewById(R.id.homeButton);
+
+        friendsButton = (Button) home.findViewById(R.id.friendsButton);
+
+        babysittingButton = (Button) home.findViewById(R.id.babysittingRequestButton);
+
 
     }
 
@@ -120,6 +131,51 @@ public class HomeTest extends ActivityInstrumentationTestCase2<Home> {
         assertNotNull("Profile is null", profile);
 
         getInstrumentation().removeMonitor(profileActivityMonitor);
+
+    }
+
+    public void testHomeButton() {
+        Instrumentation.ActivityMonitor homeActivityMonitor = getInstrumentation()
+                .addMonitor(Home.class.getName(), null, false);
+        getInstrumentation().waitForIdleSync();
+        TouchUtils.clickView(this, homeButton);
+
+        Home home = (Home) homeActivityMonitor
+                .waitForActivityWithTimeout(TIMEOUT_IN_MS);
+
+        assertNotNull("Home is null", home);
+
+        getInstrumentation().removeMonitor(homeActivityMonitor);
+
+    }
+
+    public void testFriendsButton() {
+        Instrumentation.ActivityMonitor friendsActivityMonitor = getInstrumentation()
+                .addMonitor(Friends.class.getName(), null, false);
+        getInstrumentation().waitForIdleSync();
+        TouchUtils.clickView(this, friendsButton);
+
+        Friends friends = (Friends) friendsActivityMonitor
+                .waitForActivityWithTimeout(TIMEOUT_IN_MS);
+
+        assertNotNull("Friends is null", friends);
+
+        getInstrumentation().removeMonitor(friendsActivityMonitor);
+
+    }
+
+    public void testBabysittingRequestButton() {
+        Instrumentation.ActivityMonitor bRActivityMonitor = getInstrumentation()
+                .addMonitor(BabysittingRequests.class.getName(), null, false);
+        getInstrumentation().waitForIdleSync();
+        TouchUtils.clickView(this, babysittingButton);
+
+        BabysittingRequests babysittingRequests = (BabysittingRequests) bRActivityMonitor
+                .waitForActivityWithTimeout(TIMEOUT_IN_MS);
+
+        assertNotNull("Babysitting Request is null", babysittingRequests);
+
+        getInstrumentation().removeMonitor(bRActivityMonitor);
 
     }
 
