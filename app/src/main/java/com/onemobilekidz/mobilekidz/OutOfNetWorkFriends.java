@@ -28,7 +28,6 @@ public class OutOfNetWorkFriends extends Activity {
 
     private static final String LOG = "OONFriends";
     private String userId = UserModel.getCurrentUser().getUserId();
-    private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
     public GeoFire geoFireOtherUser;
     public GeoQuery geoQuery;
 
@@ -64,7 +63,7 @@ public class OutOfNetWorkFriends extends Activity {
 
     private void getOutOfNetworkUser() {
         try {
-            GeoFire geoFireUser = new GeoFire(new Firebase(FIREBASE_URL).child("user_location"));
+            GeoFire geoFireUser = new GeoFire(new Firebase(Constants.FIREBASE_URL).child("user_location"));
 
             geoFireUser.getLocation(userId, new LocationCallback() {
 
@@ -75,7 +74,7 @@ public class OutOfNetWorkFriends extends Activity {
                         System.out.println(String.format("The location for key %s is [%f,%f]", key, location.latitude, location.longitude));
 
 
-                        geoFireOtherUser = new GeoFire(new Firebase(FIREBASE_URL).child("user_location"));
+                        geoFireOtherUser = new GeoFire(new Firebase(Constants.FIREBASE_URL).child("user_location"));
 
 
                         geoQuery = geoFireOtherUser.queryAtLocation(new GeoLocation(location.latitude, location.longitude), 3);
@@ -91,7 +90,7 @@ public class OutOfNetWorkFriends extends Activity {
                                 System.out.println(String.format("Key %s entered the search area at [%f,%f]", key, location.latitude, location.longitude));
                                 //         outOfNetworkList.add(key);
                                 otherUserId = key;
-                                Firebase ref = new Firebase(FIREBASE_URL).child("users").child(otherUserId).child("email");
+                                Firebase ref = new Firebase(Constants.FIREBASE_URL).child("users").child(otherUserId).child("email");
                                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {

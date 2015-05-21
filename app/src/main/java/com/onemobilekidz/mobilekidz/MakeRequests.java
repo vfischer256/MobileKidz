@@ -35,7 +35,6 @@ public class MakeRequests extends Activity {
     static final int BABYSITTER_DIALOG_ID = 2;
     static final int END_TIME_DIALOG_ID = 3;
     private static final String LOG = "MakeRequests";
-    private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
 
     int points;
 
@@ -117,7 +116,7 @@ public class MakeRequests extends Activity {
 
         Firebase.setAndroidContext(this);
         try {
-            mFirebaseRef = new Firebase(FIREBASE_URL).child("friends").child(UserModel.getCurrentUser().getUserId());
+            mFirebaseRef = new Firebase(Constants.FIREBASE_URL).child("friends").child(UserModel.getCurrentUser().getUserId());
         } catch (Exception e) {
             Log.e(LOG, e.toString());
         }
@@ -270,7 +269,7 @@ public class MakeRequests extends Activity {
 
     private void submitBabysittingRequest(final View view) {
         try {
-            Firebase postRef = new Firebase(FIREBASE_URL).child("incoming_babysitting_requests").child(babysitterId);
+            Firebase postRef = new Firebase(Constants.FIREBASE_URL).child("incoming_babysitting_requests").child(babysitterId);
             Map<String, Object> inBabysitingRequests = new HashMap<String, Object>();
             inBabysitingRequests.put("job_start_time", mChosenDateTime);
             inBabysitingRequests.put("duration", mDuration);
@@ -292,7 +291,7 @@ public class MakeRequests extends Activity {
             String postId = ref.getKey();
             //outgoing babysitting requests
 
-            Firebase outRef = new Firebase(FIREBASE_URL).child("outgoing_babysitting_requests").child(UserModel.getCurrentUser().getUserId()).child(postId);
+            Firebase outRef = new Firebase(Constants.FIREBASE_URL).child("outgoing_babysitting_requests").child(UserModel.getCurrentUser().getUserId()).child(postId);
             Map<String, Object> outBabysittingRequests = new HashMap<String, Object>();
             outBabysittingRequests.put("job_start_time", mChosenDateTime);
             outBabysittingRequests.put("duration", mDuration);
@@ -322,7 +321,7 @@ public class MakeRequests extends Activity {
     private void displayPoints() {
 
         try {
-            mFirebaseRefPoints = new Firebase(FIREBASE_URL).child("points").child(UserModel.getCurrentUser().getUserId());
+            mFirebaseRefPoints = new Firebase(Constants.FIREBASE_URL).child("points").child(UserModel.getCurrentUser().getUserId());
 
 
             mFirebaseRefPoints.addValueEventListener(new ValueEventListener() {

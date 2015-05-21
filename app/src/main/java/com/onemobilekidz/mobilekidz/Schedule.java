@@ -21,7 +21,6 @@ public class Schedule extends ListActivity {
 
     private static final String LOG = "Schedule";
 
-    private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
     private Firebase mFirebaseRef;
     private ValueEventListener mConnectedListener;
     private ScheduleListAdapter scheduleListAdapter;
@@ -34,7 +33,7 @@ public class Schedule extends ListActivity {
         Log.v(LOG, "this is my userid " + UserModel.getCurrentUser().getUserId());
         // Setup our Firebase mFirebaseRef
         try {
-            mFirebaseRef = new Firebase(FIREBASE_URL).child("my_schedule").child(UserModel.getCurrentUser().getUserId());
+            mFirebaseRef = new Firebase(Constants.FIREBASE_URL).child("my_schedule").child(UserModel.getCurrentUser().getUserId());
         } catch (Exception e) {
             Log.e(LOG, e.toString());
         }

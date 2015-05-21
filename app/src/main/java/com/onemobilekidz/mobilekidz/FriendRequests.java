@@ -24,7 +24,6 @@ public class FriendRequests extends ListActivity {
 
 
     private static final String LOG = "FriendRequests";
-    private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
     private Firebase mFirebaseRef;
     private ValueEventListener mConnectedListener;
     private FriendRequestsListAdapter friendRequestsListAdapter;
@@ -37,7 +36,7 @@ public class FriendRequests extends ListActivity {
 
         // Setup our Firebase mFirebaseRef
         try {
-            mFirebaseRef = new Firebase(FIREBASE_URL).child("friend_requests").child(UserModel.getCurrentUser().getUserId());
+            mFirebaseRef = new Firebase(Constants.FIREBASE_URL).child("friend_requests").child(UserModel.getCurrentUser().getUserId());
         } catch (Exception e) {
             Log.e(LOG, e.toString());
         }
@@ -113,7 +112,7 @@ public class FriendRequests extends ListActivity {
                         friendId = i;
                     }
                     System.out.println("Sending friend request from " + UserModel.getCurrentUser().getUserId() + " to " + email + " (" + friendId + ")");
-                    new Firebase(FIREBASE_URL).child("friend_requests").
+                    new Firebase(Constants.FIREBASE_URL).child("friend_requests").
                             child(friendId).child(UserModel.getCurrentUser().getUserId()).child("sender").setValue(true);
                     Toast.makeText(FriendRequests.this, "Friend Request Sent ", Toast.LENGTH_SHORT).show();
 

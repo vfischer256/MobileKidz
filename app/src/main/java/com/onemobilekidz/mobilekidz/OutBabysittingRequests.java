@@ -19,7 +19,6 @@ public class OutBabysittingRequests extends ListActivity {
 
     private static final String LOG = "OutBabysittingReq";
 
-    private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
     private Firebase mFirebaseRef;
     private ValueEventListener mConnectedListener;
     private OutBabysittingRequestsListAdapter outBabysittingRequestsListAdapter;
@@ -32,7 +31,7 @@ public class OutBabysittingRequests extends ListActivity {
         Log.v(LOG, "this is my userid " + UserModel.getCurrentUser().getUserId());
         // Setup our Firebase mFirebaseRef
         try {
-            mFirebaseRef = new Firebase(FIREBASE_URL).child("outgoing_babysitting_requests").child(UserModel.getCurrentUser().getUserId());
+            mFirebaseRef = new Firebase(Constants.FIREBASE_URL).child("outgoing_babysitting_requests").child(UserModel.getCurrentUser().getUserId());
         } catch (Exception e) {
             Log.e(LOG, e.toString());
         }

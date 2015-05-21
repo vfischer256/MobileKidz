@@ -18,7 +18,6 @@ public class Messages extends ListActivity {
 
 
     private static final String LOG = "Messages";
-    private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
     private Firebase mFirebaseRef;
     private MessageListAdapter messageListAdapter;
     private ValueEventListener mConnectedListener;
@@ -30,7 +29,7 @@ public class Messages extends ListActivity {
         Firebase.setAndroidContext(this);
 
         try {
-            mFirebaseRef = new Firebase(FIREBASE_URL).child("messages").child(UserModel.getCurrentUser().getUserId());
+            mFirebaseRef = new Firebase(Constants.FIREBASE_URL).child("messages").child(UserModel.getCurrentUser().getUserId());
         } catch (Exception e) {
             Log.e(LOG, e.toString());
         }

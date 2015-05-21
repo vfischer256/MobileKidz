@@ -17,7 +17,6 @@ import com.onemobilekidz.mobilekidz.model.UserModel;
 public class FriendRequestsListAdapter extends FirebaseListAdapter<FriendRequestsModel> {
 
     private static final String LOG = "FRListAdapter";
-    private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
 
     public FriendRequestsListAdapter(Context context, Query ref, Activity activity, int layout) {
         super(context, ref, FriendRequestsModel.class, layout, activity);
@@ -46,14 +45,14 @@ public class FriendRequestsListAdapter extends FirebaseListAdapter<FriendRequest
 
                 // Add friend to the requestor
                 Log.v(LOG, "2This is my recipientId: " + recipientId + " recipientEmail: " + recipientEmail + " pos: " + i);
-                new Firebase(FIREBASE_URL).child("friends").child(UserModel.getCurrentUser().getUserId()).child(recipientId).child("friend").setValue(true,
+                new Firebase(Constants.FIREBASE_URL).child("friends").child(UserModel.getCurrentUser().getUserId()).child(recipientId).child("friend").setValue(true,
                         new Firebase.CompletionListener() {
                             @Override
                             public void onComplete(FirebaseError firebaseError, Firebase firebase) {
                                 if (firebaseError != null) {
                                     System.out.println("Friend could not be saved. " + firebaseError.getMessage());
                                 } else {
-                                    new Firebase(FIREBASE_URL).child("friend_requests").child(UserModel.getCurrentUser().getUserId()).child(recipientId).removeValue();
+                                    new Firebase(Constants.FIREBASE_URL).child("friend_requests").child(UserModel.getCurrentUser().getUserId()).child(recipientId).removeValue();
 
                                     Toast.makeText(v.getContext(), "Friend Added", Toast.LENGTH_SHORT).show();
                                 }
@@ -61,7 +60,7 @@ public class FriendRequestsListAdapter extends FirebaseListAdapter<FriendRequest
                         });
 
                 // Add friend to the requestee
-                new Firebase(FIREBASE_URL).child("friends").child(recipientId).child(UserModel.getCurrentUser().getUserId()).child("friend").setValue(true,
+                new Firebase(Constants.FIREBASE_URL).child("friends").child(recipientId).child(UserModel.getCurrentUser().getUserId()).child("friend").setValue(true,
                         new Firebase.CompletionListener() {
                             @Override
                             public void onComplete(FirebaseError firebaseError, Firebase firebase) {
@@ -81,7 +80,7 @@ public class FriendRequestsListAdapter extends FirebaseListAdapter<FriendRequest
             public void onClick(final View v) {
                 Log.v(LOG, "this is my friend " + i);
                 Log.v(LOG, "this is my friend " + recipientId);
-                new Firebase(FIREBASE_URL).child("friend_requests").child(UserModel.getCurrentUser().getUserId()).child(recipientId).removeValue();
+                new Firebase(Constants.FIREBASE_URL).child("friend_requests").child(UserModel.getCurrentUser().getUserId()).child(recipientId).removeValue();
                 Toast.makeText(v.getContext(), "Friend Rejected", Toast.LENGTH_SHORT).show();
             }
         });

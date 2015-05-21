@@ -20,7 +20,6 @@ public class SendMessage extends Activity {
 
 
     private static final String LOG = "SendMessage";
-    private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
     private String friendId;
 
     @Override
@@ -62,7 +61,7 @@ public class SendMessage extends Activity {
         String messageText = messageView.getText().toString();
         String userId = UserModel.getCurrentUser().getUserId();
 
-        Firebase messageRef = new Firebase(FIREBASE_URL).child("messages").child(friendId);
+        Firebase messageRef = new Firebase(Constants.FIREBASE_URL).child("messages").child(friendId);
         Map<String, String> message = new HashMap<String, String>();
         message.put("sender", userId);
         message.put("message", messageText);

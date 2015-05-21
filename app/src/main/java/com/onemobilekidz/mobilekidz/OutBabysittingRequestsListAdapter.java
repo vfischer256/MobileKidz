@@ -17,7 +17,6 @@ import org.w3c.dom.Text;
 public class OutBabysittingRequestsListAdapter extends FirebaseListAdapter<OutBabysittingRequestsModel> {
 
     private static final String LOG = "OutBSRListAdapter";
-    private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
 
     public OutBabysittingRequestsListAdapter(Context context, Query ref, Activity activity, int layout) {
         super(context, ref, OutBabysittingRequestsModel.class, layout, activity);

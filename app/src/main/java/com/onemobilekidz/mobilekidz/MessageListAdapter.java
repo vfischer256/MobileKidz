@@ -25,9 +25,6 @@ public class MessageListAdapter extends FirebaseListAdapter<MessagesModel> {
 
     private static final String LOG = "MListAdapter";
 
-    private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
-
-
     private Context mContext;
 
 

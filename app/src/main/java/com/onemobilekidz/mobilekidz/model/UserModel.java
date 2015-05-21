@@ -8,6 +8,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
+import com.onemobilekidz.mobilekidz.Constants;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,7 +48,7 @@ public class UserModel {
     }
 
     public static void getUserByEmail(final String email, final ValueEventListener onComplete) {
-        Query query = new Firebase("https://crackling-heat-9656.firebaseio.com/users").equalTo(email);
+        Query query = new Firebase(Constants.FIREBASE_URL).child("users").equalTo(email);
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             public void onDataChange(DataSnapshot snapshot) {
@@ -62,7 +63,7 @@ public class UserModel {
     }
 
     public static Firebase createUser(String email, String displayName) {
-        Firebase postRef = new Firebase("https://crackling-heat-9656.firebaseio.com/users");
+        Firebase postRef = new Firebase(Constants.FIREBASE_URL).child("users");
         Map<String, String> user = new HashMap<String, String>();
         user.put("email", email);
         user.put("displayName", displayName);

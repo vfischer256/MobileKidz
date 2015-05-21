@@ -45,7 +45,6 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
     private String newDisplayName;
     private double mLatitude;
     private double mLongitude;
-    private static final String FIREBASE_URL = "https://crackling-heat-9656.firebaseio.com/";
     Location mLastLocation;
 
     @Override
@@ -66,7 +65,7 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
         mGoogleApiClient.connect();
 */
 
-        initializeUser("katie@gmail.com", "Katie Fischer");
+        //initializeUser("katie@gmail.com", "Katie Fischer");
         //    initializeUser("jessica@gmail.com", "Jessica Fischer");
         //  initializeUser("timothy@gmail.com", "Timothy Fischer");
         // initializeUser("corinaa@gmail.com", "Corina Alvarez");
@@ -76,7 +75,7 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
         //   initializeUser("lisapoobear@gmail.com", "Lisa Po");
         //   initializeUser("apple1980@hotmail.com", "Apple Hsu");
         //   initializeUser("eli_24343@gmail.com", "Elizabeth Carter");
-        //  initializeUser("buckwildman@yahoo.com", "William Chu");
+        initializeUser("buckwildman@yahoo.com", "William Chu");
 
         setContentView(R.layout.activity_home);
         ActionBar actionBar = getActionBar();
@@ -89,7 +88,7 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
     }
 
     private void initializeUser(final String email, final String displayName) {
-        Query query = new Firebase("https://crackling-heat-9656.firebaseio.com/users").equalTo(email);
+        Query query = new Firebase(Constants.FIREBASE_URL).child("users").equalTo(email);
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -131,7 +130,7 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
     }
 
     private Firebase createUser(String email, String displayName) {
-        Firebase postRef = new Firebase("https://crackling-heat-9656.firebaseio.com/users");
+        Firebase postRef = new Firebase(Constants.FIREBASE_URL).child("users");
         Map<String, String> user = new HashMap<String, String>();
         user.put("email", email);
         user.put("displayName", displayName);
@@ -143,7 +142,7 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
     }
 
     private Firebase updateDisplayName(String displayName) {
-        Firebase postRef = new Firebase("https://crackling-heat-9656.firebaseio.com").child("users").child(UserModel.getCurrentUser().getUserId());
+        Firebase postRef = new Firebase(Constants.FIREBASE_URL).child("users").child(UserModel.getCurrentUser().getUserId());
         Map<String, Object> user = new HashMap<String, Object>();
         user.put("displayName", displayName);
         Log.v(LOG, "my new name " + displayName);
@@ -172,7 +171,7 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
 
 
     public static void initializePoints(String userId) {
-        Firebase pointRef = new Firebase(FIREBASE_URL).child("points").child(userId).child("initial");
+        Firebase pointRef = new Firebase(Constants.FIREBASE_URL).child("points").child(userId).child("initial");
         Map<String, Object> points = new HashMap<String, Object>();
         points.put("points", 5);
         pointRef.setValue(points, new Firebase.CompletionListener() {
@@ -243,7 +242,7 @@ public class Home extends Activity implements ConnectionCallbacks, OnConnectionF
     }
 
     private void updateLocation(String userId, double latitude, double longitude) {
-        GeoFire geoFire = new GeoFire(new Firebase("https://crackling-heat-9656.firebaseio.com").child("user_location"));
+        GeoFire geoFire = new GeoFire(new Firebase(Constants.FIREBASE_URL).child("user_location"));
         geoFire.setLocation(userId, new GeoLocation(latitude, longitude), new GeoFire.CompletionListener() {
             @Override
             public void onComplete(String key, FirebaseError error) {
