@@ -60,23 +60,8 @@ public class FriendRequests extends ListActivity {
                     listView.setSelection(friendRequestsListAdapter.getCount() - 1);
                 }
             });
-// Finally, a little indication of connection status
-            mConnectedListener = mFirebaseRef.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    boolean connected = (Boolean) dataSnapshot.getValue();
-                    if (connected) {
-                        Toast.makeText(FriendRequests.this, "Connected to Mobile Kidz", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(FriendRequests.this, "Working Offline", Toast.LENGTH_SHORT).show();
-                    }
-                }
+            FirebaseConnectionStatus.checkConnectionStatus(mFirebaseRef, this);
 
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-// No-op
-                }
-            });
         }
     }
 

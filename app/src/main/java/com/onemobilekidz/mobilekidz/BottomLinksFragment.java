@@ -33,6 +33,7 @@ public class BottomLinksFragment extends Fragment implements View.OnClickListene
         friendsButton.setOnClickListener(this);
         babysittingRequestButton.setOnClickListener(this);
 
+        Log.v(LOG, "Loading the Bottom Links");
 
         return view;
     }
@@ -45,19 +46,17 @@ public class BottomLinksFragment extends Fragment implements View.OnClickListene
                 intent = new Intent(getActivity(), Home.class);
                 startActivity(intent);
                 break;
+
             case R.id.friendsButton:
-
                 intent = new Intent(getActivity(), Friends.class);
-
                 startActivity(intent);
                 break;
+
             case R.id.babysittingRequestButton:
                 intent = new Intent(getActivity(), BabysittingRequests.class);
                 startActivity(intent);
                 break;
         }
     }
-
-
 }
 
